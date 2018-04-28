@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="css/iconfont.css" rel="stylesheet" type="text/css" /> -->
+    <link href="css/exam_test.css" rel="stylesheet" type="text/css" />
+    <title id="title">模拟考试-2017113192</title>
+    <style>
+    .hasBeenAnswer {
+        background: #5d9cec;
+        color: #fff;
+    }
+    </style>
+</head>
+
+<body>
+    <OBJECT id="WebBrowser" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" width="0" VIEWASTEXT></OBJECT>
+    <div>
+        <!--startprint-->
+        <div class="test_main">
+            <div class="nr_left">
+                <div class="rt_nr1">
+                    <div style="background-color:#389fc3;">
+                        <h1>
+                            <i style="color:white;" id="exam_name">模拟考试</i>
+                            </h1>
+                    </div>
+                    <div class="rt_content">
+                        <p style="font-size: 20px;float: left;margin-left:10%;margin-top: 1%;" id="student_name">姓名：乾坤</p>
+                        <p style="font-size: 20px;float: left;margin-left:10%;margin-top: 1%;" id="student_id">学号：2014112207</p>
+                        <p style="font-size: 20px;float: left;margin-left: 10%;margin-top: 1%;" id="student_class">班级：软件4班</p>
+                        <p style="font-size: 20px;float: left;margin-left: 10%;margin-top: 1%;" id="in_score">总分：0</p>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="nr_center" id="nr_center">
+                <div class="test">
+                    <form>
+                        <div class="test_content">
+                            <div class="test_content_title">
+                                <h2>单选题</h2>
+                            </div>
+                        </div>
+                        <div class="test_content_nr">
+                            <ul id="choice">
+                            </ul>
+                        </div>
+                        <div class="test_content">
+                            <div class="test_content_title">
+                                <h2>判断题</h2>
+                            </div>
+                        </div>
+                        <div class="test_content_nr">
+                            <ul id="judge">
+                            </ul>
+                        </div>
+                        <div class="test_content">
+                            <div class="test_content_title">
+                                <h2>读程序写结果</h2>
+                            </div>
+                        </div>
+                        <div class="test_content_nr">
+                            <ul id="filla">
+                            </ul>
+                        </div>
+                        <div class="test_content">
+                            <div class="test_content_title">
+                                <h2>程序填空</h2>
+                            </div>
+                        </div>
+                        <div class="test_content_nr">
+                            <ul id="fillb">
+                            </ul>
+                        </div>
+                        <div class="test_content">
+                            <div class="test_content_title">
+                                <h2>编程题</h2>
+                            </div>
+                        </div>
+                        <div class="test_content_nr">
+                            <ul id="coding">
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--endprint-->
+            <div class="test_title">
+                <font>
+                    <input type="button" onclick="recover_exam()" value="重做">
+                    <input type="button" onclick="new_exam()" value="重抽题">
+                </font>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.easy-pie-chart.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+    $(document).ready(function() {
+
+        $.ajax({
+            url: "" + ServerIp + "/Student/SelectExamQuestionById", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            success: function(data) {
+                var data = JSON.parse(data);
+                // 选择题
+                for (var i = 0; i < data.body[0].length; i++) {
+                    $("#choice").append('<li id="' + data.body[0][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[0][i].eq_pre_score + '分)</span><font>' + data.body[0][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[0][i].eq_get_score + '</font></div>'
+                    $("#" + data.body[0][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="option_class_' + i + '"></div>'
+                    $("#" + data.body[0][i].eq_id + "").append(option);
+                    var option_ul = '<ul id ="option_ul_' + i + '"></ul>'
+                    $("#option_class_" + i + "").append(option_ul);
+                    var option_a = '<li class="option" ><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_1" value="A"/><label for="0_answer_' + j + '_option_1">A.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_a + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_a);
+                    var option_b = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_2" value="B"/><label for="0_answer_' + j + '_option_2">B.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_b + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_b);
+                    var option_c = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_3" value="C"/><label for="0_answer_' + j + '_option_3">C.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_c + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_c);
+                    var option_d = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_4" value="D"/><label for="0_answer_' + j + '_option_4">D.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_b + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_d);
+                    if (data.body[0][i].eq_answer != null && data.body[0][i].eq_answer != "答案") {
+                        $(":radio[name='answer0" + j + "'][value='" + data.body[0][i].eq_answer + "']").prop("checked", "checked");
+                    }
+
+                }
+                // 判断题
+                for (var i = 0; i < data.body[1].length; i++) {
+                    $("#judge").append('<li id="' + data.body[1][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[1][i].eq_pre_score + '分)</span><font>' + data.body[1][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[1][i].eq_get_score + '</font></div>'
+                    $("#" + data.body[1][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="judge_option_class_' + i + '"></div>'
+                    $("#" + data.body[1][i].eq_id + "").append(option);
+                    var option_ul = '<ul id ="judge_option_ul_' + i + '"></ul>'
+                    $("#judge_option_class_" + i + "").append(option_ul);
+                    var option_a = '<li class="option" ><input type="radio" class="radioOrCheck" name="answer' + j + '" id="1_answer_' + j + '_option_1" value="T"/><label for="1_answer_' + j + '_option_1"><p class="ue" style="display: inline;">T</p></label></li>'
+                    $("#judge_option_ul_" + i + "").append(option_a);
+                    var option_b = '<li class="option"><input type="radio" class="radioOrCheck" name="answer' + j + '" id="1_answer_' + j + '_option_2" value="F"/><label for="1_answer_' + j + '_option_2"<p class="ue" style="display: inline;">F</p></label></li>'
+                    $("#judge_option_ul_" + i + "").append(option_b);
+                    if (data.body[1][i].eq_answer != null && data.body[1][i].eq_answer != "答案") {
+                        $(":radio[name='answer" + j + "'][value='" + data.body[1][i].eq_answer + "']").prop("checked", "checked");
+                    }
+                }
+                // 读程序写结果filla
+                for (var i = 0; i < data.body[2].length; i++) {
+                    $("#filla").append('<li id="' + data.body[2][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[2][i].eq_pre_score + '分)</span><font>' + data.body[2][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[2][i].eq_get_score + '</font></div>'
+                    $("#" + data.body[2][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="filla_option_class_' + i + '"></div>'
+                    $("#" + data.body[2][i].eq_id + "").append(option);
+                    var text = '<lable>答案</lable><br/> <input type="text" name="' + data.body[2][i].eq_id + '" class="' + data.body[2][i].eq_id + '" value="" style="border:none #FFFFFF;  border-bottom:#777777 solid 1px; background:transparent;height:30px; " onchange="ChangeFilla(this)"></br>'
+                    $("#filla_option_class_" + i + "").append(text);
+                    if (data.body[2][i].eq_answer != null && data.body[2][i].eq_answer != "答案") {
+                        $("." + data.body[2][i].eq_id + "").val(data.body[2][i].eq_answer);
+                    }
+                }
+                // 程序填空
+                // alert("data.body[3].length"+data.body[3].length);
+                for (var i = 0; i < data.body[3].length; i++) {
+                    $("#fillb").append('<li id="qu_3_' + i + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt" id="fillb_coding' + i + '""><i>' + j + '</i><span>(' + data.body[3][i][0].eq_pre_score * data.body[3][i][1].length + '分)</span><font>' + data.body[3][i][0].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
+                    $("#qu_3_" + i + "").append(stem);
+                    var fillb_content = data.body[3][i][0].fb_pre_coding;
+
+
+                    for (var k = 0; k < data.body[3][i][1].length; k++) {
+                        // alert('data.body[3][i][1]['+k+'].eq_id'+data.body[3][i][1][k].eq_id);
+                        var blank = '<input type="text" name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" style="border:none #FFFFFF;  border-bottom:#777777 solid 1px; background:transparent;height:30px; " onchange="ChangeFillb(this)"><font style="color:red;margin-left20px;">得分: ' + data.body[3][i][1][k].eq_get_score + '</font>'
+                        fillb_content = fillb_content.replace(/&&&([\s\S]*?)&&&/, blank);
+                    }
+                    var fb_pre_coding = '<font>' + fillb_content + '</font>'
+                    $("#fillb_coding" + i + "").append(fb_pre_coding);
+                    for (var k = 0; k < data.body[3][i][1].length; k++) {
+                        if (data.body[3][i][1][k].eq_answer != null && data.body[3][i][1][k].eq_answer != "答案") {
+                            $("." + data.body[3][i][1][k].eq_id + "").val(data.body[3][i][1][k].eq_answer);
+                        }
+                    }
+
+                }
+
+                // 编程题
+                for (var i = 0; i < data.body[4].length; i++) {
+                    $("#coding").append('<li id="' + data.body[4][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[4][i].eq_pre_score + '分)</span><font>' + data.body[4][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[4][i].eq_get_score + '</font></div>'
+                    $("#" + data.body[4][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="coding_option_class_' + i + '"></div>'
+                    $("#" + data.body[4][i].eq_id + "").append(option);
+                    var text = '<lable>答案</lable><br/> <textarea name="' + data.body[4][i].eq_id + '" class="' + data.body[4][i].eq_id + '" value=""  rows="20" cols="100" onchange="ChangeCoding(this)"></textarea></br>'
+                    $("#coding_option_class_" + i + "").append(text);
+                    if (data.body[4][i].eq_answer != null && data.body[4][i].eq_answer != "答案") {
+                        $("." + data.body[4][i].eq_id + "").text(data.body[4][i].eq_answer);
+                    }
+                }
+                $("#student_name").html("姓名: " + data.body[5].st_name);
+                $("#student_id").html("学号: " + data.body[5].st_id);
+
+                $("#student_class").html("班级: " + data.body[5].st_specialty);
+                $("#in_score").html("总分: " + data.body[5].in_score);
+                $("#exam_name").html(data.body[5].exam_name);
+                $("#title").html(data.body[5].exam_name+" - "+data.body[5].st_id+" - "+data.body[5].st_name);
+                
+
+            },
+            error: function(data) {}
+        });
+    });
+    // $("#choice").delegate('input.radioOrCheck', 'click', function(event) {
+    //     var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id');
+    //     $.ajax({
+    //         url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+    //         xhrFields: {
+    //             withCredentials: true
+    //         },
+    //         crossDomain: true,
+    //         type: 'POST',
+    //         async: false,
+    //         data: {
+    //             "eq_id": examId,
+    //             "eq_answer": $(this).val(),
+    //         },
+    //         success: function(data) {
+    //             var data = JSON.parse(data);
+    //             if (data.status == 1) {} else {
+    //                 alert(data.message);
+    //             }
+    //         },
+    //         error: function(XMLHttpRequest, textStatus, errorThrown) {}
+    //     });
+    // });
+    // $("#judge").delegate('input.radioOrCheck', 'click', function(event) {
+    //     var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id');
+    //     $.ajax({
+    //         url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+    //         xhrFields: {
+    //             withCredentials: true
+    //         },
+    //         crossDomain: true,
+    //         type: 'POST',
+    //         async: false,
+    //         data: {
+    //             "eq_id": examId,
+    //             "eq_answer": $(this).val(),
+    //         },
+    //         success: function(data) {
+    //             var data = JSON.parse(data);
+    //             if (data.status == 1) {} else {
+    //                 alert(data.message);
+    //             }
+    //         },
+    //         error: function(XMLHttpRequest, textStatus, errorThrown) {}
+    //     });
+    // });
+
+    // function ChangeFilla(data) {
+    //     $.ajax({
+    //         url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+    //         xhrFields: {
+    //             withCredentials: true
+    //         },
+    //         crossDomain: true,
+    //         type: 'POST',
+    //         async: false,
+    //         data: {
+    //             "eq_id": data.name,
+    //             "eq_answer": data.value,
+    //         },
+    //         success: function(data) {
+    //             var data = JSON.parse(data);
+    //             if (data.status == 1) {} else {
+    //                 alert(data.message);
+    //             }
+    //         },
+    //         error: function(XMLHttpRequest, textStatus, errorThrown) {}
+    //     });
+    // }
+
+    // function ChangeFillb(data) {
+    //     $.ajax({
+    //         url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+    //         xhrFields: {
+    //             withCredentials: true
+    //         },
+    //         crossDomain: true,
+    //         type: 'POST',
+    //         async: false,
+    //         data: {
+    //             "eq_id": data.name,
+    //             "eq_answer": data.value,
+    //         },
+    //         success: function(data) {
+    //             var data = JSON.parse(data);
+    //             if (data.status == 1) {} else {
+    //                 alert(data.message);
+    //             }
+    //         },
+    //         error: function(XMLHttpRequest, textStatus, errorThrown) {}
+    //     });
+    // }
+
+    // function ChangeCoding(data) {
+    //     $.ajax({
+    //         url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+    //         xhrFields: {
+    //             withCredentials: true
+    //         },
+    //         crossDomain: true,
+    //         type: 'POST',
+    //         async: false,
+    //         data: {
+    //             "eq_id": data.name,
+    //             "eq_answer": data.value,
+    //         },
+    //         success: function(data) {
+    //             var data = JSON.parse(data);
+    //             if (data.status == 1) {} else {
+    //                 alert(data.message);
+    //             }
+    //         },
+    //         error: function(XMLHttpRequest, textStatus, errorThrown) {}
+    //     });
+    // }
+
+
+
+
+
+
+    function recover_exam() {
+        $.ajax({
+            url: "" + ServerIp + "/Student/recover_exam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    if (navigator.userAgent.indexOf("Firefox") > 0) {
+                           window.location.href = '' + ServerIp + '/static/exam/exam.html';
+                     } else {
+                           window.open('' + ServerIp + '/static/exam/exam.html');
+                           window.opener = null;
+                           window.open('', '_self', '');
+                           window.close();
+                     }
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+
+    }
+    function new_exam() {
+        $.ajax({
+            url: "" + ServerIp + "/Student/new_exam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    if (navigator.userAgent.indexOf("Firefox") > 0) {
+                           window.location.href = '' + ServerIp + '/static/exam/exam.html';
+                     } else {
+                           window.open('' + ServerIp + '/static/exam/exam.html');
+                           window.opener = null;
+                           window.open('', '_self', '');
+                           window.close();
+
+                     }
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+
+    }
+    </script>
+    </div>
+</body>
+
+</html>

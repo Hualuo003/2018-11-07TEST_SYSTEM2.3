@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/login.css">
+    <!--<script src="js/jquery-1.11.3.min.js"></script>-->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+</head>
+<h1 style="text-align: center;margin-top: 3%;font-size: 60px;">信息学院软件工程实验室</h1>
+
+<body onkeydown="keyLogin();">
+    <div class="content">
+        <!--  登录面板    -->
+        <div class="panel">
+            <form id="LoginForm">
+                <!--  账号和密码组    -->
+                <div class="group">
+                    <label>账号</label>
+                    <input placeholder="请输入账号" name="username" id="username" value="">
+                    <span id="usernameText"></span>
+                </div>
+
+                <div class="group">
+                    <label>联系方式</label>
+                    <input placeholder="联系方式" id="phonenum" value="">
+                    <span id="phonenumText"></span>
+                </div>
+                <div class="group">
+                    <label>考试</label>
+                    <br/>
+                    <select id="exam">
+                    </select>
+                </div>
+                <!--  登录按钮    -->
+            </form>
+            <div class="login">
+                <button type="button" onclick="login()">登录</button>
+                <button type="button" onclick="ToRegister()">注册</button>
+            </div>
+        </div>
+        <div class="remind" hidden>
+            <p id="remind" align="left"></p>
+        </div>
+        <label hidden id="read" style="font-size: 40px;">
+            <input type="radio" id="login" onclick="exam()">我已仔细阅读</label>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+    $(document).ready(function() {
+        $.post("" + ServerIp + "/StrategyManage/GetExamByEx_state", {}, function(data) {
+            var data = JSON.parse(data);
+            for (var i = 0; i < data.body.length; i++) {
+                $("#exam").append("<option value = '" + data.body[i].ex_id + "'>" + data.body[i].ex_name + "</option>");
+            }
+
+        });
+    });
+
+    function ToRegister() {
+       window.location.href = '' + ServerIp + '/static/exam/register.html';
+    }
+
+    function keyLogin() {
+        //回车键的键值为13
+        if (event.keyCode == 13) {
+            login(); //调用登录按钮的登录事件
+        }
+    }
+
+    function exam() {
+        window.location.href = '' + ServerIp + '/static/exam/exam.html';
+    }
+
+    function GetRemind() {
+        $(".remind").show();
+        $(".panel").hide();
+        $.get("" + ServerIp + "/Teacher/Remind", {}, function(data) {
+            var data = JSON.parse(data);
+            var message = data.message.replace(/\n/g, "<br>")
+            $("#remind").html(message);
+            $("#read").show()
+            <!--setInterval(function() {-->
+                <!--$("#read").show()-->
+            <!--}, 10000);-->
+        });
+    }
+
+    function login() {
+        if ($("#username").val() == '') {
+            document.getElementById("usernameText").innerHTML = "用户名不能为空";
+            document.getElementById("username").focus();
+            return false;
+        }
+
+        if ($("#exam").val() == '') {
+            alert("考试不能为空");
+        }
+        $.ajax({
+            url: "" + ServerIp + "/Student/Login", //加上这句话
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            dataType: "text",
+            data: {
+                // "student_id": "2014112200",
+                // "password": "123456",
+                // "ex_id": "1"
+                "student_id": $("#username").val(),
+                "password": "123456",
+                "ex_id": $("#exam").val(),
+                "st_phone": $("#phonenum").val(),
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    GetRemind();
+                    // window.location.href = '' + ServerIp + '/static/exam/exam.html';
+                } else {
+                    alert(data.message);
+                }
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                // alert('XMLHttpRequest ' + XMLHttpRequest.status);
+                // alert('XMLHttpRequest ' + XMLHttpRequest.readyState);
+                // alert(textStatus);
+                // alert("errorThrown "+errorThrown)
+                // var data = JSON.parse(data);
+                // if(data.status==1){
+                //    window.location.href = 'http://127.0.0.1:8080/static/exam/index.html';
+                // }else{
+                //    alert(data.message);
+                // }
+                // window.location.href = 'http://127.0.0.1:8080/static/exam/index.html';
+                alert("error")
+            }
+        });
+    }
+    </script>
+</body>
+<!--script src="js/login.js"></script-->
+
+</html>

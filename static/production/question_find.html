@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+<style>
+    table {
+        *border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        table-layout: fixed;
+    }
+
+    .zebra td,
+    .zebra th {
+        padding: 10px;
+        /*border-bottom: 1px solid #f2f2f2;*/
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .zebra .alternate,
+    .zebra tbody tr:nth-child(even) {
+        background: #f5f5f5;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    }
+
+    .zebra th {
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+        border-bottom: 1px solid #ccc;
+        background-color: #eee;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+        background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+        background-image: linear-gradient(top, #f5f5f5, #eee);
+        filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eee);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f5f5f5,endColorstr=#eee)";
+    }
+
+    /*.zebra th:first-child {
+        border-radius: 6px 0 0 0;
+        width: 50px;
+    }*/
+
+    .zebra th:last-child {
+        border-radius: 0 6px 0 0;
+        width: 120px;
+    }
+
+    .zebra tr:last-child td:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    .zebra td:last-child {
+        border-radius: 0 0 6px 0;
+    }
+
+    .pageNumber {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #dddddd;
+        height: 40px;
+        width: auto;
+    }
+
+    td {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .td0 {
+        width: 50%;
+        text-align: left;
+    }
+
+    .td1 {
+        width: 12%;
+    }
+
+    a {
+        cursor: pointer;
+    }
+    </style>
+    <style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: right;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    ul.pagination li a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br /><br /><br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>题目管理 </h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>查找题目</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <form class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">题干信息</label>
+                                            <div class="col-md-8">
+                                                <textarea rows="6" class="form-control" id="qt_stem" placeholder="题干"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-sm-9 col-xs-12 col-md-offset-1">
+                                                <button id="SelectQuestion" type="button" class="btn btn-success">查询
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>题目列表</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="demo">
+                                        <table class="zebra bulk_action">
+                                            <tr>
+                                                <th class = "td0">题干</th>
+                                                <th>题型</th>
+                                                <th>难度系数</th>
+                                                <th>考察知识点</th>
+                                                <th>正确率</th>
+                                                <th class="td1">操作</th>
+                                            </tr>
+                                            <tbody id="target_tablebody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <ul class="pagination" id="target_page-list">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" id="question" hidden>
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>题目详情</h2>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li>
+                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <form class="form-horizontal form-label-left">
+                                            <div id="choice_question" hidden>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
+                                                    <div class="col-md-8">
+                                                        <textarea rows="10" class="form-control" id="choice_stem" placeholder="题干"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">选项A</label>
+                                                    <div class="col-md-3">
+                                                        <textarea rows="2" class="form-control" id="choice_a" placeholder="A选项"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">选项B</label>
+                                                    <div class="col-md-3">
+                                                        <textarea rows="2" class="form-control" id="choice_b" placeholder="B选项"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">选项C</label>
+                                                    <div class="col-md-3">
+                                                        <textarea rows="2" class="form-control" id="choice_c" placeholder="C选项"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">选项D</label>
+                                                    <div class="col-md-3">
+                                                        <textarea rows="2" class="form-control" id="choice_d" placeholder="D选项"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">答案</label>
+                                                    <div class="col-md-3">
+                                                        <textarea rows="2" class="form-control" id="choice_answer" placeholder="答案"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="choice_diffculty">
+                                                            <option>0</option>
+                                                            <option>10</option>
+                                                            <option>20</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
+                                                            <option>50</option>
+                                                            <option>60</option>
+                                                            <option>70</option>
+                                                            <option>80</option>
+                                                            <option>90</option>
+                                                            <option>100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="choice_knowlage">
+                                                            <!--                                                         <option>数组</option>
+                                                        <option>链表</option>
+                                                        <option>指针</option>
+                                                        <option>文件</option>
+                                                        <option>循环</option> -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
+                                                        <button type="button" class="btn btn-success" id="save_choice">保存修改</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="filla_question" hidden>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="10" class="form-control" id="filla_stem" placeholder="题干"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">答案</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" id="filla_answer" placeholder="答案"></textarea>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+                                                <div class="col-md-9">
+                                                    <button type="button" class="btn btn-primary" id="add-tiankong-answer">添加</button>
+                                                </div>
+                                            </div> -->
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="filla_diffculty">
+                                                            <option>0</option>
+                                                            <option>10</option>
+                                                            <option>20</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
+                                                            <option>50</option>
+                                                            <option>60</option>
+                                                            <option>70</option>
+                                                            <option>80</option>
+                                                            <option>90</option>
+                                                            <option>100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">考察知识点</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="filla_knowlage">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
+                                                        <button type="button" class="btn btn-success" id="save_filla">保存修改</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="judge_question" hidden>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="6" class="form-control" id="judge_stem" placeholder="题干"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">正确答案</label>
+                                                    <div class="radio col-md-1">
+                                                        <label>
+                                                            <input type="radio" checked="checked" value="option1" name="optionsRadios" id="judge_a"> 正确
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio col-md-1">
+                                                        <label>
+                                                            <input type="radio" value="option2" name="optionsRadios" id="judge_b"> 错误
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="judge_diffculty">
+                                                            <option>0</option>
+                                                            <option>10</option>
+                                                            <option>20</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
+                                                            <option>50</option>
+                                                            <option>60</option>
+                                                            <option>70</option>
+                                                            <option>80</option>
+                                                            <option>90</option>
+                                                            <option>100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="judge_knowlage">
+                                                            <!-- <option>数组</option>
+                                                        <option>链表</option>
+                                                        <option>指针</option>
+                                                        <option>文件</option>
+                                                        <option>循环</option> -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
+                                                        <button type="button" class="btn btn-success" id="save_judge">保存修改</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="fillb_question" hidden>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="10" class="form-control" placeholder="题干" id="fillb_stem"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div id="duchengxu-answer">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">预留代码</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="10" class="form-control" placeholder="预留代码" id="fb_pre_coding"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">样例输入</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="样例输入" id="fb_test_answer_in"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">样例输出</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="样例输出" id="fb_test_answer_out"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="fillb_diffculty">
+                                                            <option>0</option>
+                                                            <option>10</option>
+                                                            <option>20</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
+                                                            <option>50</option>
+                                                            <option>60</option>
+                                                            <option>70</option>
+                                                            <option>80</option>
+                                                            <option>90</option>
+                                                            <option>100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="fillb_knowlage">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
+                                                        <button type="button" class="btn btn-success" id="save_fillb">保存修改</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="coding_question" hidden>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="10" class="form-control" placeholder="题干" id="coding_stem"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div id="duchengxu-answer">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">预留代码</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="10" class="form-control" placeholder="预留代码" id="co_pre_coding"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="coding-answer">
+                                                <!-- <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="测试输入" id="co_test_answer_in0"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="测试输出" id="co_test_answer_out0"></textarea>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+                                                <div class="col-md-9">
+                                                    <button type="button" class="btn btn-primary" id="add-coding-answer">添加</button>
+                                                    <button type="button" class="btn btn-primary" id="delete-coding-answer">删除</button>
+                                                </div>
+                                            </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="coding_diffculty">
+                                                            <option>0</option>
+                                                            <option>10</option>
+                                                            <option>20</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
+                                                            <option>50</option>
+                                                            <option>60</option>
+                                                            <option>70</option>
+                                                            <option>80</option>
+                                                            <option>90</option>
+                                                            <option>100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="coding_knowlage">
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                        <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
+                                                        <button type="button" class="btn btn-success" id="save_coding">保存修改</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /page content -->
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="../vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="../vendors/nprogress/nprogress.js"></script>
+        <!-- iCheck -->
+        <script src="../vendors/iCheck/icheck.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="../build/js/custom.min.js"></script>
+        <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+        <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+        <!-- Datatables -->
+        <script>
+        var currentPage = 1;
+        var update_qt_id;
+
+        function reset_save(){
+        $("#question").hide();
+        }
+        function myfunction() {
+            var choice_knowlage = $("#choice_knowlage");
+            var judge_knowlage = $("#judge_knowlage");
+            var filla_knowlage = $("#filla_knowlage");
+            var fillb_knowlage = $("#fillb_knowlage");
+            var coding_knowlage = $("#coding_knowlage");
+            $.get(""+ServerIp+"/QuestionBackManage/RequestQuestionBack/", {}, function(data) {
+                var data = JSON.parse(data);
+                document.getElementById("choice_knowlage").innerHTML = '';
+                document.getElementById("judge_knowlage").innerHTML = '';
+                document.getElementById("filla_knowlage").innerHTML = '';
+                document.getElementById("fillb_knowlage").innerHTML = '';
+                document.getElementById("coding_knowlage").innerHTML = '';
+                for (var i = 0; i < data.body[0].length; i++) {
+                    choice_knowlage.append("<option id = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+                    judge_knowlage.append("<option id = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+                    filla_knowlage.append("<option id = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+                    fillb_knowlage.append("<option id = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+                    coding_knowlage.append("<option id = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+                }
+            });
+
+            $.post(""+ServerIp+"/QuestionBackManage/FuzzySearch/", {
+                "qt_stem": $("#qt_stem").val(),
+                "currentPage": currentPage
+            }, function(data) {
+                // alert(data);
+                var data = JSON.parse(data);
+                var tablebody = $('#target_tablebody');
+                document.getElementById("target_tablebody").innerHTML = '';
+                var pageList = $('.pagination');
+                // alert(Math.ceil(data.body.totalRow/10));
+                var totalPage = data.body.totalPage;
+                pageSize = data.body.pageSize;
+                var firstPage = data.body.firstPage;
+                var lastPage = data.body.lastPage;
+                var currentPage = data.body.currentPage;
+                var i = 0;
+                var str = '';
+                try {
+                    while (data.body.data[i].qt_id) {
+                        str = `<tr>
+                                        <td>` + data.body.data[i].qt_stem + `</td>
+                                        <td>` + data.body.data[i].qt_type + `</td>
+                                        <td>` + data.body.data[i].qt_diffculty + `</td>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].qt_pre_rate + `</td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a></td>
+                                    </tr>`
+                        tablebody.append(str);
+                        i += 1;
+                    }
+                    // $.getScript("../vendors/iCheck/icheck.min.js");
+                    // $.getScript("../build/js/custom.min.js");
+                } catch (err) {}
+                // alert(totalPage);
+                document.getElementById("target_page-list").innerHTML = '';
+                if (lastPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+                } else {
+                    pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+                }
+                pageList.append('<li><a id = target' + totalPage + ' onclick="target_trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+                if (totalPage > 1) {
+                    if (totalPage - currentPage >= 2) {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    if (currentPage > 1 && currentPage != totalPage) {
+                        pageList.append('<li ><a id = target' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    } else {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    pageList.append('<li ><a id = target' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+                }
+                document.getElementById("target" + currentPage).style.background = "#426384";
+                if (firstPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+                } else {
+                    pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+                }
+            });
+        }
+        function myfunction1(){
+            $.post(""+ServerIp+"/QuestionBackManage/FuzzySearch/", {
+                "qt_stem": $("#qt_stem").val(),
+                "currentPage": currentPage
+            }, function(data) {
+                // alert(data);
+                var data = JSON.parse(data);
+                var tablebody = $('#target_tablebody');
+                document.getElementById("target_tablebody").innerHTML = '';
+                var pageList = $('.pagination');
+                // alert(Math.ceil(data.body.totalRow/10));
+                var totalPage = data.body.totalPage;
+                pageSize = data.body.pageSize;
+                var firstPage = data.body.firstPage;
+                var lastPage = data.body.lastPage;
+                var currentPage = data.body.currentPage;
+                var i = 0;
+                var str = '';
+                try {
+                    while (data.body.data[i].qt_id) {
+                        str = `<tr>
+                                        <td>` + data.body.data[i].qt_stem + `</td>
+                                        <td>` + data.body.data[i].qt_type + `</td>
+                                        <td>` + data.body.data[i].qt_diffculty + `</td>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].qt_pre_rate + `</td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a></td>
+                                    </tr>`
+                        tablebody.append(str);
+                        i += 1;
+                    }
+                    // $.getScript("../vendors/iCheck/icheck.min.js");
+                    // $.getScript("../build/js/custom.min.js");
+                } catch (err) {}
+                // alert(totalPage);
+                document.getElementById("target_page-list").innerHTML = '';
+                if (lastPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+                } else {
+                    pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+                }
+                pageList.append('<li><a id = target' + totalPage + ' onclick="target_trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+                if (totalPage > 1) {
+                    if (totalPage - currentPage >= 2) {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    if (currentPage > 1 && currentPage != totalPage) {
+                        pageList.append('<li ><a id = target' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    } else {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    pageList.append('<li ><a id = target' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+                }
+                document.getElementById("target" + currentPage).style.background = "#426384";
+                if (firstPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+                } else {
+                    pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+                }
+            });
+        }
+        $('#target_page-list').on("click", "#nextpage", function() {
+            currentPage += 1;
+            myfunction1();
+        });
+        $('#target_page-list').on("click", "#lastpage", function() {
+            currentPage -= 1;
+            myfunction1();
+        });
+        $('#target_page-list').on("click", "#target1", function() {
+            currentPage = 1;
+            myfunction1();
+        });
+
+        function target_trailerPage(totalPage) {
+            target_currentPage = totalPage;
+            myfunction1(t);
+        }
+        $('#SelectQuestion').click(function() {
+            myfunction();
+        });
+        var coding_num = 1;
+        function showTimuxiangqing(qt_id) {
+            update_qt_id = qt_id.className;
+            $.post(""+ServerIp+"/QuestionBackManage/CheckQuestion/", {
+                "qt_id": qt_id.className
+            }, function(data) {
+                var data = JSON.parse(data);
+                // alert(data.body[0][0].qt_type);
+                if (data.body[0][0].qt_type == "choice") {
+                    document.getElementById("choice_stem").value = data.body[0][0].qt_stem;
+                    document.getElementById("choice_diffculty").value = data.body[0][0].qt_diffculty;
+                    document.getElementById("choice_a").value = data.body[2][0].cc_a;
+                    document.getElementById("choice_b").value = data.body[2][0].cc_b;
+                    document.getElementById("choice_c").value = data.body[2][0].cc_c;
+                    document.getElementById("choice_d").value = data.body[2][0].cc_d;
+                    document.getElementById("choice_knowlage").value = data.body[1][0].kl_name;
+                    document.getElementById("choice_answer").value = data.body[2][0].cc_answer;
+                    $('#question').show();
+                    $('#choice_question').show();
+                    $('#judge_question').hide();
+                    $('#filla_question').hide();
+                    $('#fillb_question').hide();
+                    $('#coding_question').hide();
+                    document.getElementById("choice_stem").focus();
+                };
+
+                if (data.body[0][0].qt_type == "judge") {
+                    document.getElementById("judge_stem").value = data.body[0][0].qt_stem;
+                    document.getElementById("judge_diffculty").value = data.body[0][0].qt_diffculty;
+                    document.getElementById("judge_knowlage").value = data.body[1][0].kl_name;
+                    if (data.body[2][0].jd_answer)
+                        document.getElementById("judge_a").value = true;
+                    else
+                        document.getElementById("judge_b").value = true;
+                    $('#question').show();
+                    $('#choice_question').hide();
+                    $('#judge_question').show();
+                    $('#filla_question').hide();
+                    $('#fillb_question').hide();
+                    $('#coding_question').hide();
+                    document.getElementById("judge_stem").focus();
+                };
+                if (data.body[0][0].qt_type == "filla") {
+                    document.getElementById("filla_stem").value = data.body[0][0].qt_stem;
+                    document.getElementById("filla_diffculty").value = data.body[0][0].qt_diffculty;
+                    document.getElementById("filla_knowlage").value = data.body[1][0].kl_name;
+                    document.getElementById("filla_answer").value = data.body[2][0].fa_answer;
+                    $('#question').show();
+                    $('#choice_question').hide();
+                    $('#judge_question').hide();
+                    $('#filla_question').show();
+                    $('#fillb_question').hide();
+                    $('#coding_question').hide();
+                    document.getElementById("filla_stem").focus();
+                };
+                if (data.body[0][0].qt_type == "fillb") {
+                    document.getElementById("fillb_stem").value = data.body[0][0].qt_stem;
+                    document.getElementById("fillb_diffculty").value = data.body[0][0].qt_diffculty;
+                    document.getElementById("fillb_knowlage").value = data.body[1][0].kl_name;
+                    document.getElementById("fb_pre_coding").value = data.body[2][0].fb_pre_coding;
+                    var fb_test_answer_in = new Array(); //定义一数组
+                    var fb_test_answer_out = new Array();
+                    fb_test_answer_in = data.body[2][0].fb_test_answer_in.split("&&&"); //字符分割
+                    fb_test_answer_out = data.body[2][0].fb_test_answer_out.split("&&&");
+                    for (var i = 1; i < 100; i++) {
+                        try {
+                            $("#fb_in" + i + "").remove();
+                            $("#fb_out" + i + "").remove();
+                        } catch (e) {
+                            break;
+                        }
+                    }
+
+                    for (i = 1; i < fb_test_answer_in.length - 1; i++) {
+                        // alert(fb_test_answer_in[i]);
+                        $('#fillb-answer').append(`<div class="form-group" id="fb_in` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="fb_test_answer_in` + i + `"></textarea></div></div><div class="form-group" id="fb_out` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="fb_test_answer_out` + i + `"></textarea></div></div>`);
+                        document.getElementById("fb_test_answer_in" + i + "").value = fb_test_answer_in[i];
+                        document.getElementById("fb_test_answer_out" + i + "").value = fb_test_answer_out[i];
+                        // document.getElementById("fb_test_answer_in").value = data.body[2][0].fb_test_answer_in;
+                        // document.getElementById("fb_test_answer_out").value = data.body[2][0].fb_test_answer_out;
+                    }
+                    coding_num = fb_test_answer_in.length - 1;
+                    $('#question').show();
+                    $('#choice_question').hide();
+                    $('#judge_question').hide();
+                    $('#filla_question').hide();
+                    $('#fillb_question').show();
+                    $('#coding_question').hide();
+                    document.getElementById("fillb_stem").focus();
+                };
+                if (data.body[0][0].qt_type == "coding") {
+                    document.getElementById("coding_stem").value = data.body[0][0].qt_stem;
+                    document.getElementById("coding_diffculty").value = data.body[0][0].qt_diffculty;
+                    document.getElementById("coding_knowlage").value = data.body[1][0].kl_name;
+                    document.getElementById("co_pre_coding").value = data.body[2][0].co_test_coding;
+
+                    var co_test_answer_in = new Array(); //定义一数组
+                    var co_test_answer_out = new Array();
+                    co_test_answer_in = data.body[2][0].co_test_answer_in.split("&&&"); //字符分割
+                    co_test_answer_out = data.body[2][0].co_test_answer_out.split("&&&");
+                    for (var i = 1; i < 100; i++) {
+                        try {
+                            $("#coding_in" + i + "").remove();
+                            $("#coding_out" + i + "").remove();
+                        } catch (e) {
+                            break;
+                        }
+                    }
+                    for (i = 1; i < co_test_answer_in.length - 1; i++) {
+                        // alert(co_test_answer_in[i]);
+                        $('#coding-answer').append(`<div class="form-group" id="coding_in` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="co_test_answer_in` + i + `"></textarea></div></div><div class="form-group" id="coding_out` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="co_test_answer_out` + i + `"></textarea></div></div>`);
+                        document.getElementById("co_test_answer_in" + i + "").value = co_test_answer_in[i];
+                        document.getElementById("co_test_answer_out" + i + "").value = co_test_answer_out[i];
+                        // document.getElementById("co_test_answer_in"+i+"").value = data.body[2][0].co_test_answer_in;
+                        // document.getElementById("co_test_answer_out"+i+"").value = data.body[2][0].co_test_answer_out;
+                    }
+                    coding_num = co_test_answer_in.length - 1;
+                    $('#question').show();
+                    $('#choice_question').hide();
+                    $('#judge_question').hide();
+                    $('#filla_question').hide();
+                    $('#fillb_question').hide();
+                    $('#coding_question').show();
+                    document.getElementById("coding_stem").focus();
+                };
+
+            });
+
+        }
+        $('#add-coding-answer').click(function() {
+            $('#coding-answer').append(`<div class="form-group" id="coding_in` + coding_num + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="co_test_answer_in` + coding_num + `"></textarea></div></div><div class="form-group" id="coding_out` + coding_num + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="co_test_answer_out` + coding_num + `"></textarea></div></div>`);
+            coding_num += 1;
+        });
+        $('#delete-coding-answer').click(function() {
+            if (coding_num == 2) {
+                alert("不能没有输入输出");
+                return;
+            }
+            coding_num -= 1;
+            $("#coding_in" + coding_num + "").remove();
+            $("#coding_out" + coding_num + "").remove();
+
+        });
+
+        $('#add-fillb-answer').click(function() {
+            $('#fillb-answer').append(`<div class="form-group" id="fb_in` + coding_num + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="fb_test_answer_in` + coding_num + `"></textarea></div></div><div class="form-group" id="fb_out` + coding_num + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="fb_test_answer_out` + coding_num + `"></textarea></div></div>`);
+            coding_num += 1;
+        });
+        $('#delete-fillb-answer').click(function() {
+            if (coding_num == 2) {
+                alert("不能没有输入输出");
+                return;
+            }
+            coding_num -= 1;
+            $("#fb_in" + coding_num + "").remove();
+            $("#fb_out" + coding_num + "").remove();
+
+        });
+        $("#save_choice").click(function() {
+            $.post(""+ServerIp+"/QuestionBackManage/UpdataQuestion/", {
+                "qt_id": update_qt_id,
+                "qt_stem": document.getElementById("choice_stem").value,
+                "qt_diffculty": document.getElementById("choice_diffculty").value,
+                "cc_a": document.getElementById("choice_a").value,
+                "cc_b": document.getElementById("choice_b").value,
+                "cc_c": document.getElementById("choice_c").value,
+                "cc_d": document.getElementById("choice_d").value,
+                "kl_name": document.getElementById("choice_knowlage").value,
+                "cc_answer": document.getElementById("choice_answer").value,
+                "qt_type": 'choice',
+            }, function(data) {
+                var data = JSON.parse(data);
+                $('#question').hide();
+                $('#choice_question').hide();
+                myfunction();
+            });
+
+        });
+        $("#save_judge").click(function() {
+            var answer;
+            if ($("#judge_a").val())
+                answer = 'T';
+            else
+                answer = 'F';
+            $.post(""+ServerIp+"/QuestionBackManage/UpdataQuestion/", {
+                "qt_id": update_qt_id,
+                "qt_stem": document.getElementById("judge_stem").value,
+                "qt_diffculty": document.getElementById("judge_diffculty").value,
+                "kl_name": document.getElementById("judge_knowlage").value,
+                "jd_answer": answer,
+                "qt_type": 'judge',
+            }, function(data) {
+                var data = JSON.parse(data);
+                $('#question').hide();
+                $('#judge_question').hide();
+                myfunction();
+            });
+        });
+        $("#save_filla").click(function() {
+            $.post(""+ServerIp+"/QuestionBackManage/UpdataQuestion/", {
+                "qt_id": update_qt_id,
+                "qt_stem": document.getElementById("filla_stem").value,
+                "qt_diffculty": document.getElementById("filla_diffculty").value,
+                "kl_name": document.getElementById("filla_knowlage").value,
+                "fa_answer": document.getElementById("filla_answer").value,
+                "qt_type": 'filla',
+            }, function(data) {
+                var data = JSON.parse(data);
+                $('#question').hide();
+                $('#filla_question').hide();
+                myfunction();
+            });
+        });
+        $("#save_fillb").click(function() {
+            $.post(""+ServerIp+"/QuestionBackManage/UpdataQuestion/", {
+                "qt_id": update_qt_id,
+                "qt_stem": document.getElementById("fillb_stem").value,
+                "qt_diffculty": document.getElementById("fillb_diffculty").value,
+                "kl_name": document.getElementById("fillb_knowlage").value,
+                "fb_pre_coding": document.getElementById("fb_pre_coding").value,
+                "fb_test_answer_in": document.getElementById("fb_test_answer_in").value,
+                "fb_test_answer_out": document.getElementById("fb_test_answer_out").value,
+                "qt_type": 'fillb',
+            }, function(data) {
+                var data = JSON.parse(data);
+                if(data.status !=1){
+                   alert("题目输入输出与代码不符，请核对");
+                   return;
+                }
+                $('#question').hide();
+                $('#fillb_question').hide();
+                myfunction();
+            });
+        });
+        $("#save_coding").click(function() {
+            var co_test_answer_in = "&&&";
+            var co_test_answer_out = "&&&";
+            for (var i = 1; i < coding_num; i++) {
+                co_test_answer_in = co_test_answer_in + $("#co_test_answer_in" + i + "").val() + "&&&";
+                co_test_answer_out = co_test_answer_out + $("#co_test_answer_out" + i + "").val() + "&&&";
+            }
+            var cin = JSON.stringify(co_test_answer_in, null, 0);
+            var cout = JSON.stringify(co_test_answer_out, null, 0);
+            $.post("" + ServerIp + "/QuestionBackManage/UpdataQuestion/", {
+                "qt_id": update_qt_id,
+                "qt_stem": document.getElementById("coding_stem").value,
+                "qt_diffculty": document.getElementById("coding_diffculty").value,
+                "kl_name": document.getElementById("coding_knowlage").value,
+                "co_test_coding": document.getElementById("co_pre_coding").value,
+                // "co_test_answer_in": document.getElementById("co_test_answer_in").value,
+                // "co_test_answer_out": document.getElementById("co_test_answer_out").value,
+                "co_test_answer_in": co_test_answer_in,
+                "co_test_answer_out": co_test_answer_out,
+                "qt_type": 'coding',
+            }, function(data) {
+                var data = JSON.parse(data);
+                if(data.status !=1){
+                   alert("题目输入输出与代码不符，请核对");
+                   return;
+                }
+                $('#question').hide();
+                $('#coding_question').hide();
+                myfunction();
+            });
+        });
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/login.css">
+    <!--<script src="js/jquery-1.11.3.min.js"></script>-->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+</head>
+<h1 style="text-align: center;margin-top: 3%;font-size: 60px;">信息学院软件工程实验室</h1>
+
+<body onkeydown="keyLogin();">
+    <div class="content">
+        <!--  登录面板    -->
+        <div class="panel">
+            <form id="RegisterForm">
+                <!--  账号和密码组    -->
+                <div class="group">
+                    <label>学号</label>
+                    <input placeholder="请输入学号" id="studentId" value="">
+                    <span id="studentIdText"></span>
+                </div>
+                <div class="group">
+                    <label>姓名</label>
+                    <input placeholder="请输入姓名" id="studentName">
+                    <span id="studentNameText"></span>
+                </div>
+                <div class="group">
+                    <label>性别</label>
+                    <!--<input placeholder="性别" id="studentSex" value="">-->
+                    <select id="studentSex">
+                        <option value="男">男</option>
+                        <option value="女">nv</option>
+                    </select>
+                    <span id="studentSexText"></span>
+                </div>
+                <div class="group">
+                    <label>自然班</label>
+                    <input placeholder="自然班" id="studentSpecialty" value="">
+                    <span id="studentSpecialtyText"></span>
+                </div>
+                <div class="group">
+                    <label>教务班</label>
+                    <br/>
+                    <select id="className">
+                    </select>
+                </div>
+                <!--  登录按钮    -->
+            </form>
+            <div class="login">
+                <button type="button" onclick="ToLogin()">登录</button>
+                <button type="button" onclick="Register()">注册</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+    $(document).ready(function() {
+        $.post(""+ServerIp+"/StudentManage/GetClassInfo", function(data) {
+        var data = JSON.parse(data);
+        var i = 0;
+        while (data.body[i]) {
+            tr = '<option cl_id = ' + data.body[i].cl_id + '>' + data.body[i].cl_name + '</option>';
+            $("#className").append(tr);
+            i++;
+
+        }
+
+    });
+    });
+
+    function ToLogin() {
+        window.location.href = '' + ServerIp + '/static/exam/login.html';
+    }
+
+    // function keyLogin() {
+    //     //回车键的键值为13
+    //     if (event.keyCode == 13) {
+    //         login(); //调用登录按钮的登录事件
+    //     }
+    // }
+
+    function Register() {
+        if ($("#studentId").val() == '') {
+            document.getElementById("studentIdText").innerHTML = "学号不能为空";
+            document.getElementById("studentId").focus();
+            return false;
+        }
+        if ($("#studentName").val() == '') {
+            document.getElementById("studentNameText").innerHTML = "姓名不能为空";
+            document.getElementById("studentName").focus();
+            return false;
+        }
+        if ($("#studentSpecialty").val() == '') {
+            document.getElementById("studentSpecialtyText").innerHTML = "自然班不能为空";
+            document.getElementById("studentSpecialty").focus();
+            return false;
+        }
+        if ($("#className").val() == '') {
+            alert("教务班不能为空");
+        }
+        data = {
+                'cl_id': $("#className").find("option:selected").attr('cl_id'),
+                'st_id': $("#studentId").val(),
+                'st_name': $("#studentName").val(),
+                'st_sex': $("#studentSex").val(),
+                'st_specialty': $("#studentSpecialty").val(),
+            }
+            $.post(""+ServerIp+"/StudentManage/ConfirmAddStudent", data, function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    window.location.href = '' + ServerIp + '/static/exam/login.html';
+                } else {
+                    alert(data.message);
+                }
+            });
+
+    }
+    </script>
+</body>
+<!--script src="js/login.js"></script-->
+
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <style>
+    table {
+        *border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        table-layout: fixed;
+    }
+
+    .zebra td,
+    .zebra th {
+        padding: 10px;
+        /*border-bottom: 1px solid #f2f2f2;*/
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .zebra .alternate,
+    .zebra tbody tr:nth-child(even) {
+        background: #f5f5f5;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    }
+
+    .zebra th {
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+        border-bottom: 1px solid #ccc;
+        background-color: #eee;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+        background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+        background-image: linear-gradient(top, #f5f5f5, #eee);
+        filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eee);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f5f5f5,endColorstr=#eee)";
+    }
+    /*.zebra th:first-child {
+        border-radius: 6px 0 0 0;
+        width: 50px;
+    }*/
+
+    .zebra th:last-child {
+        border-radius: 0 6px 0 0;
+        width: 120px;
+    }
+
+    .zebra tr:last-child td:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    .zebra td:last-child {
+        border-radius: 0 0 6px 0;
+    }
+
+    .pageNumber {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #dddddd;
+        height: 40px;
+        width: auto;
+    }
+
+    td {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .td0 {
+        width: 50%;
+        text-align: left;
+    }
+
+    .td1 {
+        width: 12%;
+    }
+
+    a {
+        cursor: pointer;
+    }
+    </style>
+    <style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: right;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    ul.pagination li a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- <iframe src="menu.html">
+                </iframe>s -->
+            </div>
+        </div>
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>知识点管理</h3>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>添加或查询知识点</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <form class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="知识点名" id="Knowledge_name">
+                                        </div>
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">详情</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" placeholder="知识点介绍" id="kl_node">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-md-offset-1">
+                                            <button type="button" class="btn btn-success" id="add_Knowledge">添加</button>
+                                            <button type="button" class="btn btn-dark" id="Select_Knowledge">查询</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>知识点详情</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="demo">
+                                    <table class="zebra bulk_action">
+                                        <tr>
+                                            <th>知识点名</th>
+                                            <th>知识点详情</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tbody id="tablebody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <ul class="pagination" id="page-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal_modify_Knowledge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">修改知识点</h4></div>
+                    <div class="modal-body">
+                        <form class="form-horizontal form-label-left" id="form_data_modify">
+                            <div class="form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                <div class="col-md-5">
+                                    <input type="text" id="update_Knowledge_name" class="form-control" name="update_Knowledge_name" placeholder="知识点">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1 col-sm-3 col-xs-12">详情</label>
+                                <div class="col-md-5">
+                                    <input type="text" id="update_ki_node" class="form-control" name="update_ki_node" placeholder="详情">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confime_update" onclick="confime_update(this)">确认修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+    <script>
+    var currentPage = 1;
+    var totalPage = 0;
+    $(document).ready(function() {
+        myFunction();
+    });
+
+    $("#Select_Knowledge").click(function() {
+        var Knowledge_name = $('#Knowledge_name');
+        var kl_node = $("#kl_node");
+        alert(Knowledge_name.val());
+        $.post("" + ServerIp + "/KnowledgePointManage/SelectKnowledge/", {
+                "kl_name": Knowledge_name.val(),
+                "kl_node": kl_node.val(),
+                "currentPage": currentPage,
+            },
+            function(data) {
+                var pageSize = 0;
+                var firstPage;
+                var lastPage = 0;
+                var pageList = $('#page-list');
+                var tablebody = $('#tablebody');
+                document.getElementById("tablebody").innerHTML = '';
+                var data = JSON.parse(data);
+                alert(data);
+                totalPage = data.body.totalPage;
+                pageSize = data.body.pageSize;
+                firstPage = data.body.firstPage;
+                lastPage = data.body.lastPage;
+                currentPage = data.body.currentPage;
+                var i = 0;
+                var str = '';
+                try {
+                    while (data.body.data[i].kl_id) {
+                        str = `<tr>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].kl_node + `</td>
+                                        <td><a style='color:blue; margin-right:10px; class='btn btn-primary btn-lg'  id = 'update_Knowledge' kl_id=` + data.body.data[i].kl_id + ` kl_name = ` + data.body.data[i].kl_name + ` kl_node=` + data.body.data[i].kl_node + `  onclick='update_Knowledge(this)''>修改</a><a class=` + data.body.data[i].kl_id + ` onclick="delete_Knowledge(this)">删除</a></td>
+                                    </tr>`
+                        tablebody.append(str);
+                        i++;
+                    }
+                } catch (err) {}
+                document.getElementById("page-list").innerHTML = '';
+                if (lastPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+                } else {
+                    pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+                }
+                pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+                if (totalPage > 1) {
+                    if (totalPage - currentPage >= 2) {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    if (currentPage > 1 && currentPage != totalPage) {
+                        pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    } else {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+                }
+                document.getElementById("questionback" + currentPage).style.background = "#426384";
+                if (firstPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+                } else {
+                    pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+                }
+                pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+                pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+            });
+    });
+    $('#add_Knowledge').click(function() {
+        var Knowledge_name = $('#Knowledge_name');
+        var kl_node = $("#kl_node");
+        $.post("" + ServerIp + "/KnowledgePointManage/AddKnowledgePoint/", {
+                "kl_name": Knowledge_name.val(),
+                "kl_node": kl_node.val()
+            },
+            function(data, status) {
+                var data = JSON.parse(data);
+                // if (data.status == 1 && status == 'success') {
+                //     title[0].value = '';
+                // } else {
+                //     alert('添加失败');
+                // }
+                myFunction();
+            })
+    });
+
+    function delete_Knowledge(obj) {
+        var kl_id = obj.className;
+        alert(kl_id);
+        var password = prompt('请输入管理员密码', '');
+        if (password == '' || typeof(password) == 'undefined' || password == null) {
+            alert('您输入的管理员密码有误');
+        } else {
+            $.post("" + ServerIp + "/KnowledgePointManage/DeleteKnowledgePoint/", {
+                    "kl_id": kl_id,
+                    "deletepassword": password,
+                },
+                function(data) {
+                    myFunction();
+                });
+        }
+    }
+
+    function update_Knowledge(obj) {
+        var kl_id = $(obj).attr("kl_id");
+        var kl_name = $(obj).attr("kl_name");
+        var kl_node = $(obj).attr("kl_node");
+        // alert(kl_id);
+        $("input#update_Knowledge_name").val(kl_name);
+        $("input#update_ki_node").val(kl_node);
+        $('#myModal_modify_Knowledge').modal('show');
+        $("button#confime_update").click(function() {
+            $.post("" + ServerIp + "/KnowledgePointManage/UpdataKnowledgePoint/", {
+                "kl_name": $("#update_Knowledge_name").val(),
+                "kl_node": $("#update_ki_node").val(),
+                "kl_id": kl_id,
+            }, function(data) {
+                myFunction();
+            });
+        });
+
+    }
+
+    function myFunction() {
+        var pageSize = 0;
+        var firstPage;
+        var lastPage = 0;
+        var pageList = $('#page-list');
+        var tablebody = $('#tablebody');
+        document.getElementById("tablebody").innerHTML = '';
+        $.post("" + ServerIp + "/KnowledgePointManage/RequestKnowledgePoint/", {
+            "currentPage": currentPage,
+        }, function(data) {
+            var tablebody = $('#tablebody');
+            var data = JSON.parse(data);
+
+            totalPage = data.body.totalPage;
+            pageSize = data.body.pageSize;
+            firstPage = data.body.firstPage;
+            lastPage = data.body.lastPage;
+            currentPage = data.body.currentPage;
+            var i = 0;
+            var str = '';
+            try {
+                while (data.body.data[i].kl_id) {
+                    str = `<tr>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].kl_node + `</td>
+                                        <td><a style='color:blue; margin-right:10px; class='btn btn-primary btn-lg'  id = 'update_Knowledge' kl_id=` + data.body.data[i].kl_id + ` kl_name = ` + data.body.data[i].kl_name + ` kl_node=` + data.body.data[i].kl_node + `  onclick='update_Knowledge(this)''>修改</a><a class=` + data.body.data[i].kl_id + ` onclick="delete_Knowledge(this)">删除</a></td>
+                                    </tr>`
+                    tablebody.append(str);
+                    i++;
+                }
+            } catch (err) {}
+            document.getElementById("page-list").innerHTML = '';
+            if (lastPage) {
+                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+            } else {
+                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+            }
+            pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+            if (totalPage > 1) {
+                if (totalPage - currentPage >= 2) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                }
+                if (currentPage > 1 && currentPage != totalPage) {
+                    pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                } else {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                }
+                pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+            }
+            document.getElementById("questionback" + currentPage).style.background = "#426384";
+            if (firstPage) {
+                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+            } else {
+                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+            }
+            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+        });
+    }
+    $('#page-list').on("click", "#nextpage", function() {
+        currentPage += 1;
+        myFunction();
+    });
+    $('#page-list').on("click", "#lastpage", function() {
+        currentPage -= 1;
+        myFunction();
+    });
+    $('#page-list').on("click", "#Knowledge1", function() {
+        currentPage = 1;
+        myFunction();
+    });
+
+    function turing_page() {
+        if ($("#page_num").val() > totalPage || $("#page_num").val() == '' || !Number.isInteger(Number($("#page_num").val()))) {
+            alert("页码有误");
+            return;
+        }
+        currentPage = $("#page_num").val();
+        myFunction();
+
+    }
+
+    function trailerPage(totalPage) {
+        currentPage = totalPage;
+        myFunction();
+    }
+    </script>
+</body>
+
+</html>

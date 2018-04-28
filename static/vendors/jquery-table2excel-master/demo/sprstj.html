@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <title>人数统计</title>
+
+        <style type="text/css">
+            td,
+            th {
+                vertical-align: middle !important;
+                text-align: center;
+            }
+
+            .bg_yellow{
+                background-color: #fff45c;
+            }
+
+            .bg_green {
+                background-color: #80c269;
+            }
+        </style>
+    </head>
+
+    <body>
+<button>导出按钮</button>
+    <table class="table table-bordered" style="width: 95%; margin: 20px auto;">
+                            <thead>
+                                <tr>
+                                    <th scope="col" rowspan="2">学校</th>
+                                    <th scope="col" colspan="16">四证齐全</th>
+                                    <th scope="col" colspan="16">四证不齐全</th>
+                                    <th scope="col" colspan="4">老生老办法</th>
+                                    <th scope="col" rowspan="2">全校总计</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">小班</th>
+                                    <th scope="col">中班</th>
+                                    <th scope="col">大班</th>
+                                    <th scope="col" class="bg_green">小计</th>
+                                    <th scope="col">一年级</th>
+                                    <th scope="col">二年级</th>
+                                    <th scope="col">三年级</th>
+                                    <th scope="col">四年级</th>
+                                    <th scope="col">五年级</th>
+                                    <th scope="col">六年级</th>
+                                    <th scope="col" class="bg_green">小计</th>
+                                    <th scope="col">七年级</th>
+                                    <th scope="col">八年级</th>
+                                    <th scope="col">九年级</th>
+                                    <th scope="col" class="bg_green">小计</th>
+                                    <th scope="col" class="bg_yellow">合计</th>
+                                    <th scope="col">小班</th>
+                                    <th scope="col">中班</th>
+                                    <th scope="col">大班</th>
+                                    <th scope="col" class="bg_green">小计</th>
+                                    <th scope="col">一年级</th>
+                                    <th scope="col">二年级</th>
+                                    <th scope="col">三年级</th>
+                                    <th scope="col">四年级</th>
+                                    <th scope="col">五年级</th>
+                                    <th scope="col">六年级</th>
+                                    <th scope="col" class="bg_green">小计</th>
+                                    <th scope="col">七年级</th>
+                                    <th scope="col">八年级</th>
+                                    <th scope="col">九年级</th>
+                                    <th scope="col" class="bg_green">小计</th>
+                                    <th scope="col" class="bg_yellow">合计</th>
+                                     <th scope="col">七年级</th>
+                                    <th scope="col">八年级</th>
+                                    <th scope="col">九年级</th>
+                                    <th scope="col" class="bg_yellow">合计</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>英贤学校侨英校区</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow03">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow03">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_yellow03">0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background-color: #0e7bcf">英贤学校杏林校区</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow03">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow03">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_yellow03">0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>康德小学</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>杏美小学</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>安仁小学</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_green">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>全区合计</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow"></td>
+                                    <td class="bg_yellow">0</td>
+                                    <td class="bg_yellow">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+    <script src="../dist/jquery.js"></script>
+    <script src="../dist/jquery.table2excel.min.js"></script>
+<script>
+    $(function(){
+        $("body").on("click","button",function(){
+            exportExcel();
+        });
+        function exportExcel(){
+            $(".table").table2excel({
+                exclude: ".noExl",//不导出的表格数据选择器，不导出的数据加class加上 noExl就可以了
+                name: "Excel Document Name",
+                filename: "myFileName",
+                fileext: ".xls",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        }
+    })
+</script>
+    </body>
+</html>
+
+

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br /><br /><br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>添加学生信息 </h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>添加单个学生</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <form class="form-horizontal form-label-left" id="Student_Info">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">教学班名</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12">
+                                                <select id="className" class="select2_single form-control" tabindex="-1">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">学号</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="studentId" class="form-control" placeholder="学号">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">姓名</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="studentName" class="form-control" placeholder="姓名">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">性别</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="studentSex" class="form-control" placeholder="性别">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">自然班级</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="studentSpecialty" class="form-control" placeholder="自然班级">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">联系方式</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="studentPhone" class="form-control" placeholder="联系方式">
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-9 col-md-offset-3">
+                                                <button id="submit" type="button" class="btn btn-success">添加</button>
+                                                <button type="reset" class="btn btn-primary">重置</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+    <script>
+    // $('#submit').click(function(){
+    // 	if($('#className').val() != '' && $('#studentId').val() != '' && $('#studentName').val() != '' && $('#studentSex').val() != ''){
+    // 		alert('添加成功!');
+    // 	}else{
+    // 		alert('请输入所有字段');
+    // 	}
+    // })
+    //			$('#submit').click(function(){
+    //				$.post('/StudentManage/ConfirmAddStudent/',
+    //				{
+    //					"className":$('#className').val(),
+    //					"studentId":$('#studentId').val(),
+    //					"studentName":$('#studentName').val(),
+    //					"studentSex":$('#studentSex').val()
+    //				},
+    //				function(data,status){
+    //						
+    //				});
+    //			})
+    $(document).ready(function() {
+        $(".select2_single").select2({
+            placeholder: "请选择一个班级",
+            allowClear: true
+        });
+        $(".select2_group").select2({});
+    });
+    $.post(""+ServerIp+"/StudentManage/GetClassInfo", function(data) {
+        var data = JSON.parse(data);
+        var i = 0;
+        while (data.body[i]) {
+            tr = '<option cl_id = ' + data.body[i].cl_id + '>' + data.body[i].cl_name + '</option>';
+            $("#className").append(tr);
+            i++;
+
+        }
+
+    });
+    // var class_id;
+    // $(document).ready(function(){
+
+    // });
+
+
+    // $(document).on('change',"#className",function(){
+    // 		
+    // 	alert(class_id);
+    //     // class_id = $(this).find("option:selected").attr('cl_id');//获取选中文本
+    // });
+
+    $(document).ready(function() {
+        $("#submit").click(function() {
+            data = {
+                'cl_id': $("#className").find("option:selected").attr('cl_id'),
+                'st_id': $("#studentId").val(),
+                'st_name': $("#studentName").val(),
+                'st_sex': $("#studentSex").val(),
+                'st_specialty': $("#studentSpecialty").val(),
+                'st_phone': $("#studentPhone").val()
+            }
+            $.post(""+ServerIp+"/StudentManage/ConfirmAddStudent", data, function(data) {
+                var data = JSON.parse(data);
+                switch (data.status) {
+                    case 2:
+                        alert(data.message);
+                        break;
+                    case 1:
+                        alert(data.message);
+                        break;
+                    case 0:
+                        alert(data.message);
+                        break;
+                    default:
+                        alert('发生未知错误!');
+                        break;
+                }
+            });
+
+        });
+    })
+    </script>
+</body>
+
+</html>

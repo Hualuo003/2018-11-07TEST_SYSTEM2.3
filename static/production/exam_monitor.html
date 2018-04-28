@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+    table {
+        *border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        table-layout: fixed;
+    }
+
+    .zebra td,
+    .zebra th {
+        padding: 10px;
+        /*border-bottom: 1px solid #f2f2f2;*/
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .zebra .alternate,
+    .zebra tbody tr:nth-child(even) {
+        background: #f5f5f5;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    }
+
+    .zebra th {
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+        border-bottom: 1px solid #ccc;
+        background-color: #eee;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+        background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+        background-image: linear-gradient(top, #f5f5f5, #eee);
+        filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eee);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f5f5f5,endColorstr=#eee)";
+    }
+    /*.zebra th:first-child {
+        border-radius: 6px 0 0 0;
+        width: 50px;
+    }*/
+
+    .zebra th:last-child {
+        border-radius: 0 6px 0 0;
+        width: 120px;
+    }
+
+    .zebra tr:last-child td:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    .zebra td:last-child {
+        border-radius: 0 0 6px 0;
+    }
+
+    .pageNumber {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #dddddd;
+        height: 40px;
+        width: auto;
+    }
+
+    td {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .td0 {
+        width: 50%;
+        text-align: left;
+    }
+
+    .td1 {
+        width: 12%;
+    }
+
+    a {
+        cursor: pointer;
+    }
+    </style>
+    <style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: right;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    ul.pagination li a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>考试监控 </h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <!-- <h2>新建考试</h2> -->
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    </br>
+                                    <form class="form-horizontal form-label-left" id="class_data">
+                                        <div>
+                                            <label class="control-label col-md-1 col-sm-1 col-xs-6" style="float: left;">考试选择</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-6" style="float: left;">
+                                                <select class="select2_single form-control" id="exam">
+                                                </select>
+                                                &nbsp;&nbsp;
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12" style="float: left;">教务班选择</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12" style="float: left;">
+                                                <select class="select2_single form-control" id="student_class">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="button" onclick="StopExamByUser()" class="btn btn-success">停止考试</button>
+                                            <button type="button" onclick="EmptyIP()" class="btn btn-success">清空IP</button>
+                                        </div>
+                                    </form>
+                                    <br/>
+                                    <div class="form-group">
+                                        <label id="start_time" style="width: 15%;">开始时间:</label>
+                                        <label id="end_time" style="width: 15%;">结束时间:</label>
+                                        <label id="total_num" style="width: 15%;">总人数:</label>
+                                        <label id="login_num" style="width: 15%;">在线人数:</label>
+                                        <label id="lack_num" style="width: 15%;">缺考人数:</label>
+                                    </div>
+                                    </form>
+                                    <table class="zebra bulk_action">
+                                        <tr>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>IP</th>
+                                            <th>学生状态</th>
+                                            <th style="width: 20%;">操作</th>
+                                        </tr>
+                                        <tbody id="my_body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+    <script>
+    var ex_id;
+    var class_cl_id;
+    $(document).ready(function() {
+        // $.post('"+ServerIp+"/StrategyManage/SelectExamQuestionById', {
+        //     "ex_id": 1,
+        // }, function(data) {
+        //     alert(data);
+        // })
+        $.post("" + ServerIp + "/StrategyManage/GetAllExam", {}, function(data) {
+            var data = JSON.parse(data);
+            for (var i = 0; i < data.body.length; i++) {
+                $("#exam").append("<option value = '" + data.body[i].ex_id + "'>" + data.body[i].ex_name + "</option>");
+            }
+            ex_id = data.body[0].ex_id;
+            fill_class();
+
+        });
+    });
+
+    function fill_class() {
+        $.post("" + ServerIp + "/StudentManage/GetClassByExam", {
+            "ex_id": ex_id,
+        }, function(data) {
+            var data = JSON.parse(data);
+            $("#student_class").html("");
+            for (var i = 0; i < data.body.length; i++) {
+                $("#student_class").append("<option value = '" + data.body[i].cl_id + "'>" + data.body[i].cl_name + "</option>");
+            }
+            class_cl_id = data.body[0].cl_id;
+
+            $.post("" + ServerIp + "/StrategyManage/SelectExamByExamId", {
+                "ex_id": ex_id,
+            }, function(data) {
+                var data = JSON.parse(data);
+                $("#start_time").html('开始时间: ' + data.body.ex_time_start);
+                $("#end_time").html('结束时间: ' + data.body.ex_time_end);
+                fill_student();
+            });
+        });
+    }
+    $(function() {
+        $("#exam").select2();
+        $("#exam").change("select2:select", function() {
+            ex_id = $(this).val();
+            fill_class();
+        });
+    });
+
+    function fill_student() {
+        $.post("" + ServerIp + "/StudentManage/GetStudentByExam", {
+            "ex_id": ex_id,
+            "class_cl_id": class_cl_id,
+        }, function(data) {
+            var data = JSON.parse(data);
+            $("#my_body").html("");
+            for (var i = 0; i < data.body.length; i++) {
+                $('#my_body').append('<tr id = ' + data.body[i].in_id + '><td >' + data.body[i].student_st_id + '</td><td >' + data.body[i].student_name + '</td><td >' + data.body[i].in_ip + '</td><td >' + data.body[i].in_state + '</td><td><a href="#" style="margin-right: 10px;" class="' + data.body[i].in_id + '" id="' + data.body[i].in_state + '" onclick = "delay_exam(this)" >延时</a><a href="#" style="margin-right: 10px;" class="' + data.body[i].in_id + '" id="' + data.body[i].in_state + '" onclick = "change_pc(this)" >换机</a><a href="#" style="margin-right: 10px;" class="' + data.body[i].in_id + '"  id="' + data.body[i].in_state + '" onclick = "stop_exam(this)" >违纪</a><a href="#" style="margin-right: 10px;" class="' + data.body[i].in_id + '"  id="' + data.body[i].in_state + '" onclick = "recover(this)" >重做</a></td></tr>');
+            }
+            $("#total_num").html('总人数: ' + data.body.length);
+            var login_num = data.body.length - parseInt(data.message);
+            $("#login_num").html('已参加人数: ' + login_num);
+            $("#lack_num").html('未参加人数: ' + data.message);
+        });
+    }
+
+    function delay_exam(data) {
+        if(data.id!='正在考试'){
+            alert("学生不在考试状态");
+            return;
+        }
+        var delay_time = prompt('延长时间(分钟)？', '');
+        if (delay_time == '' || typeof(delay_time) == 'undefined' || delay_time == null) {
+            alert('您输入的数据不合法');
+        } else {
+            $.post("" + ServerIp + "/ExamManage/delay_exam", {
+                "in_id": data.className,
+                "delay_time": delay_time,
+            }, function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    alert("succes");
+                    fill_student();
+                } else {
+                    alert("error");
+                }
+            });
+        }
+    }
+
+    function change_pc(data) {
+        if(data.id!='正在考试'){
+            alert("学生不在考试状态");
+            return;
+        }
+        $.post("" + ServerIp + "/ExamManage/change_pc", {
+            "in_id": data.className,
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                fill_student();
+            } else {
+                alert("error");
+            }
+        });
+    }
+    // 单个停止,标记为作弊
+    function stop_exam(data) {
+        if(data.id!='正在考试'){
+            alert("学生不在考试状态");
+            return;
+        }
+        $.post("" + ServerIp + "/ExamManage/stop_exam", {
+            "in_id": data.className,
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                fill_student();
+            } else {
+                alert("error");
+            }
+        });
+    }
+    // 重做，刷新学生状态
+    function recover(data) {
+        $.post("" + ServerIp + "/ExamManage/recover_exam", {
+            "in_id": data.className,
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                fill_student();
+            } else {
+                alert("error");
+            }
+        });
+    }
+    
+    // 停止整个班的考试
+    function StopExamByUser() {
+        // alert("stop");
+        $.post("" + ServerIp + "/ExamManage/StopExamByClass", {
+            "ex_id": ex_id,
+            "class_cl_id": class_cl_id,
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                fill_student();
+            } else {
+                alert("error");
+            }
+        });
+    }
+
+    //清空IP
+    function EmptyIP(data) {
+        $.post("" + ServerIp + "/ExamManage/EmptyIP", {
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                alert("清空IP成功");
+            } else {
+                alert("error");
+            }
+        });
+    }
+    $(function() {
+        $("#student_class").select2();
+        $("#student_class").change("select2:selecting", function() {
+            class_cl_id = $(this).val();
+            // alert("class_cl_id"+$(this).val());
+            fill_student();
+        });
+    });
+    $(document).ready(function() {
+        $(".select2_single").select2({
+            placeholder: "请选择一个班级",
+            allowClear: true
+        });
+        $(".select2_group").select2({});
+    });
+    </script>
+</body>
+
+</html>

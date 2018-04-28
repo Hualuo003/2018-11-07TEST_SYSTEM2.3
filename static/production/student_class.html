@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- <link href="../vendors/bootstrap/dataTables.bootstrap.css" rel="stylesheet"> -->
+    <style>
+    table {
+        *border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        table-layout: fixed;
+    }
+
+    .zebra td,
+    .zebra th {
+        padding: 10px;
+        /*border-bottom: 1px solid #f2f2f2;*/
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        text-align: center;
+    }
+
+    .zebra .alternate,
+    .zebra tbody tr:nth-child(even) {
+        background: #f5f5f5;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    }
+
+    .zebra th {
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+        border-bottom: 1px solid #ccc;
+        background-color: #eee;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+        background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+        background-image: linear-gradient(top, #f5f5f5, #eee);
+        filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eee);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f5f5f5,endColorstr=#eee)";
+    }
+
+    .zebra th:last-child {
+        border-radius: 0 6px 0 0;
+        width: 12%;
+    }
+
+    .zebra tr:last-child td:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    .zebra td:last-child {
+        border-radius: 0 0 6px 0;
+    }
+
+    .pageNumber {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #dddddd;
+        height: 40px;
+        width: auto;
+    }
+
+    td {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .td0 {
+        width: 10%;
+        text-align: left;
+    }
+
+    .td1 {
+        width: 12%;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    .modal-footer {
+        margin-top: 20px;
+        padding: 5px;
+        border-radius: 5px;
+        height: 40px;
+        width: auto;
+        float: left;
+    }
+    .information{
+        margin-bottom: -25px;
+        height: 30px;
+    }
+    </style>
+    <style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: right;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    ul.pagination li a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>教务班管理</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>添加或查询教务班</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <form class="form-horizontal form-label-left" id="class_data">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">教学班名</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="cl_name" class="form-control" name="cl_name" placeholder="教学班名" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-9 col-md-offset-1">
+                                                <button type="button" id="create" class="btn btn-success">新建</button>
+                                                <button type="button" id="search" class="btn btn-dark">查询</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>教务班列表</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="class_list">
+                                        <table class="zebra bulk_action">
+                                            <tr>
+                                                <th class="td0">教务班号</th>
+                                                <th>教务班名</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            <tbody id="all_class">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <ul class="pagination" id="page-list">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>教务班详情</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <table class="table table-striped table-bordered" id="class_details">
+                                    <thead>
+                                        <tr>
+                                            <th>班级</th>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>性别</th>
+                                            <th>联系方式</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="studentList">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+    </div>
+    </div>
+    <div class="modal fade" id="myModal_modify_student" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改学生信息</h4></div>
+                <div class="modal-body">
+                    <form class="form-horizontal form-label-left" id="form_data_modify">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">班级</label>
+                            <div class="col-md-5">
+                                <input type="text" id="student_specialty_modify" class="form-control" name="st_specialty" placeholder="班级">
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label class="control-label col-md-3">学号</label>
+                            <div class="col-md-5">
+                                <input type="text" id="student_id_modify" class="form-control" name="st_id" placeholder="学号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">名字</label>
+                            <div class="col-md-5">
+                                <input type="text" id="student_name_modify" class="form-control" name="st_name" placeholder="名字">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">性别</label>
+                            <div class="col-md-5">
+                                <input type="text" id="student_sex_modify" class="form-control" name="st_sex" placeholder="性别">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">联系方式</label>
+                            <div class="col-md-5">
+                                <input type="text" id="student_contact_way_modify" class="form-control" name="st_phone" placeholder="联系方式">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" style="margin-left: 30%;margin-top: 10px;" data-dismiss="modal" id="submit_modify_student" onclick="submit_modify(this)">提交更改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="../vendors/bootstrap/dataTables.bootstrap.min.js"></script> -->
+    <script>
+    var currentPage = 1;
+    var totalPage = 0;
+    $(document).ready(function() {
+        // $('#class_details').DataTable({
+        //     columns: [
+        //         { data: 'st_specialty' },
+        //         { data: 'st_id' },
+        //         { data: 'st_name' },
+        //         { data: 'st_sex' },
+        //         { data: 'st_phone' }
+        //     ]
+        // });
+        myFunction();
+    });
+
+    // 填充教务班表
+    function myFunction() {
+        $.post("" + ServerIp + "/StudentManage/ManageClass", {
+            "currentPage": currentPage
+        }, function(data) {
+            var data = JSON.parse(data);
+            var m = 0;
+            document.getElementById("all_class").innerHTML = '';
+            while (data.body.data[m] != null) {
+                $("tbody#all_class").append('<tr><td>' + data.body.data[m].cl_id + '</td><td>' + data.body.data[m].cl_name + '</td><td><a onclick = "check_class_student(this)" cl_id = ' + data.body.data[m].cl_id + ' style="margin-right:10px;" href="#">查看</a><a href="#" onclick = "delete_class(this)" cl_id = ' + data.body.data[m].cl_id + '>删除</a></td></tr>');
+                m++;
+            }
+            var pageList = $('.pagination');
+            totalPage = data.body.totalPage;
+            var pageSize = data.body.pageSize;
+            var firstPage = data.body.firstPage;
+            var lastPage = data.body.lastPage;
+            document.getElementById("page-list").innerHTML = '';
+            if (lastPage) {
+                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+            } else {
+                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+            }
+            pageList.append('<li><a id = "student_class' + totalPage + '" onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+            if (totalPage > 1) {
+                if (totalPage - currentPage >= 2) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                }
+                if (currentPage > 1 && currentPage != totalPage) {
+                    pageList.append('<li ><a id = "student_class' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                } else {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                }
+                pageList.append('<li ><a id = student_class' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+            }
+            document.getElementById("student_class" + currentPage + "").style.background = "#426384";
+            if (firstPage) {
+                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+            } else {
+                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+            }
+            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+        });
+    }
+    $('#page-list').on("click", "#nextpage", function() {
+        currentPage += 1;
+        if ($('#cl_name').val() == '') {
+            myFunction();
+        } else {
+            myfunction1();
+        }
+    });
+    $('#page-list').on("click", "#lastpage", function() {
+        currentPage -= 1;
+        if ($('#cl_name').val() == '') {
+            myFunction();
+        } else {
+            myfunction1();
+        }
+    });
+    $('#page-list').on("click", "#Page1", function() {
+        currentPage = 1;
+        if ($('#cl_name').val() == '') {
+            myFunction();
+        } else {
+            myfunction1();
+        }
+    });
+
+    function turing_page() {
+        if ($("#page_num").val() > totalPage || $("#page_num").val() == '' || !Number.isInteger(Number($("#page_num").val()))) {
+            alert("页码有误");
+            return;
+        }
+        currentPage = $("#page_num").val();
+        if ($('#cl_name').val() == '') {
+            myFunction();
+        } else {
+            myfunction1();
+        }
+
+    }
+
+    function trailerPage(totalPage) {
+        currentPage = totalPage;
+        if ($('#cl_name').val() == '') {
+            myFunction();
+        } else {
+            myfunction1();
+        }
+
+    }
+    $('button#create').click(function() {
+        if ($('#cl_name').val() == '') {
+            alert('请输入教学班！！！');
+            return false;
+        }
+        $.post("" + ServerIp + "/StudentManage/AddClass", {
+            "cl_name": $('#cl_name').val()
+        }, function(data) {
+            window.location.reload();
+            // var data = JSON.parse(data);
+        });
+    })
+    // 有条件的填充教务班表
+    function myfunction1() {
+        $.post("" + ServerIp + "/StudentManage/QueryClass", {
+            "cl_name": $('#cl_name').val(),
+            "currentPage": currentPage
+        }, function(data) {
+            // alert(data);
+            var data = JSON.parse(data);
+            var m = 0;
+            document.getElementById("all_class").innerHTML = '';
+            while (data.body.data[m] != null) {
+                $("tbody#all_class").append('<tr><td>' + data.body.data[m].cl_id + '</td><td>' + data.body.data[m].cl_name + '</td><td><a onclick = "check_class_student(this)" cl_id = ' + data.body.data[m].cl_id + ' style="margin-right:10px;" href="#">查看</a><a href="#" onclick = "delete_class(this)" cl_id = ' + data.body.data[m].cl_id + '>删除</a></td></tr>');
+                m++;
+            }
+            var pageList = $('.pagination');
+            totalPage = data.body.totalPage;
+            var pageSize = data.body.pageSize;
+            var firstPage = data.body.firstPage;
+            var lastPage = data.body.lastPage;
+            document.getElementById("page-list").innerHTML = '';
+            if (lastPage) {
+                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+            } else {
+                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+            }
+            pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+            if (totalPage > 1) {
+                if (totalPage - currentPage >= 2) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                }
+                if (currentPage > 1 && currentPage != totalPage) {
+                    pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                } else {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                }
+                pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+            }
+            document.getElementById("questionback" + currentPage).style.background = "#426384";
+            if (firstPage) {
+                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+            } else {
+                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+            }
+            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+        });
+    }
+    $('button#search').click(function() {
+        if ($('#cl_name').val() == '') {
+            alert('请输入教学班名!');
+            return false;
+        } else {
+            currentPage = 1;
+            myfunction1();
+        }
+    });
+
+    // function check_class_student(obj) {
+    //     var cl_id = $(obj).attr("cl_id");
+    //     var data = {
+    //         'cl_id': cl_id,
+    //     }
+    //     $.post("" + ServerIp + "/StudentManage/OpenClass", data, function(data) {
+    //         if (typeof data === 'string')
+    //             var data = JSON.parse(data);
+    //         switch (data.status) {
+    //             case 1:
+    //                 var tablebody = $('#studentList');
+    //                 tablebody.empty();
+    //                 var m = 0;
+    //                 while (data.body[m]) {
+    //                     if (data.body[m].st_sex == '')
+    //                         data.body[m].st_sex = "null";
+    //                     if (data.body[m].st_specialty == '')
+    //                         data.body[m].st_specialty = "null";
+    //                     if (data.body[m].st_name == '')
+    //                         data.body[m].st_name = "null";
+    //                     if (data.body[m].st_phone == '')
+    //                         data.body[m].st_phone = "null";
+
+    //                     var tr =
+    //                         "<tr><td>" + data.body[m].st_specialty + "</td><td>" + data.body[m].st_id + "</td><td>" + data.body[m].st_name + "</td><td>" + data.body[m].st_sex + "</td><td>" + data.body[m].st_phone + "</td><td><a style='color:blue; margin-right:10px; class='btn btn-primary btn-lg'  id = 'modify_student' st_specialty = " + data.body[m].st_specialty + " st_id = " + data.body[m].st_id + " st_name=" + data.body[m].st_name + "   st_phone = " + data.body[m].st_phone + "    st_sex = " + data.body[m].st_sex + "   onclick='modify_student(this)''>修改</a><a style='color:blue; margin-right:10px;class = 'delete' cl_id = " + cl_id + " st_id = " + data.body[m].st_id + " onclick= 'delete_student(this)''>删除</a></td></tr>"
+    //                     tablebody.append(tr);
+    //                     m++;
+    //                 }
+    //                 break;
+    //             case 2:
+    //                 alert("参数错误!");
+    //                 break;
+    //             case 6:
+    //                 alert("该班级未添加学生!");
+    //                 break;
+    //             default:
+    //                 alert("发生未知错误!");
+    //                 break;
+    //         }
+    //     });
+
+    // }
+    function check_class_student(obj) {
+        var cl_id = $(obj).attr("cl_id");
+        var data = {
+            'cl_id': cl_id,
+        }
+        $.post("" + ServerIp + "/StudentManage/OpenClass", data, function(data) {
+            if (typeof data === 'string')
+                var data = JSON.parse(data);
+            switch (data.status) {
+                case 1:
+                    $('#class_details').DataTable({
+                        data: data.body,
+                        columns: [
+                            { data: 'st_specialty' },
+                            { data: 'st_id' },
+                            { data: 'st_name' },
+                            { data: 'st_sex' },
+                            { data: 'st_phone' },
+                            {
+                                render: function(data, type, row) {
+                                    return "<a style='color:blue; margin-right:10px;class = 'delete' cl_id = " + cl_id + "  st_id = " + row.st_id + " onclick= 'delete_student(this)''>删除</a>";
+                                }
+                            }
+                        ],
+                        order: [2, 'desc'],
+                        "bDestroy": true,
+                        "bAutoWidth": true, //自适应宽度  
+                        "sPaginationType": "full_numbers",
+                        "oLanguage": {
+                            "sProcessing": "正在加载中......",
+                            "sLengthMenu": "每页显示 _MENU_ 条记录",
+                            "sZeroRecords": "正在加载中......",
+                            "sEmptyTable": "表中无数据存在！",
+                            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+                            "sInfoEmpty": "显示0到0条记录",
+                            "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+                            "sSearch": "搜索",
+                            "oPaginate": {
+                                "sFirst": "首页",
+                                "sPrevious": "上一页",
+                                "sNext": "下一页",
+                                "sLast": "末页"
+                            }
+                        },
+                        "iDisplayLength" : 1000,
+                        "dom": '<"information"i>ft',
+                    });
+                    break;
+                case 2:
+                    alert("参数错误!");
+                    break;
+                case 6:
+                    alert("该班级未添加学生!");
+                    break;
+                default:
+                    alert("发生未知错误!");
+                    break;
+            }
+        });
+
+    }
+
+    function delete_class(obj) {
+
+        var data = {
+            'cl_id': $(obj).attr("cl_id")
+        }
+        // alert("delete_class   " + $(obj).attr("cl_id"));
+
+        $.post("" + ServerIp + "/StudentManage/DeleteClass", data, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                window.location.reload();
+            } else {
+                alert("该教务班存在考试,不能删除");
+            }
+
+        });
+    }
+
+    function modify_student(obj) {
+        var st_specialty = $(obj).attr("st_specialty");
+        var st_id = $(obj).attr("st_id");
+        var st_name = $(obj).attr("st_name");
+        var st_sex = $(obj).attr("st_sex");
+        var st_phone = $(obj).attr("st_phone");
+
+        $("input#student_specialty_modify").val(st_specialty);
+        $("input#student_id_modify").val(st_id);
+        $("input#student_name_modify").val(st_name);
+        $("input#student_sex_modify").val(st_sex);
+        $("input#student_contact_way_modify").val(st_phone);
+        $('#myModal_modify_student').modal('show');
+        $("button#submit_modify_student").click(function() {
+            var data = {};
+            $("form#form_data_modify").serializeArray().map(function(x) {
+                if (data[x.name] !== undefined) {
+
+                    if (!data[x.name].push) {
+                        data[x.name] = [data[x.name]];
+                    }
+                    data[x.name].push(x.value || '');
+                } else {
+                    data[x.name] = x.value || '';
+                }
+            });
+            $.post("" + ServerIp + "/StudentManage/CheckStudent", data, function(data) {
+                var data = JSON.parse(data);
+                switch (data.status) {
+                    case 0:
+                        alert("修改失败!");
+                        break;
+                    case 1:
+                        // alert("修改成功!");
+                        window.location.reload();
+                        break;
+                    case 2:
+                        alert("参数错误!");
+                        break;
+                    default:
+                        alert("出现未知错误");
+                        break;
+                }
+
+            });
+        });
+
+    }
+
+    function delete_student(obj) {
+        var cl_id = $(obj).attr("cl_id");
+        var st_id = $(obj).attr("st_id");
+        var data = {
+            'st_id': st_id,
+            'cl_id': cl_id
+        };
+        $.post("" + ServerIp + "/StudentManage/DeleteStudent", data, function(data) {
+            var data = JSON.parse(data);
+            var status = data.status;
+
+            switch (status) {
+                case 0:
+                    alert(data.message);
+                    window.location.reload();
+                    break;
+                case 1:
+                    // alert(data.message);
+                    $.post("" + ServerIp + "/StudentManage/OpenClass", {
+                        "cl_id": cl_id,
+                    }, function(data) {
+                        var data = JSON.parse(data);
+                        var tablebody = $('#studentList');
+                        tablebody.empty();
+                        $('#class_details').DataTable({
+                            data: data.body,
+                            columns: [
+                                { data: 'st_specialty' },
+                                { data: 'st_id' },
+                                { data: 'st_name' },
+                                { data: 'st_sex' },
+                                { data: 'st_phone' },
+                                {
+                                    render: function(data, type, row) {
+                                        return "<a style='color:blue; margin-right:10px;class = 'delete' cl_id = " + cl_id + "  st_id = " + row.st_id + " onclick= 'delete_student(this)''>删除</a>";
+                                    }
+                                }
+                            ],
+                            order: [2, 'desc'],
+                            "bDestroy": true,
+                            "bAutoWidth": true, //自适应宽度  
+                            "sPaginationType": "full_numbers",
+                            "oLanguage": {
+                                "sProcessing": "正在加载中......",
+                                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                                "sZeroRecords": "正在加载中......",
+                                "sEmptyTable": "表中无数据存在！",
+                                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+                                "sInfoEmpty": "显示0到0条记录",
+                                "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+                                "sSearch": "搜索",
+                                "oPaginate": {
+                                    "sFirst": "首页",
+                                    "sPrevious": "上一页",
+                                    "sNext": "下一页",
+                                    "sLast": "末页"
+                                }
+                            }
+                        });
+                    });
+                    // window.location.reload();
+                    break;
+                case 2:
+                    alert(data.message);
+                    window.location.reload();
+                    break;
+                case 7:
+                    alert(data.message);
+                    window.location.reload();
+                    break;
+                default:
+                    alert("发生未知错误!");
+                    window.location.reload();
+                    break;
+            }
+        });
+
+    }
+    </script>
+</body>
+
+</html>

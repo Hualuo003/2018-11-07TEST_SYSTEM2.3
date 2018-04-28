@@ -1,0 +1,727 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <!--     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="css/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="css/test.css" rel="stylesheet" type="text/css"/>
+    <style>
+    .hasBeenAnswer {
+        background: #5d9cec;
+        color: #fff;
+    }
+
+    </style>
+</head>
+<!-- oncontextmenu="return false" ondragstart="return false" onselectstart="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty() -->
+
+<br/><br/>
+<h1 style="font-size: 40px;" id="exam">软件工程实验室</h1>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false"
+      onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()>
+
+    <div class=" main
+">
+<!--nr start-->
+<div class="test_main">
+    <div class="nr_left">
+        <div class="nr_rt_main">
+            <div class="rt_nr1">
+                <div style="background-color:#389fc3;">
+                    <h1>
+                        <i style="color:white;">学生信息</i>
+                    </h1>
+                </div>
+                <div class="rt_content">
+                    <p style="font-size: 20px;float: left;margin: 15px;" id="student_name">姓名：乾坤</p>
+                    <p style="font-size: 20px;float: left;margin: 15px;" id="student_id">学号：2014112207</p>
+                    <p style="font-size: 20px;float: left;margin: 15px;" id="student_class">班级：软件4班</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nr_center">
+        <div class="test">
+            <form action="" method="post">
+                <!--<div class="test_title">-->
+                    <!--<p class="test_time">-->
+                        <!--<b class="alt-1"></b>-->
+                    <!--</p>-->
+                    <!--<font>-->
+                        <!--<input type="button" onclick="HandInExam()" value="交卷">-->
+                    <!--</font>-->
+                <!--</div>-->
+                <div class="test_content">
+                    <div class="test_content_title">
+                        <h2>单选题</h2>
+                        <!-- <p>
+                            <span>共</span><i class="content_lit">60</i><span>题，</span><span>合计</span><i class="content_fs">60</i><span>分</span>
+                        </p> -->
+                    </div>
+                </div>
+                <div class="test_content_nr">
+                    <ul id="choice">
+                        <!-- <li id="qu_0_0">
+                            <div class="test_content_nr_tt">
+                                <i>1</i><span>(1分)</span>
+                                <font>在生产管理信息系统中，下列操作步骤能正确将工单推进流程的是（ ）</font><b class="icon iconfont">&#xe881;</b>
+                            </div>
+                            <div class="test_content_nr_main">
+                                <ul>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_1" />
+                                        <label for="0_answer_1_option_1">
+                                            A.
+                                            <p class="ue" style="display: inline;">在工具栏中点击“workflow”标签</p>
+                                        </label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_2" />
+                                        <label for="0_answer_1_option_2">
+                                            B.
+                                            <p class="ue" style="display: inline;">在缺陷单界面中点击“推进流程”按钮</p>
+                                        </label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_3" />
+                                        <label for="0_answer_1_option_3">
+                                            C.
+                                            <p class="ue" style="display: inline;">在缺陷单界面中点击“提交”按钮</p>
+                                        </label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_4" />
+                                        <label for="0_answer_1_option_4">
+                                            D.
+                                            <p class="ue" style="display: inline;">后台启动流程推进</p>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="test_content">
+                    <div class="test_content_title">
+                        <h2>判断题</h2>
+                    </div>
+                </div>
+                <div class="test_content_nr">
+                    <ul id="judge">
+                        <!--  <li id="qu_1_0">
+                            <div class="test_content_nr_tt">
+                                <i>1</i><span>(1分)</span>
+                                <font>以下属于南方电网员工职业操守中明文规定的有()</font><b class="icon iconfont">&#xe881;</b>
+                            </div>
+                            <div class="test_content_nr_main">
+                                <ul>
+                                    <li class="option">
+                                        <input type="checkbox" class="radioOrCheck" name="answer1" id="1_answer_1_option_1" />
+                                        <label for="1_answer_1_option_1">
+                                            A.
+                                            <p class="ue" style="display: inline;">热爱祖国、热爱南网、热爱岗位</p>
+                                        </label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" class="radioOrCheck" name="answer1" id="1_answer_1_option_2" />
+                                        <label for="1_answer_1_option_2">
+                                            B.
+                                            <p class="ue" style="display: inline;">遵纪守法、忠于职守、令行禁止</p>
+                                        </label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" class="radioOrCheck" name="answer1" id="1_answer_1_option_3" />
+                                        <label for="1_answer_1_option_3">
+                                            C.
+                                            <p class="ue" style="display: inline;">客户至上、诚实守信、优质服务</p>
+                                        </label>
+                                    </li>
+                                    <li class="option">
+                                        <input type="checkbox" class="radioOrCheck" name="answer1" id="1_answer_1_option_4" />
+                                        <label for="1_answer_1_option_4">
+                                            D.
+                                            <p class="ue" style="display: inline;">公平竞争、互相监督、服从监管</p>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="test_content">
+                    <div class="test_content_title">
+                        <h2>读程序写结果</h2>
+                    </div>
+                </div>
+                <div class="test_content_nr">
+                    <ul id="filla">
+                    </ul>
+                </div>
+                <div class="test_content">
+                    <div class="test_content_title">
+                        <h2>程序填空</h2>
+                    </div>
+                </div>
+                <div class="test_content_nr">
+                    <ul id="fillb">
+                    </ul>
+                </div>
+                <div class="test_content">
+                    <div class="test_content_title">
+                        <h2>编程题</h2>
+                    </div>
+                </div>
+                <div class="test_content_nr">
+                    <ul id="coding">
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="nr_right">
+        <div class="nr_rt_main">
+            <div class="rt_nr1">
+                <div class="rt_nr1_title">
+                    <h1>
+                        答题卡
+                    </h1>
+                    <p class="test_time">
+                        <b class="alt-1"></b>
+                    </p>
+                </div>
+                <div class="rt_content">
+                    <div class="rt_content_tt">
+                        <h2>单选题</h2>
+                    </div>
+                    <div class="rt_content_nr answerSheet">
+                        <ul id="choice_answer_sheet">
+                            <!--  <li><a href="#qu_0_0">1</a></li>
+                            <li><a href="#qu_0_1">2</a></li>
+                            <li><a href="#qu_0_2">3</a></li>
+                            <li><a href="#qu_0_3">4</a></li>
+                            <li><a href="#qu_0_4">5</a></li>
+                            <li><a href="#qu_0_5">6</a></li>
+                            <li><a href="#qu_0_6">7</a></li>
+                            <li><a href="#qu_0_7">8</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="rt_content">
+                    <div class="rt_content_tt">
+                        <h2>判断题</h2>
+                    </div>
+                    <div class="rt_content_nr answerSheet">
+                        <ul id="judge_answer_sheet">
+                        </ul>
+                    </div>
+                </div>
+                <div class="rt_content">
+                    <div class="rt_content_tt">
+                        <h2>读程序写结果</h2>
+                    </div>
+                    <div class="rt_content_nr answerSheet">
+                        <ul id="filla_answer_sheet">
+                        </ul>
+                    </div>
+                </div>
+                <div class="rt_content">
+                    <div class="rt_content_tt">
+                        <h2>程序填空</h2>
+                    </div>
+                    <div class="rt_content_nr answerSheet">
+                        <ul id="fillb_answer_sheet">
+                        </ul>
+                    </div>
+                </div>
+                <div class="rt_content">
+                    <div class="rt_content_tt">
+                        <h2>编程题</h2>
+                    </div>
+                    <div class="rt_content_nr answerSheet">
+                        <ul id="coding_answer_sheet">
+                        </ul>
+                    </div>
+                </div>
+                <div class="rt_content">
+                    <input type="button" onclick="HandInExam()" value="交卷" style="color:blue;width:50%;">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--nr end-->
+<div class="foot"></div>
+</div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.easy-pie-chart.js"></script>
+<!--时间js-->
+<script src="js/jquery.countdown.js"></script>
+<script src="js/config.js"></script>
+<script>
+    // window.jQuery(function($) {
+    //     "use strict";
+    //     $('.alt-1').countDown({
+    //         css_class: 'countdown-alt-1'
+    //     });
+    //     // var t=setTimeout("alert('5 秒！')",5000);
+
+    // });
+    // $("#choice").delegate('li.option', 'click', function(event) {
+    //     var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+    //     var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+    //     // 设置已答题
+    //     if (!cardLi.hasClass('hasBeenAnswer')) {
+    //         cardLi.addClass('hasBeenAnswer');
+    //     }
+    //     alert($(this).closest('ul').attr('id'));
+    //     ul_id = $(this).closest('ul').attr('id');
+    //     var gvg = $("#"+ul_id+" input:radio").val();
+    //     if (gvg == null) {
+    //         alert("什么也没选中!");
+    //         return false;
+    //     } else {
+    //         alert(gvg);
+    //     }
+    // });
+    // var time = 7200000;
+    var CountDown = 10000;
+
+    $("#choice").delegate('input.radioOrCheck', 'click', function(event) {
+        var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+        var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+        // 设置已答题
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+        // alert("eq_id " + examId);
+        // alert($(this).val());
+        $.ajax({
+            url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+                "eq_id": examId,
+                "eq_answer": $(this).val(),
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    CountDown = data.message;
+                    // alert("succes");
+                } else {
+                    // alert("error");
+                    alert(data.message);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+    });
+    $("#judge").delegate('input.radioOrCheck', 'click', function(event) {
+        var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+        var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+        // 设置已答题
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+        // alert("eq_id " + examId);
+        // alert($(this).val());
+        $.ajax({
+            url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+                "eq_id": examId,
+                "eq_answer": $(this).val(),
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    // alert("succes");
+                    CountDown = data.message;
+                } else {
+                    // alert("error");
+                    alert(data.message);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+    });
+
+    function ChangeFilla(data) {
+        var cardLi = $('a[href=#' + data.name + ']');
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+        // alert("eq_id " + data.name);
+        // alert(data.value);
+        $.ajax({
+            url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+                "eq_id": data.name,
+                "eq_answer": data.value,
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    // alert("succes");
+                    CountDown = data.message;
+                } else {
+                    // alert("error");
+                    alert(data.message);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+    }
+
+    function ChangeFillb(data) {
+        var cardLi = $('a[href=#' + data.id + ']');
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+        // alert("eq_id " + data.name);
+        // alert('data.value '+data.value);
+        // alert('data.id '+data.id);
+        $.ajax({
+            url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+                "eq_id": data.name,
+                "eq_answer": data.value,
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    // alert("succes");
+                    CountDown = data.message;
+                } else {
+                    // alert("error");
+                    alert(data.message);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+    }
+
+    function ChangeCoding(data) {
+        var cardLi = $('a[href=#' + data.name + ']');
+        if (!cardLi.hasClass('hasBeenAnswer')) {
+            cardLi.addClass('hasBeenAnswer');
+        }
+        // alert("eq_id " + data.name);
+        // alert(data.value);
+        $.ajax({
+            url: "" + ServerIp + "/Student/SaveExam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            data: {
+                "eq_id": data.name,
+                "eq_answer": data.value,
+            },
+            success: function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    // alert("succes");
+                    CountDown = data.message;
+                } else {
+                    // alert("error");
+                    alert(data.message);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+    }
+
+
+    $(document).ready(function() {
+
+        $.ajax({
+            url: "" + ServerIp + "/Student/SelectExamQuestionById", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            success: function(data) {
+                var data = JSON.parse(data);
+                if(data.status == 0){
+                    alert("出错了，将关闭本页面");
+                    if (navigator.userAgent.indexOf("Firefox") > 0) {
+                         window.location.href = 'about:blank ';
+                    } else {
+                         window.opener = null;
+                         window.open('', '_self', '');
+                         window.close();
+                    }
+                }
+                <!--console.log(data);-->
+                // 选择题
+                for (var i = 0; i < data.body[0].length; i++) {
+                    $("#choice").append('<li id="' + data.body[0][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[0][i].eq_pre_score + '分)</span><font>' + data.body[0][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
+                    $("#" + data.body[0][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="option_class_' + i + '"></div>'
+                    $("#" + data.body[0][i].eq_id + "").append(option);
+                    var option_ul = '<ul id ="option_ul_' + i + '"></ul>'
+                    $("#option_class_" + i + "").append(option_ul);
+                    var option_a = '<li class="option" ><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_1" value="A"/><label for="0_answer_' + j + '_option_1">A.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_a + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_a);
+                    var option_b = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_2" value="B"/><label for="0_answer_' + j + '_option_2">B.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_b + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_b);
+                    var option_c = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_3" value="C"/><label for="0_answer_' + j + '_option_3">C.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_c + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_c);
+                    var option_d = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_4" value="D"/><label for="0_answer_' + j + '_option_4">D.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_d + '</p></label></li>'
+                    $("#option_ul_" + i + "").append(option_d);
+                    $("#choice_answer_sheet").append('<li><a href="#' + data.body[0][i].eq_id + '">' + j + '</a></li>')
+                    if (data.body[0][i].eq_answer != null && data.body[0][i].eq_answer != "答案") {
+                        $(":radio[name='answer0" + j + "'][value='" + data.body[0][i].eq_answer + "']").prop("checked", "checked");
+                        var cardLi = $('a[href=#' + data.body[0][i].eq_id + ']'); // 
+                        // 设置已答题
+                        if (!cardLi.hasClass('hasBeenAnswer')) {
+                            cardLi.addClass('hasBeenAnswer');
+                        }
+                    }
+
+                }
+                // 判断题
+                for (var i = 0; i < data.body[1].length; i++) {
+                    $("#judge").append('<li id="' + data.body[1][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[1][i].eq_pre_score + '分)</span><font>' + data.body[1][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
+                    $("#" + data.body[1][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="judge_option_class_' + i + '"></div>'
+                    $("#" + data.body[1][i].eq_id + "").append(option);
+                    var option_ul = '<ul id ="judge_option_ul_' + i + '"></ul>'
+                    $("#judge_option_class_" + i + "").append(option_ul);
+                    var option_a = '<li class="option" ><input type="radio" class="radioOrCheck" name="answer' + j + '" id="1_answer_' + j + '_option_1" value="T"/><label for="1_answer_' + j + '_option_1"><p class="ue" style="display: inline;">T</p></label></li>'
+                    $("#judge_option_ul_" + i + "").append(option_a);
+                    var option_b = '<li class="option"><input type="radio" class="radioOrCheck" name="answer' + j + '" id="1_answer_' + j + '_option_2" value="F"/><label for="1_answer_' + j + '_option_2"<p class="ue" style="display: inline;">F</p></label></li>'
+                    $("#judge_option_ul_" + i + "").append(option_b);
+
+                    $("#judge_answer_sheet").append('<li><a href="#' + data.body[1][i].eq_id + '">' + j + '</a></li>')
+                    if (data.body[1][i].eq_answer != null && data.body[1][i].eq_answer != "答案") {
+                        $(":radio[name='answer" + j + "'][value='" + data.body[1][i].eq_answer + "']").prop("checked", "checked");
+                        var cardLi = $('a[href=#' + data.body[1][i].eq_id + ']'); // 
+                        // 设置已答题
+                        if (!cardLi.hasClass('hasBeenAnswer')) {
+                            cardLi.addClass('hasBeenAnswer');
+                        }
+                    }
+                }
+                // 读程序写结果filla
+                for (var i = 0; i < data.body[2].length; i++) {
+                    $("#filla").append('<li id="' + data.body[2][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[2][i].eq_pre_score + '分)</span><font>' + data.body[2][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
+                    $("#" + data.body[2][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="filla_option_class_' + i + '"></div>'
+                    $("#" + data.body[2][i].eq_id + "").append(option);
+                    var text = '<lable>答案</lable><br/> <input type="text" name="' + data.body[2][i].eq_id + '" class="' + data.body[2][i].eq_id + '" value="" style="border:none #FFFFFF;  border-bottom:#777777 solid 1px; background:transparent;height:30px; " onchange="ChangeFilla(this)"></br>'
+                    $("#filla_option_class_" + i + "").append(text);
+                    $("#filla_answer_sheet").append('<li><a href="#' + data.body[2][i].eq_id + '">' + j + '</a></li>')
+                    if (data.body[2][i].eq_answer != null && data.body[2][i].eq_answer != "答案") {
+                        $("." + data.body[2][i].eq_id + "").val(data.body[2][i].eq_answer);
+                        var cardLi = $('a[href=#' + data.body[2][i].eq_id + ']');
+                        // 设置已答题
+                        if (!cardLi.hasClass('hasBeenAnswer')) {
+                            cardLi.addClass('hasBeenAnswer');
+                        }
+                    }
+                }
+                // 程序填空
+                // alert("data.body[3].length"+data.body[3].length);
+                for (var i = 0; i < data.body[3].length; i++) {
+                    $("#fillb").append('<li id="qu_3_' + i + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt" id="fillb_coding' + i + '""><i>' + j + '</i><span>(' + data.body[3][i][0].eq_pre_score * data.body[3][i][1].length + '分)</span><font>' + data.body[3][i][0].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></br></div>'
+                    $("#qu_3_" + i + "").append(stem);
+                    var fillb_content = data.body[3][i][0].fb_pre_coding;
+
+
+                    for (var k = 0; k < data.body[3][i][1].length; k++) {
+                        // alert('data.body[3][i][1]['+k+'].eq_id'+data.body[3][i][1][k].eq_id);
+                        var blank = '<input type="text" name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" style="border:none #FFFFFF;  border-bottom:#777777 solid 1px; background:transparent;height:30px; " onchange="ChangeFillb(this)">'
+                        fillb_content = fillb_content.replace(/&&&([\s\S]*?)&&&/, blank);
+                    }
+                    var fb_pre_coding = '<font>' + fillb_content + '</font>'
+                    $("#fillb_coding" + i + "").append(fb_pre_coding);
+                    $("#fillb_answer_sheet").append('<li><a href="#fillb' + i + '">' + j + '</a></li>')
+                    for (var k = 0; k < data.body[3][i][1].length; k++) {
+                        if (data.body[3][i][1][k].eq_answer != null && data.body[3][i][1][k].eq_answer != "答案") {
+                            $("." + data.body[3][i][1][k].eq_id + "").val(data.body[3][i][1][k].eq_answer);
+                            var cardLi = $('a[href=#fillb' + i + ']'); // 
+                            // 设置已答题
+                            if (!cardLi.hasClass('hasBeenAnswer')) {
+                                cardLi.addClass('hasBeenAnswer');
+                            }
+                        }
+                    }
+
+                }
+
+                // 编程题
+                for (var i = 0; i < data.body[4].length; i++) {
+                    $("#coding").append('<li id="' + data.body[4][i].eq_id + '"></li>');
+                    var j = i + 1;
+                    var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[4][i].eq_pre_score + '分)</span><font>' + data.body[4][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
+                    $("#" + data.body[4][i].eq_id + "").append(stem);
+                    var option = '<div class="test_content_nr_main" id ="coding_option_class_' + i + '"></div>'
+                    $("#" + data.body[4][i].eq_id + "").append(option);
+                    var text = '<lable>答案</lable><br/> <textarea name="' + data.body[4][i].eq_id + '" class="' + data.body[4][i].eq_id + '" value=""  rows="20" cols="100" onchange="ChangeCoding(this)"></textarea></br>'
+                    $("#coding_option_class_" + i + "").append(text);
+                    $("#coding_answer_sheet").append('<li><a href="#' + data.body[4][i].eq_id + '">' + j + '</a></li>')
+                    if (data.body[4][i].eq_answer != null && data.body[4][i].eq_answer != "答案") {
+                        $("." + data.body[4][i].eq_id + "").text(data.body[4][i].eq_answer);
+                        var cardLi = $('a[href=#' + data.body[4][i].eq_id + ']'); // 
+                        // 设置已答题
+                        if (!cardLi.hasClass('hasBeenAnswer')) {
+                            cardLi.addClass('hasBeenAnswer');
+                        }
+                    }
+                }
+                CountDown = data.message;
+                $("#student_name").html("姓名: " + data.body[5].st_name);
+                $("#student_id").html("学号: " + data.body[5].st_id);
+
+                $("#student_class").html("班级: " + data.body[5].st_specialty);
+                $("#exam").html(data.body[5].exam_name);
+            },
+            error: function(data) {
+                // alert("error")
+            }
+        });
+    });
+
+    // function timedCount() {
+    //     OpenWindow = window.open("", "newwin", "height=250, width=250,top=250 ,left=500 ,");
+    //     //写成一行 
+    //     OpenWindow.document.write("<BODY BGCOLOR=#ffffff>");
+    //     OpenWindow.document.write("<h1>时间快到了</h1>");
+    //     OpenWindow.document.write("请抓紧时间");
+    //     OpenWindow.document.write("</BODY>");
+    //     OpenWindow.document.write("</HTML>");
+    //     OpenWindow.document.close();
+    // }
+    function CloseWebPage(){
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+               window.opener = null;
+               window.close();
+            } else {
+               window.open('', '_top');
+               window.top.close();
+           }
+        }else if (navigator.userAgent.indexOf("Firefox") > 0) {
+           window.location.href = '' + ServerIp + '/static/exam/practice_exam_page.html';;
+        } else {
+           window.opener = null;
+           window.open('', '_self', '');
+           window.close();
+       }
+    }
+    var hand_exam=0;//1表示时间到了自动交卷
+    function HandInExam() {
+        if(hand_exam==0){
+            if(!confirm("是否交卷?")){
+                return;
+            }
+        }
+        $.ajax({
+            url: "" + ServerIp + "/Student/HandInExam", //加上这句话 
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            type: 'POST',
+            async: false,
+            dataType: "text",
+            data: {},
+            success: function(data) {
+                var data = JSON.parse(data);
+
+                if (data.status == 1) {
+                <!--正式考试，直接关闭页面-->
+                    if (navigator.userAgent.indexOf("Firefox") > 0) {
+                           window.location.href = 'about:blank ';
+                    } else {
+                           window.opener = null;
+                           window.open('', '_self', '');
+                           window.close();
+                    }
+                } else{
+                <!--非正式考试，关闭页面。打开考卷-->
+                     if (navigator.userAgent.indexOf("Firefox") > 0) {
+                           window.location.href = '' + ServerIp + '/static/exam/practice_exam_page.html';
+                     } else {
+                           //window.open(location,'_self').close();
+                           window.open('' + ServerIp + '/static/exam/practice_exam_page.html');
+                           window.opener = null;
+                           window.open('', '_self', '');
+                           window.close();
+
+                     }
+                     //CloseWebPage();
+                     //window.open('' + ServerIp + '/static/exam/practice_exam_page.html');
+                }
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+        });
+        // OpenWindow = window.open("", "newwin", "height=250, width=250,top=250 ,left=500 ,");
+        // //写成一行 
+        // OpenWindow.document.write("<BODY BGCOLOR=#ffffff>");
+        // OpenWindow.document.write("<h1>考试已结束</h1>");
+        // OpenWindow.document.write('<lable>联系方式:</lable><input type="text" id="2014112200" value="" style="border:none #FFFFFF;  border-bottom:#777777 solid 2px; background:transparent;height:30px; " onkeyup="SaveIphone(this)">');
+        // OpenWindow.document.write("</BODY>");
+        // OpenWindow.document.write("</HTML>");
+        // OpenWindow.document.close();
+    }
+    setInterval(function() {
+        if (CountDown <= 1000) {
+            hand_exam=1;
+            HandInExam();
+            // window.close();
+        }
+        // if (CountDown == 1000*60*15) {
+        //     timedCount();
+        // }
+        CountDown = CountDown - 1000;
+        var hour = parseInt(CountDown / 1000 / 60 / 60 % 24);
+        var minute = parseInt(CountDown / 1000 / 60 % 60);
+        var seconds = parseInt(CountDown / 1000 % 60);
+        $('.alt-1').html(hour + ":" + minute + ":" + seconds);
+        // var t = setTimeout("timedCount()", 1000);
+    }, 1000);
+
+</script>
+</div>
+</body>
+
+</html>

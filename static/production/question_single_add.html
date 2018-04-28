@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+    a {
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>添加题目 </h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>添加试题</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <br />
+                                    <form class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">题库选择</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12">
+                                                <select class="select2_single form-control" tabindex="-1" id="qb_id">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">选择题型</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12">
+                                                <select class="form-control tixin" id="qt_type">
+                                                    <option value="choice">选择题</option>
+                                                    <option value="judge">判断题</option>
+                                                    <option value="fillb">程序填空题</option>
+                                                    <option value="filla">读程序写结果</option>
+                                                    <option value="coding">编程题</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                            <div class="col-md-3">
+                                                <select class="form-control" id="qt_diffculty">
+                                                    <option value="0">0</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="40">40</option>
+                                                    <option value="50">50</option>
+                                                    <option value="60">60</option>
+                                                    <option value="70">70</option>
+                                                    <option value="80">80</option>
+                                                    <option value="90">90</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">考察知识点</label>
+                                            <div class="col-md-3">
+                                                <select class="select2_single form-control" id="Knowledge">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">输入题干</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <textarea rows="6" class="form-control" placeholder="题干" id="qt_stem"></textarea>
+                                            </div>
+                                        </div>
+                                        <div id="choice">
+                                            <div id="choice_option">
+                                                <div class="form-group">
+                                                    <div class="form-group" id="option_a">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">选项A</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="选项A" id="cc_a"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="option_b">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">选项B</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="选项B" id="cc_b"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="option_c">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">选项C</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="选项C" id="cc_c"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="option_d">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">选项D</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="选项D" id="cc_d"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">答案</label>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="cc_answer">
+                                                            <option>A</option>
+                                                            <option>B</option>
+                                                            <option>C</option>
+                                                            <option>D</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                    <button type="reset" class="btn btn-primary">取消</button>
+                                                    <button type="button" id="add_choice" class="btn btn-success">添加题目</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="filla" hidden>
+                                            <div id="filla-answer">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">答案</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="答案" id="fa_answer"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                    <button type="reset" class="btn btn-primary">取消</button>
+                                                    <button type="button" id="add_filla" class="btn btn-success">添加题目</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="judge" hidden>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12">正确答案</label>
+                                                <div class="radio col-md-1">
+                                                    <label>
+                                                        <input type="radio" checked="checked" value="T" name="optionsRadios" id="radio1"> 正确
+                                                    </label>
+                                                </div>
+                                                <div class="radio col-md-1">
+                                                    <label>
+                                                        <input type="radio" value="F" name="optionsRadios" id="error"> 错误
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                    <button type="reset" class="btn btn-primary">取消</button>
+                                                    <button type="button" id="add_judge" class="btn btn-success">添加题目</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="fillb" hidden>
+                                            <div>
+                                                <div id="fillb-answer">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">测试代码</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="15" class="form-control" placeholder="完整代码，填空处用&&&隔离" id="fb_pre_coding"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="测试输入" id="fb_test_answer_in0"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="测试输出" id="fb_test_answer_out0"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+                                                    <div class="col-md-9">
+                                                        <button type="button" class="btn btn-primary" id="add-fillb-answer">添加</button>
+                                                        <button type="button" class="btn btn-primary" id="delete-fillb-answer">删除</button>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                        <button type="reset" class="btn btn-primary">取消</button>
+                                                        <button type="button" id="add_fillb" class="btn btn-success">添加题目</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="coding" hidden>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12">测试代码</label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <textarea rows="15" class="form-control" placeholder="测试代码" id="co_test_coding"></textarea>
+                                                </div>
+                                            </div>
+                                            <div id="coding-answer">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="测试输入" id="co_test_answer_in0"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="2" class="form-control" placeholder="测试输出" id="co_test_answer_out0"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+                                                <div class="col-md-9">
+                                                    <button type="button" class="btn btn-primary" id="add-coding-answer">添加</button>
+                                                    <button type="button" class="btn btn-primary" id="delete-coding-answer">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                    <button type="reset" class="btn btn-primary">取消</button>
+                                                    <button type="button" id="add_coding" class="btn btn-success">添加题目</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="ln_solid"></div> -->
+                                        <!-- <div class="form-group">
+                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                <button type="reset" class="btn btn-primary">取消</button>
+                                                <button type="button" id = "add_question" class="btn btn-success">添加</button>
+                                            </div>
+                                        </div> -->
+                                    </form>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="../vendors/dropzone/dist/min/dropzone.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+    <script>
+    var coding_num = 1;
+    (function() {
+
+        $('.tixin').change(function() {
+            var temp = $('.tixin').val();
+            if (temp === 'fillb') {
+                $('#fillb').show();
+                $('#choice').hide();
+                $('#judge').hide();
+                $('#filla').hide();
+                $('#coding').hide();
+            } else if (temp === 'choice') {
+                $('#choice').show();
+                $('#filla').hide();
+                $('#judge').hide();
+                $('#fillb').hide();
+                $('#coding').hide();
+            } else if (temp === 'judge') {
+                $('#judge').show();
+                $('#choice').hide();
+                $('#filla').hide();
+                $('#fillb').hide();
+                $('#coding').hide();
+            } else if (temp === 'filla') {
+                $('#judge').hide();
+                $('#choice').hide();
+                $('#fillb').hide();
+                $('#filla').show();
+                $('#coding').hide();
+            } else if (temp === 'coding') {
+                $('#coding').show();
+                $('#judge').hide();
+                $('#choice').hide();
+                $('#filla').hide();
+                $('#fillb').hide();
+            }
+        });
+
+        $('#add-coding-answer').click(function() {
+            $('#coding-answer').append(`<div class="form-group" id="coding_in`+coding_num+`"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="co_test_answer_in` + coding_num + `"></textarea></div></div><div class="form-group" id="coding_out`+coding_num+`"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="co_test_answer_out` + coding_num + `"></textarea></div></div>`);
+            coding_num += 1;
+        });
+        $('#delete-coding-answer').click(function() {
+            if (coding_num == 1) {
+                alert("不能没有输入输出");
+                return;
+            }
+            coding_num -= 1;
+            $("#coding_in" + coding_num + "").remove();
+            $("#coding_out" + coding_num + "").remove();
+            
+        });
+
+        $('#add-fillb-answer').click(function() {
+            $('#fillb-answer').append(`<div class="form-group" id="fb_in`+coding_num+`"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="fb_test_answer_in` + coding_num + `"></textarea></div></div><div class="form-group" id="fb_out`+coding_num+`"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="fb_test_answer_out` + coding_num + `"></textarea></div></div>`);
+            coding_num += 1;
+        });
+        $('#delete-fillb-answer').click(function() {
+            if (coding_num == 1) {
+                alert("不能没有输入输出");
+                return;
+            }
+            coding_num -= 1;
+            $("#fb_in" + coding_num + "").remove();
+            $("#fb_out" + coding_num + "").remove();
+            
+
+        });
+    })();
+    $(document).ready(function() {
+        var Knowledge = $("#Knowledge");
+        var qb = $("#qb_id");
+        $.get("" + ServerIp + "/QuestionBackManage/RequestQuestionBack/", {}, function(data) {
+            var data = JSON.parse(data);
+            for (var i = 0; i < data.body[0].length; i++) {
+                Knowledge.append("<option value = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+            }
+            for (var i = 0; i < data.body[1].length; i++) {
+                qb.append("<option value = '" + data.body[1][i].qb_id + "'>" + data.body[1][i].qb_name + "</option>");
+            }
+        });
+
+    });
+    $(document).ready(function() {
+
+        $(".select2_single").select2({
+            allowClear: true,
+        });
+    });
+    $('#add_choice').click(function() {
+        var cc_a = $("#cc_a");
+        var cc_b = $("#cc_b");
+        var cc_c = $("#cc_c");
+        var cc_d = $("#cc_d");
+        // var cc_e = $("#cc_e");
+        // var cc_f = $("#cc_f");
+        var cc_answer = $("#cc_answer");
+        var qb_id = $("#qb_id");
+        var Knowledge = $("#Knowledge");
+        var qt_stem = $("#qt_stem");
+        var qt_type = $("#qt_type");
+        var qt_diffculty = $("#qt_diffculty");
+        $.post("" + ServerIp + "/QuestionBackManage/AddQuestion/", {
+            "qt_stem": qt_stem.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty": qt_diffculty.val(),
+            "questions_bank_qb_id": qb_id.val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "cc_a": cc_a.val(),
+            "cc_b": cc_b.val(),
+            "cc_c": cc_c.val(),
+            "cc_d": cc_d.val(),
+            "cc_answer": cc_answer.val(),
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                // alert("succes");
+                $("#qt_stem").val("");
+                $("#cc_a").val("");
+                $("#cc_b").val("");
+                $("#cc_c").val("");
+                $("#cc_d").val("");
+            } else {
+                alert("添加失败");
+            }
+        });
+    });
+    $('#add_judge').click(function() {
+        var jd_answer;
+        var qb_id = $("#qb_id");
+        var Knowledge = $("#Knowledge");
+        var qt_stem = $("#qt_stem");
+        var qt_type = $("#qt_type");
+        var qt_diffculty = $("#qt_diffculty");
+        var radio1 = document.getElementById("radio1");
+        if (radio1.checked)
+            jd_answer = 'T';
+        else
+            jd_answer = 'F';
+        // alert(Knowledge.val());
+        $.post("" + ServerIp + "/QuestionBackManage/AddQuestion/", {
+            "qt_stem": qt_stem.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty": qt_diffculty.val(),
+            "questions_bank_qb_id": qb_id.val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "jd_answer": jd_answer,
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                // alert("succes");
+                $("#qt_stem").val("");
+            } else {
+                alert("添加失败");
+            }
+        });
+    });
+
+    $('#add_filla').click(function() {
+        var fa_answer = $("#fa_answer");
+        var qb_id = $("#qb_id");
+        var Knowledge = $("#Knowledge");
+        var qt_stem = $("#qt_stem");
+        var qt_type = $("#qt_type");
+        var qt_diffculty = $("#qt_diffculty");
+        $.post("" + ServerIp + "/QuestionBackManage/AddQuestion/", {
+            "qt_stem": qt_stem.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty": qt_diffculty.val(),
+            "questions_bank_qb_id": qb_id.val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "fa_answer": fa_answer.val(),
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                // alert("succes");
+                $("#qt_stem").val("");
+                $("#fa_answer").val("");
+            } else {
+                alert("添加失败");
+            }
+        });
+    });
+    $('#add_coding').click(function() {
+        var qb_id = $("#qb_id");
+        var Knowledge = $("#Knowledge");
+        var qt_stem = $("#qt_stem");
+        var qt_type = $("#qt_type");
+        var qt_diffculty = $("#qt_diffculty");
+        var co_test_answer_in = "&&&";
+        var co_test_answer_out = "&&&";
+        var co_test_coding = $("#co_test_coding");
+        for (var i = 0; i < coding_num; i++) {
+            co_test_answer_in = co_test_answer_in + $("#co_test_answer_in"+i+"").val() + "&&&";
+            co_test_answer_out = co_test_answer_out + $("#co_test_answer_out"+i+"").val() + "&&&";
+        }
+        var cin = JSON.stringify(co_test_answer_in, null, 0);
+        var cout = JSON.stringify(co_test_answer_out, null, 0);
+        $.post("" + ServerIp + "/QuestionBackManage/AddQuestion/", {
+            "qt_stem": qt_stem.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty": qt_diffculty.val(),
+            "questions_bank_qb_id": qb_id.val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "co_test_answer_in": co_test_answer_in,
+            "co_test_answer_out": co_test_answer_out,
+            "co_test_coding": co_test_coding.val(),
+        }, function(data) {
+            // alert(data);
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                // alert("succes");
+                $("#qt_stem").val("");
+                $("#co_test_coding").val("");
+                $("#co_test_answer_in0").val("");
+                $("#co_test_answer_out0").val("");
+                for (var i = 1; i < coding_num; i++) {
+                    // $("#coding" + i).remove();
+                    $("#coding_in"+i+"").remove();
+                    $("#coding_out"+i+"").remove();
+                }
+                coding_num = 1;
+            } else {
+                alert("添加失败");
+            }
+        });
+    });
+    $('#add_fillb').click(function() {
+        var qb_id = $("#qb_id");
+        var Knowledge = $("#Knowledge");
+        var qt_stem = $("#qt_stem");
+        var qt_type = $("#qt_type");
+        var qt_diffculty = $("#qt_diffculty");
+        var fb_pre_coding = $("#fb_pre_coding");
+        // alert(fb_pre_coding.val());
+        var fb_test_answer_in = "&&&";
+        var fb_test_answer_out = "&&&";
+        for (var i = 0; i < coding_num; i++) {
+            // alert($("#fb_test_answer_in"+i+"").val());
+            fb_test_answer_in = fb_test_answer_in + $("#fb_test_answer_in"+i+"").val() + "&&&";
+            fb_test_answer_out = fb_test_answer_out + $("#fb_test_answer_out"+i+"").val() + "&&&";
+        }
+        var cin = JSON.stringify(fb_test_answer_in, null, 0);
+        var cout = JSON.stringify(fb_test_answer_out, null, 0);
+        $.post("" + ServerIp + "/QuestionBackManage/AddQuestion/", {
+            "qt_stem": qt_stem.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty": qt_diffculty.val(),
+            "questions_bank_qb_id": qb_id.val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "fb_test_answer_in": cin,
+            "fb_test_answer_out": cout,
+            "fb_pre_coding": fb_pre_coding.val(),
+        }, function(data) {
+            var data = JSON.parse(data);
+            if (data.status == 1) {
+                // alert("succes");
+                $("#qt_stem").val("");
+                $("#fb_pre_coding").val("");
+                $("#fb_test_answer_in0").val("");
+                $("#fb_test_answer_out0").val("");
+                for (var i = 1; i < coding_num; i++) {
+                    $("#fb_in" + i).remove();
+                    $("#fb_out" + i).remove();
+                    // $("#fb_test_answer_in" + i).remove();
+                    // $("#fb_test_answer_out" + i).remove();
+                }
+                coding_num = 1;
+            } else {
+                alert("添加失败");
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>

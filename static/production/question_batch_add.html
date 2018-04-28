@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>考试后台管理系统</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+    table {
+        *border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        table-layout: fixed;
+    }
+
+    .zebra td,
+    .zebra th {
+        padding: 10px;
+        /*border-bottom: 1px solid #f2f2f2;*/
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        text-align: left;
+    }
+
+    .zebra .alternate,
+    .zebra tbody tr:nth-child(even) {
+        background: #f5f5f5;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    }
+
+    .zebra th {
+        text-align: left;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+        border-bottom: 1px solid #ccc;
+        background-color: #eee;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
+        background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
+        background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
+        background-image: linear-gradient(top, #f5f5f5, #eee);
+        filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f5f5f5, endColorstr=#eee);
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#f5f5f5,endColorstr=#eee)";
+    }
+
+    .zebra th:first-child {
+        border-radius: 6px 0 0 0;
+        width: 50px;
+    }
+
+    .zebra th:last-child {
+        border-radius: 0 6px 0 0;
+        width: 120px;
+    }
+
+    .zebra tr:last-child td:first-child {
+        border-radius: 0 0 0 6px;
+    }
+
+    .zebra td:last-child {
+        border-radius: 0 0 6px 0;
+    }
+
+    .pageNumber {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #dddddd;
+        height: 40px;
+        width: auto;
+    }
+
+    td {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .td0 {
+        width: 47%;
+    }
+
+    .td1 {
+        width: 12%;
+    }
+
+    a {
+        cursor: pointer;
+    }
+    </style>
+    <style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        float: right;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+    ul.pagination li a {
+        color: black;
+        float: right;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    ul.pagination li a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    ul.pagination li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+    </style>
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="position:fixed;">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a class="site_title"><span>考试后台管理系统</span></a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                                <li id="question_back_manage">
+                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="question_bank.html">题库管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_find.html">查找题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_single_add.html">添加题目</a>
+                                        </li>
+                                        <li>
+                                            <a href="question_batch_add.html">导入题目</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="student_class.html">教务班管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_batch_add.html">导入学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_single_add.html">添加学生</a>
+                                        </li>
+                                        <li>
+                                            <a href="student_find.html">查找学生</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="strategy_create.html">新增策略</a>
+                                        </li>
+                                        <li>
+                                            <a href="strategy_view.html">查看策略</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                               
+                                <li>
+                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="exam_create.html">新建考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_view.html">查看考试</a>
+                                        </li>
+                                        <li>
+                                            <a href="exam_monitor.html">考试监控</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
+                                </li>
+                                <li>
+                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
+                                </li>
+                                <li>
+                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
+                                </li>
+                                
+                                <li>
+                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a href="document_exam_paper.html">考卷导出</a>
+                                        </li>
+                                        <li>
+                                            <a href="remind.html">考试规则</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>导入试题 </h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>查询题目</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li>
+                                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <form class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">题库选择</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12">
+                                                <select class="select2_single form-control" id="qb_id">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">目标题库</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12">
+                                                <select class="select2_single form-control" tabindex="-1" id="target_qb">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">题型选择</label>
+                                            <div class="col-md-3 col-sm-9 col-xs-12">
+                                                <select class="form-control tixin" id="qt_type">
+                                                    <option value="all">所有题型</option>
+                                                    <option value="'choice'">选择题</option>
+                                                    <option value="'Judge'">判断题</option>
+                                                    <option value="'Fillb'">程序填空题</option>
+                                                    <option value="'Filla'">读程序写结果</option>
+                                                    <option value="'Coding'">编程题</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">难度上限</label>
+                                            <div class="col-md-3">
+                                                <select class="form-control" id="qt_diffculty_up">
+                                                    <option value="100">100</option>
+                                                    <option value="90">90</option>
+                                                    <option value="80">80</option>
+                                                    <option value="70">70</option>
+                                                    <option value="60">60</option>
+                                                    <option value="50">50</option>
+                                                    <option value="40">40</option>
+                                                    <option value="30">30</option>
+                                                    <option value="20">20</option>
+                                                    <option value="10">10</option>
+                                                    <option value="0">0</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">难度下限</label>
+                                            <div class="col-md-3">
+                                                <select class="form-control" id="qt_diffculty_down">
+                                                    <option value="0">0</option>
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="40">40</option>
+                                                    <option value="50">50</option>
+                                                    <option value="60">60</option>
+                                                    <option value="70">70</option>
+                                                    <option value="80">80</option>
+                                                    <option value="90">90</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
+                                            <div class="col-md-3">
+                                                <select class="select2_single form-control" id="Knowledge">
+                                                    <option value="all">所有知识点</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-sm-9 col-xs-12 col-md-offset-1">
+                                                <button id="SelectQuestion" type="button" class="btn btn-success">查询
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>源题库题目列表</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="demo">
+                                    <table class="zebra bulk_action" id="qt_table">
+                                        <tr>
+                                            <th>
+                                                <input type="checkbox" id="check-all" class="flat">
+                                            </th>
+                                            <th class="td0">题干</th>
+                                            <th>题型</th>
+                                            <th>难度系数</th>
+                                            <th>考察知识点</th>
+                                            <th>正确率</th>
+                                        </tr>
+                                        <tbody id="tablebody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <ul class="pagination" id="page-list">
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" id="import">导入</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 目标题库题目 -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>查找题目</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <form class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">当前题库:</label>
+                                        <label class="control-label col-md-2 col-xs-12" id="qb" value=""></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">题型选择</label>
+                                        <div class="col-md-3 col-sm-9 col-xs-12">
+                                            <select class="form-control tixin" id="target_qt_type">
+                                                <option value="all">所有题型</option>
+                                                <option value="'choice'">选择题</option>
+                                                <option value="'Judge'">判断题</option>
+                                                <option value="'Fillb'">程序填空题</option>
+                                                <option value="'Filla'">读程序写结果</option>
+                                                <option value="'Coding'">编程题</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">难度上限</label>
+                                        <div class="col-md-3">
+                                            <select class="form-control" id="target_qt_diffculty_up">
+                                                <option value="100">100</option>
+                                                <option value="90">90</option>
+                                                <option value="80">80</option>
+                                                <option value="70">70</option>
+                                                <option value="60">60</option>
+                                                <option value="50">50</option>
+                                                <option value="40">40</option>
+                                                <option value="30">30</option>
+                                                <option value="20">20</option>
+                                                <option value="10">10</option>
+                                                <option value="0">0</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">难度下限</label>
+                                        <div class="col-md-3">
+                                            <select class="form-control" id="target_qt_diffculty_down">
+                                                <option value="0">0</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="30">30</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="60">60</option>
+                                                <option value="70">70</option>
+                                                <option value="80">80</option>
+                                                <option value="90">90</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">考察知识点</label>
+                                        <div class="col-md-3">
+                                            <select class="select2_single form-control" id="target_Knowledge">
+                                                <option value="all">所有知识点</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3 col-sm-9 col-xs-12 col-md-offset-1">
+                                            <button id="target_SelectQuestion" type="button" class="btn btn-success">查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>题目列表</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="demo">
+                                    <table class="zebra bulk_action">
+                                        <tr>
+                                            <th>
+                                                <input type="checkbox" id="check-all" class="flat">
+                                            </th>
+                                            <th class="td0">题干</th>
+                                            <th>题型</th>
+                                            <th>难度系数</th>
+                                            <th>考察知识点</th>
+                                            <th>正确率</th>
+                                        </tr>
+                                        <tbody id="target_tablebody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <ul class="pagination" id="target_page-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+    </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <script src="../exam/js/AuthorityManagement.js"></script>
+    <script>
+    var currentPage = 1;
+    var target_currentPage = 1;
+    var totalPage = 1;
+    var target_totalPage = 1;
+    $('#SelectQuestion').click(function() {
+        currentPage = 1;
+        myfunction();
+    });
+
+    function myfunction() {
+
+        var pageSize = 0;
+        var firstPage = 0;
+        var lastPage = 0;
+        var qb_id = $("#qb_id");
+        var Knowledge = $("#Knowledge");
+        var qt_type = $("#qt_type");
+        var pageList = $('#page-list');
+        var qt_diffculty_up = $("#qt_diffculty_up");
+        var qt_diffculty_down = $("#qt_diffculty_down");
+        $.post("" + ServerIp + "/QuestionBackManage/FiltrationQuestion/", {
+            "qb_id": qb_id.val(),
+            "questions_bank_qb_id": $("#target_qb").val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty_up": qt_diffculty_up.val(),
+            "qt_diffculty_down": qt_diffculty_down.val(),
+            "currentPage": currentPage
+        }, function(data) {
+            var data = JSON.parse(data);
+            var tablebody = $('#tablebody');
+            document.getElementById("tablebody").innerHTML = '';
+            totalPage = data.body.totalPage;
+            pageSize = data.body.pageSize;
+            firstPage = data.body.firstPage;
+            lastPage = data.body.lastPage;
+            currentPage = data.body.currentPage;
+            if(totalPage==0){
+                alert("目标题库包含源题库所有题");
+            }
+            var i = 0;
+            var str = '';
+            try {
+                while (data.body.data[i].qt_id) {
+                    str = `<tr>
+                                        <td><input type="checkbox" id = qt` + i + ` value = ` + data.body.data[i].qt_id + ` class="flat" name="table_records"></td>
+                                        <td>` + data.body.data[i].qt_stem + `</td>
+                                        <td>` + data.body.data[i].qt_type + `</td>
+                                        <td>` + data.body.data[i].qt_diffculty + `</td>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].qt_pre_rate + `</td>
+                                    </tr>`
+                    tablebody.append(str);
+                    i += 1;
+                }
+            } catch (err) {
+            }
+            document.getElementById("page-list").innerHTML = '';
+
+                if (lastPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+                } else {
+                    pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+                }
+                pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+                if (totalPage > 1) {
+                    if (totalPage - currentPage >= 2) {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    if (currentPage > 1 && currentPage != totalPage) {
+                        pageList.append('<li ><a id = "questionback' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    } else {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    pageList.append('<li ><a id = "questionback' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+                }
+                document.getElementById("questionback" + currentPage + "").style.background = "#426384";
+                // document.getElementById("tablebody").onfocus();
+                if (firstPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+                } else {
+                    pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+                }
+                pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+                pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+        });
+    }
+    $('#page-list').on("click", "#nextpage", function() {
+            currentPage += 1;
+            myfunction();
+        });
+        $('#page-list').on("click", "#lastpage", function() {
+            currentPage -= 1;
+            myfunction();
+        });
+        $('#page-list').on("click", "#questionback1", function() {
+            currentPage = 1;
+            myfunction();
+        });
+
+        function turing_page() {
+            if ($("#page_num").val() > totalPage || $("#page_num").val() == '' || !Number.isInteger(Number($("#page_num").val()))) {
+                alert("页码有误");
+                return;
+            }
+            currentPage = $("#page_num").val();
+            myfunction();
+
+        }
+
+
+        function trailerPage(totalPage) {
+            currentPage = totalPage;
+            myfunction();
+        }
+
+    function myfunction1() {
+        var qb_id = $("#target_qb");
+        var Knowledge = $("#target_Knowledge");
+        var qt_type = $("#target_qt_type");
+        var pageList = $('#target_page-list');
+        var qt_diffculty_up = $("#target_qt_diffculty_up");
+        var qt_diffculty_down = $("#target_qt_diffculty_down");
+        $.post("" + ServerIp + "/QuestionBackManage/SelectQuestion/", {
+            "qb_id": qb_id.val(),
+            "questions_bank_qb_id": $("#target_qb").val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty_up": qt_diffculty_up.val(),
+            "qt_diffculty_down": qt_diffculty_down.val(),
+            "currentPage": target_currentPage
+        }, function(data) {
+            var data = JSON.parse(data);
+            var tablebody = $('#target_tablebody');
+            document.getElementById("import").focus();
+            document.getElementById("target_tablebody").innerHTML = '';
+            var totalPage = data.body.totalPage;
+            var pageSize = data.body.pageSize;
+            var firstPage = data.body.firstPage;
+            var lastPage = data.body.lastPage;
+            var currentPage = data.body.currentPage;
+            var i = 0;
+            var str = '';
+            try {
+                while (data.body.data[i].qt_id) {
+                    str = `<tr>
+                                        <td><input type="checkbox" id = qt` + i + ` value = ` + data.body.data[i].qt_id + ` class="flat" name="table_records"></td>
+                                        <td>` + data.body.data[i].qt_stem + `</td>
+                                        <td>` + data.body.data[i].qt_type + `</td>
+                                        <td>` + data.body.data[i].qt_diffculty + `</td>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].qt_pre_rate + `</td>
+                                    </tr>`
+                    tablebody.append(str);
+                    i += 1;
+                }
+            } catch (err) {}
+            document.getElementById("target_page-list").innerHTML = '';
+                if (lastPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+                } else {
+                    pageList.append('<li id = "target_nextpage"><a >下页</a></li>');
+                }
+                pageList.append('<li><a id = "target' + target_totalPage + '"  onclick="target_trailerPage(' + target_totalPage + ')" href="#"style="background: wight;" >  ' + target_totalPage + '</a></li>');
+                if (target_totalPage > 1) {
+                    if (target_totalPage - currentPage >= 2) {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    if (currentPage > 1 && currentPage != target_totalPage) {
+                        pageList.append('<li ><a id = "target' + currentPage + '"  chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    } else {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    pageList.append('<li ><a id = "target' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+                }
+                document.getElementById("target" + currentPage + "").style.background = "#426384";
+                if (firstPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+                } else {
+                    pageList.append('<li id = "target_lastpage"><a >上页</a></li>');
+                }
+                pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="target_page_num"></input>');
+                pageList.append('<li onclick = "target_turing_page()" ><a href="#">翻页</a></li>');
+        });
+    }
+    $('#target_SelectQuestion').click(function() {
+        var qb_id = $("#target_qb");
+        var Knowledge = $("#target_Knowledge");
+        var qt_type = $("#target_qt_type");
+        var pageList = $('#target_page-list');
+        var qt_diffculty_up = $("#target_qt_diffculty_up");
+        var qt_diffculty_down = $("#target_qt_diffculty_down");
+        $.post("" + ServerIp + "/QuestionBackManage/SelectQuestion/", {
+            "qb_id": qb_id.val(),
+            "questions_bank_qb_id": $("#target_qb").val(),
+            "knowledge_kl_id": Knowledge.val(),
+            "qt_type": qt_type.val(),
+            "qt_diffculty_up": qt_diffculty_up.val(),
+            "qt_diffculty_down": qt_diffculty_down.val(),
+            "currentPage": target_currentPage
+        }, function(data) {
+            var data = JSON.parse(data);
+            var tablebody = $('#target_tablebody');
+            document.getElementById("target_SelectQuestion").focus();
+            document.getElementById("target_tablebody").innerHTML = '';
+            target_totalPage = data.body.totalPage;
+            var pageSize = data.body.pageSize;
+            var firstPage = data.body.firstPage;
+            var lastPage = data.body.lastPage;
+            currentPage = data.body.currentPage;
+            var i = 0;
+            var str = '';
+            try {
+                while (data.body.data[i].qt_id) {
+                    str = `<tr>
+                                        <td><input type="checkbox" id = qt` + i + ` value = ` + data.body.data[i].qt_id + ` class="flat" name="table_records"></td>
+                                        <td>` + data.body.data[i].qt_stem + `</td>
+                                        <td>` + data.body.data[i].qt_type + `</td>
+                                        <td>` + data.body.data[i].qt_diffculty + `</td>
+                                        <td>` + data.body.data[i].kl_name + `</td>
+                                        <td>` + data.body.data[i].qt_pre_rate + `</td>
+                                    </tr>`
+                    tablebody.append(str);
+                    i += 1;
+                }
+            } catch (err) {}
+            // alert(totalPage);
+            document.getElementById("target_page-list").innerHTML = '';
+                if (lastPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+                } else {
+                    pageList.append('<li id = "target_nextpage"><a >下页</a></li>');
+                }
+                pageList.append('<li><a id = "target' + target_totalPage + '"  onclick="target_trailerPage(' + target_totalPage + ')" href="#"style="background: wight;" >  ' + target_totalPage + '</a></li>');
+                if (target_totalPage > 1) {
+                    if (target_totalPage - currentPage >= 2) {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    if (currentPage > 1 && currentPage != target_totalPage) {
+                        pageList.append('<li ><a id = "target' + currentPage + '"  chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    } else {
+                        pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+                    }
+                    pageList.append('<li ><a id = "target' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+                }
+                document.getElementById("target" + currentPage + "").style.background = "#426384";
+                if (firstPage) {
+                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+                } else {
+                    pageList.append('<li id = "target_lastpage"><a >上页</a></li>');
+                }
+                pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="target_page_num"></input>');
+                pageList.append('<li onclick = "target_turing_page()" ><a href="#">翻页</a></li>');
+        });
+
+    });
+    $('#target_page-list').on("click", "#target_nextpage", function() {
+            document.getElementById("timu").focus();
+            target_currentPage += 1;
+            myfunction1(target_qb_id);
+        });
+        $('#target_page-list').on("click", "#target_lastpage", function() {
+            // document.getElementById("target_lastpage").focus();
+            document.getElementById("timu").focus();
+            target_currentPage -= 1;
+            myfunction1(target_qb_id);
+        });
+        $('#target_page-list').on("click", "#target1", function() {
+            // document.getElementById("target1").focus();
+            document.getElementById("timu").focus();
+            target_currentPage = 1;
+            myfunction1(target_qb_id);
+        });
+
+        function target_turing_page() {
+            document.getElementById("timu").focus();
+            if ($("#target_page_num").val() > target_totalPage || $("#target_page_num").val() == '' || !Number.isInteger(Number($("#target_page_num").val()))) {
+                alert("页码有误");
+                return;
+            }
+            target_currentPage = Number($("#target_page_num").val());
+            myfunction1(target_qb_id);
+
+        }
+
+        function target_trailerPage(totalPage) {
+            // document.getElementById("target_trailerPage").focus();
+            document.getElementById("target_SelectQuestion").focus();
+            target_currentPage = totalPage;
+            myfunction1(target_qb_id);
+        }
+    $('#import').click(function() {
+        var table = document.all("qt_table");
+        var rowNum = table.rows.length + 1;
+        var myarray = ",";
+        for (var i = 0; i < rowNum; i++) {
+            if ($("#qt" + i).is(':checked')) {
+                myarray = myarray + $("#qt" + i).val() + ",";
+            }
+        }
+        var mydata = JSON.stringify(myarray, null, 0);
+        // alert(mydata);
+        var target = $("#target_qb");
+        var target_qb_name = document.getElementById("target_qb");
+        $.post("" + ServerIp + "/QuestionBackManage/BatchAddQuestion/", {
+            "question_qt_id": mydata,
+            "questions_bank_qb_id": target.val(),
+        }, function(data) {
+            // alert('导入成功');
+            document.getElementById("qb").innerHTML = "" + target_qb_name.options[target_qb_name.selectedIndex].text + "";
+            myfunction1();
+            myfunction();
+        });
+    });
+    $(document).ready(function() {
+        var Knowledge = $("#Knowledge");
+        var target_Knowledge = $("#target_Knowledge");
+        var qb = $("#qb_id");
+        var target_qb = $("#target_qb");
+        $.get("" + ServerIp + "/QuestionBackManage/RequestQuestionBack/", {}, function(data) {
+            var data = JSON.parse(data);
+            for (var i = 0; i < data.body[0].length; i++) {
+                Knowledge.append("<option value = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+            }
+            for (var i = 0; i < data.body[1].length; i++) {
+                qb.append("<option value = '" + data.body[1][i].qb_id + "'>" + data.body[1][i].qb_name + "</option>");
+            }
+            for (var i = 0; i < data.body[1].length; i++) {
+                target_qb.append("<option value = '" + data.body[1][i].qb_id + "'>" + data.body[1][i].qb_name + "</option>");
+            }
+            for (var i = 0; i < data.body[0].length; i++) {
+                target_Knowledge.append("<option value = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
+            }
+        });
+        $(".select2_single").select2({
+            allowClear: true
+        });
+        $(".select2_group").select2({});
+
+    });
+    </script>
+</body>
+
+</html>
