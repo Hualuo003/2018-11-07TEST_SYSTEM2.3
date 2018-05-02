@@ -80,7 +80,7 @@ class Extract:
                                questions_bank_qb_id = %s) and qt_type = %s and \
                                qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'choice' + "'",
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                 else:
@@ -90,7 +90,7 @@ class Extract:
                                = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'choice' + "'",
                                                          strategy_term.sm_knowledge,
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high,
                                                          strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
@@ -111,7 +111,7 @@ class Extract:
                                questions_bank_qb_id = %s) and qt_type = %s and \
                                qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'judge' + "'",
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                 else:
@@ -121,7 +121,7 @@ class Extract:
                                = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'judge' + "'",
                                                          strategy_term.sm_knowledge,
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high,
                                                          strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
@@ -141,7 +141,7 @@ class Extract:
                                questions_bank_qb_id = %s) and qt_type = %s and \
                                qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'filla' + "'",
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                 else:
@@ -151,7 +151,7 @@ class Extract:
                                = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'filla' + "'",
                                                          strategy_term.sm_knowledge,
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high,
                                                          strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
@@ -171,7 +171,7 @@ class Extract:
                                questions_bank_qb_id = %s) and qt_type = %s and \
                                qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'fillb' + "'",
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                 else:
@@ -181,7 +181,7 @@ class Extract:
                                = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'fillb' + "'",
                                                          strategy_term.sm_knowledge,
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high,
                                                          strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
@@ -209,7 +209,7 @@ class Extract:
                                questions_bank_qb_id = %s) and qt_type = %s and \
                                qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'coding' + "'",
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                 else:
@@ -219,7 +219,7 @@ class Extract:
                                = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'coding' + "'",
                                                          strategy_term.sm_knowledge,
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high,
                                                          strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
@@ -288,7 +288,7 @@ class Login:
                                           in (select question_qt_id from questions_bank_has_question where \
                                            questions_bank_qb_id = %s) and qt_type = %s and \
                                            qt_diffculty between %s and %s order by rand() limit %s' % \
-                                           (strategy_term.qb_id, "'" + 'choice' + "'",strategy_term.sm_difficulty_low,
+                                           (strategy_term.qb_id, "'" + 'choice' + "'",strategy_term.sm_difficulty_low + 5,
                                             strategy_term.sm_difficulty_high,strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
                             else:
@@ -298,7 +298,7 @@ class Login:
                                            = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                                     (strategy_term.qb_id, "'" + 'choice' + "'",
                                                                      strategy_term.sm_knowledge,
-                                                                     strategy_term.sm_difficulty_low,
+                                                                     strategy_term.sm_difficulty_low +5,
                                                                      strategy_term.sm_difficulty_high,
                                                                      strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
@@ -318,7 +318,7 @@ class Login:
                                           in (select question_qt_id from questions_bank_has_question where \
                                            questions_bank_qb_id = %s) and qt_type = %s and \
                                            qt_diffculty between %s and %s order by rand() limit %s' % \
-                                           (strategy_term.qb_id, "'" + 'judge' + "'",strategy_term.sm_difficulty_low,
+                                           (strategy_term.qb_id, "'" + 'judge' + "'",strategy_term.sm_difficulty_low + 5,
                                             strategy_term.sm_difficulty_high,strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
                             else:
@@ -328,7 +328,7 @@ class Login:
                                            = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                                     (strategy_term.qb_id, "'" + 'judge' + "'",
                                                                      strategy_term.sm_knowledge,
-                                                                     strategy_term.sm_difficulty_low,
+                                                                     strategy_term.sm_difficulty_low+5,
                                                                      strategy_term.sm_difficulty_high,
                                                                      strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
@@ -347,7 +347,7 @@ class Login:
                                           in (select question_qt_id from questions_bank_has_question where \
                                            questions_bank_qb_id = %s) and qt_type = %s and \
                                            qt_diffculty between %s and %s order by rand() limit %s' % \
-                                           (strategy_term.qb_id, "'" + 'filla' + "'",strategy_term.sm_difficulty_low,
+                                           (strategy_term.qb_id, "'" + 'filla' + "'",strategy_term.sm_difficulty_low + 5,
                                             strategy_term.sm_difficulty_high,strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
                             else:
@@ -357,7 +357,7 @@ class Login:
                                            = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                                     (strategy_term.qb_id, "'" + 'filla' + "'",
                                                                      strategy_term.sm_knowledge,
-                                                                     strategy_term.sm_difficulty_low,
+                                                                     strategy_term.sm_difficulty_low+5,
                                                                      strategy_term.sm_difficulty_high,
                                                                      strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
@@ -376,7 +376,7 @@ class Login:
                                           in (select question_qt_id from questions_bank_has_question where \
                                            questions_bank_qb_id = %s) and qt_type = %s and \
                                            qt_diffculty between %s and %s order by rand() limit %s' % \
-                                           (strategy_term.qb_id, "'" + 'fillb' + "'",strategy_term.sm_difficulty_low,
+                                           (strategy_term.qb_id, "'" + 'fillb' + "'",strategy_term.sm_difficulty_low + 5,
                                             strategy_term.sm_difficulty_high,strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
                             else:
@@ -386,7 +386,7 @@ class Login:
                                            = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                                     (strategy_term.qb_id, "'" + 'fillb' + "'",
                                                                      strategy_term.sm_knowledge,
-                                                                     strategy_term.sm_difficulty_low,
+                                                                     strategy_term.sm_difficulty_low+5,
                                                                      strategy_term.sm_difficulty_high,
                                                                      strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
@@ -413,7 +413,7 @@ class Login:
                                           in (select question_qt_id from questions_bank_has_question where \
                                            questions_bank_qb_id = %s) and qt_type = %s and \
                                            qt_diffculty between %s and %s order by rand() limit %s' % \
-                                           (strategy_term.qb_id, "'" + 'coding' + "'",strategy_term.sm_difficulty_low,
+                                           (strategy_term.qb_id, "'" + 'coding' + "'",strategy_term.sm_difficulty_low + 5,
                                             strategy_term.sm_difficulty_high,strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
                             else:
@@ -423,7 +423,7 @@ class Login:
                                            = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                                     (strategy_term.qb_id, "'" + 'coding' + "'",
                                                                      strategy_term.sm_knowledge,
-                                                                     strategy_term.sm_difficulty_low,
+                                                                     strategy_term.sm_difficulty_low+5,
                                                                      strategy_term.sm_difficulty_high,
                                                                      strategy_term.sm_number))
                                 result = [model.Question_model(**item) for item in result]
@@ -548,7 +548,7 @@ class SelectExamQuestionById:
         information.update()
 
         exam_question = model.Exam_question_model.getByArgs(information_in_id=information.in_id)
-        util.getFileRotatingLog().debug(exam_question)
+        # util.getFileRotatingLog().debug(exam_question)
         choice_question = []
         judge_question = []
         # filla是读程序写结果
@@ -629,8 +629,12 @@ class SaveExam:
         exam_information = model.Information_model.query('select * from information\
          where student_st_id = %s and exam_ex_id = %s'%(session.student_id, session.ex_id))
         information = exam_information[0]
-        if information.in_state !='1':
+        exam = model.Exam_model.getByPK(session.ex_id)
+        util.getFileRotatingLog().debug(session.ex_id)
+        util.getFileRotatingLog().debug(exam)
+        if information.in_state !='1' or exam.ex_state != '1':
             print "已结束考试"
+            util.getFileRotatingLog().debug(exam)
             response = util.Response(status=util.Status.__error__, message="已结束考试")
             return util.objtojson(response)
         if exam_question.update():

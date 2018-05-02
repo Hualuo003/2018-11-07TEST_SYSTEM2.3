@@ -448,7 +448,7 @@ class SelectAllExam:
         count = model.Exam_model.count()
         currentPage = int(params.currentPage) - 1
         lists = model.Exam_model.query(
-            'select * from exam order by ex_time_end desc limit %s,%s' % (currentPage * 10, 10))
+            'select * from exam order by ex_time_start desc limit %s,%s' % (currentPage * 10, 10))
         lists = [model.Exam_model(**item) for item in lists]
         for list in lists:
             start_time = list['ex_time_start'].strftime('%Y-%m-%d %H:%M:%S')
@@ -469,7 +469,7 @@ class GetAllExam:
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
         params = web.input()
-        lists = model.Exam_model.query('select * from exam order by ex_time_end desc')
+        lists = model.Exam_model.query('select * from exam order by ex_time_start desc')
         lists = [model.Exam_model(**item) for item in lists]
         for list in lists:
             start_time = list['ex_time_start'].strftime('%Y-%m-%d %H:%M:%S')
@@ -528,14 +528,14 @@ class SelectExamByName:
                 params.ex_time_start = '2000-12-12T12:12'
                 params.ex_time_end = '2200-12-12T12:12'
             lists = model.Exam_model.query('select * from exam where ex_time_start >= %s \
-                and ex_time_end <= %s order by ex_time_end desc limit %s,%s' \
+                and ex_time_end <= %s order by ex_time_start desc limit %s,%s' \
                                            % ("'" + params.ex_time_start + "'", "'" + params.ex_time_end + "'",
                                               currentPage * 10, 10))
             result = model.Exam_model.query('select count(*) from exam where ex_time_start \
               >= %s and ex_time_end <= %s' % ("'" + params.ex_time_start + "'", "'" + params.ex_time_end + "'",))
         elif params.ex_time_start == '':
             lists = model.Exam_model.query('select * from exam where ex_name like \
-              \'%%%s%%\' order by ex_time_end desc limit %s,%s' % (params.ex_name, currentPage * 10, 10))
+              \'%%%s%%\' order by ex_time_start desc limit %s,%s' % (params.ex_name, currentPage * 10, 10))
             result = model.Exam_model.query('select count(*) from exam where ex_name like \
               \'%%%s%%\' ' % (params.ex_name))
         else:
@@ -543,7 +543,7 @@ class SelectExamByName:
                 params.ex_time_end = '2200-12-12T12:12'
             lists = model.Exam_model.query('select * from exam where ex_name like \
               \'%%%s%%\' and ex_time_start >= %s and ex_time_end <= %s order by \
-              ex_time_end desc limit %s,%s' % (
+              ex_time_start desc limit %s,%s' % (
             params.ex_name, "'" + params.ex_time_start + "'", "'" + params.ex_time_end + "'", \
             currentPage * 10, 10))
             result = model.Exam_model.query('select count(*) from exam where ex_name like \
@@ -633,7 +633,7 @@ class SelectExamQuestionById:
                         = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'choice' + "'",
                                                          strategy_term.sm_knowledge, \
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                     for question in result:
@@ -660,7 +660,7 @@ class SelectExamQuestionById:
                         = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'judge' + "'",
                                                          strategy_term.sm_knowledge, \
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                     for question in result:
@@ -685,7 +685,7 @@ class SelectExamQuestionById:
                         = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'filla' + "'",
                                                          strategy_term.sm_knowledge, \
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                     for question in result:
@@ -710,7 +710,7 @@ class SelectExamQuestionById:
                         = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'fillb' + "'",
                                                          strategy_term.sm_knowledge, \
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                     for question in result:
@@ -744,7 +744,7 @@ class SelectExamQuestionById:
                         = %s and qt_diffculty between %s and %s order by rand() limit %s' % \
                                                         (strategy_term.qb_id, "'" + 'coding' + "'",
                                                          strategy_term.sm_knowledge, \
-                                                         strategy_term.sm_difficulty_low,
+                                                         strategy_term.sm_difficulty_low + 5,
                                                          strategy_term.sm_difficulty_high, strategy_term.sm_number))
                     result = [model.Question_model(**item) for item in result]
                     for question in result:

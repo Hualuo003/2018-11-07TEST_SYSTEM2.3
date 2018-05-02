@@ -418,7 +418,7 @@ class SelectQuestion:
         question = model.Question_model()
         Knowledge = model.Knowledge_model()       
         must_params = set({'qb_id','qt_type','qt_diffculty_up','qt_diffculty_down','knowledge_kl_id'})
-
+        mydata.qt_diffculty_down = int(mydata.qt_diffculty_down)
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -430,7 +430,7 @@ class SelectQuestion:
             count = 0
             for k in question_id:         
                 if mydata.knowledge_kl_id == 'all' and mydata.qt_type == 'all':
-                    result = question.query('select * from question where qt_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -440,7 +440,7 @@ class SelectQuestion:
                         question_list.append(qt)
                         count+=1
                 elif mydata.qt_type == 'all':
-                    result = question.query('select * from question where qt_id = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.knowledge_kl_id,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.knowledge_kl_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -452,7 +452,7 @@ class SelectQuestion:
                     else:
                         print '空'
                 elif mydata.knowledge_kl_id == 'all':
-                    result = question.query('select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -465,7 +465,7 @@ class SelectQuestion:
                         print '空'
                         # KnowledgeData = Knowledge.getByArgs(kl_id = result1[0].knowledge_kl_id)
                 else:
-                    result = question.query('select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.knowledge_kl_id,mydata.qt_diffculty_down,mydata.qt_diffculty_up))              
+                    result = question.query('select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.knowledge_kl_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -495,7 +495,7 @@ class QuestionPrint:
         question = model.Question_model()
         Knowledge = model.Knowledge_model()
         must_params = set({'qb_id', 'qt_type', 'qt_diffculty_up', 'qt_diffculty_down', 'knowledge_kl_id'})
-
+        mydata.qt_diffculty_down = int(mydata.qt_diffculty_down)
         if (util.paramsok(must_params, mydata) == 2):
             response = util.Response(status=util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -509,7 +509,7 @@ class QuestionPrint:
                 if mydata.knowledge_kl_id == 'all' and mydata.qt_type == 'all':
                     result = question.query(
                         'select * from question where qt_id = %s and qt_diffculty between %s and %s ' % (
-                            k.question_qt_id, mydata.qt_diffculty_down, mydata.qt_diffculty_up))
+                            k.question_qt_id, mydata.qt_diffculty_down + 5, mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result]
                     if result1:
                         qt = result1[0]
@@ -520,7 +520,7 @@ class QuestionPrint:
                 elif mydata.qt_type == 'all':
                     result = question.query(
                         'select * from question where qt_id = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s ' % (
-                            k.question_qt_id, mydata.knowledge_kl_id, mydata.qt_diffculty_down,
+                            k.question_qt_id, mydata.knowledge_kl_id, mydata.qt_diffculty_down + 5,
                             mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result]
                     if result1:
@@ -534,7 +534,7 @@ class QuestionPrint:
                 elif mydata.knowledge_kl_id == 'all':
                     result = question.query(
                         'select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s ' % (
-                            k.question_qt_id, mydata.qt_type, mydata.qt_diffculty_down, mydata.qt_diffculty_up))
+                            k.question_qt_id, mydata.qt_type, mydata.qt_diffculty_down + 5, mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result]
                     if result1:
                         qt = result1[0]
@@ -548,7 +548,7 @@ class QuestionPrint:
                 else:
                     result = question.query(
                         'select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s ' % (
-                            k.question_qt_id, mydata.qt_type, mydata.knowledge_kl_id, mydata.qt_diffculty_down,
+                            k.question_qt_id, mydata.qt_type, mydata.knowledge_kl_id, mydata.qt_diffculty_down + 5,
                             mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result]
                     if result1:
@@ -660,7 +660,7 @@ class FiltrationQuestion:
         question = model.Question_model()
         Knowledge = model.Knowledge_model()
         must_params = set({'qb_id','qt_type','qt_diffculty_up','qt_diffculty_down','knowledge_kl_id'})
-
+        mydata.qt_diffculty_down = int(mydata.qt_diffculty_down)
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -677,7 +677,7 @@ class FiltrationQuestion:
             count = 0
             for k in question_id:
                 if mydata.knowledge_kl_id == 'all' and mydata.qt_type == 'all':
-                    result = question.query('select * from question where qt_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -687,7 +687,7 @@ class FiltrationQuestion:
                         question_list.append(qt)
                         count+=1
                 elif mydata.qt_type == 'all':
-                    result = question.query('select * from question where qt_id = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.knowledge_kl_id,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.knowledge_kl_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -699,7 +699,7 @@ class FiltrationQuestion:
                     else:
                         print '空'
                 elif mydata.knowledge_kl_id == 'all':
-                    result = question.query('select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -712,7 +712,7 @@ class FiltrationQuestion:
                         print '空'
                         # KnowledgeData = Knowledge.getByArgs(kl_id = result1[0].knowledge_kl_id)
                 else:
-                    result = question.query('select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.knowledge_kl_id,mydata.qt_diffculty_down,mydata.qt_diffculty_up))
+                    result = question.query('select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.knowledge_kl_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
                     if result1:
                         qt=result1[0]
@@ -729,8 +729,6 @@ class FiltrationQuestion:
                 questiondata=question_list[currentPage*10:currentPage*10+10]
             else:
                 questiondata=question_list[currentPage*10:count]
-            print 1234567890
-            print questiondata
             page = util.Page(data = questiondata, totalRow = count, currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
             response = util.Response(status = util.Status.__success__,body = page)
             return util.objtojson(response)

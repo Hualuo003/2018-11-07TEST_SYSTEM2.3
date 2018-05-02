@@ -313,8 +313,11 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">题目数量</label>
                                         <div class="col-md-9">
-                                            <input id="timushuliang" class="form-control" placeholder="题目数量" />
+                                            <input id="sm_number" class="form-control" placeholder="题目数量" />
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-7 col-sm-6 col-xs-12">难度上下限取上不取下，如-10< x <=100</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">难度上限</label>
@@ -364,7 +367,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">题目分值</label>
                                         <div class="col-md-9">
-                                            <input id="timufenzhi" class="form-control" placeholder="题目分值" />
+                                            <input id="sm_score" class="form-control" placeholder="题目分值" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -551,14 +554,14 @@
             alert('难度上限小于难度下限');
             return false;
         }
-        <!--if ($('#sm_number').val()==""|| !Number.isInteger(Number($("#sm_number").val()))) {-->
-            <!--alert('题目数量错误');-->
-            <!--return false;-->
-        <!--}-->
-        <!--if ($('#sm_score').val()==""|| !Number.isInteger(Number($("#sm_score").val()))) {-->
-            <!--alert('题目分数错误');-->
-            <!--return false;-->
-        <!--}-->
+        if ($('#sm_number').val()==""|| !Number.isInteger(parseInt($("#sm_number").val()))) {
+            alert('题目数量错误');
+            return false;
+        }
+        if ($('#sm_score').val()==""|| !Number.isInteger(Number($("#sm_score").val()))) {
+            alert('题目分数错误');
+            return false;
+        }
         var pageList = $('#page-list');
         $.post(""+ServerIp+"/StrategyManage/CreatStrategyTerm", {
             "qb_id": $('#qb_id').val(),
@@ -566,8 +569,8 @@
             "sm_difficulty_high": $('#qt_diffculty_up').val(),
             "sm_difficulty_low": $('#qt_diffculty_down').val(),
             "sm_knowledge": $('#knowledge').val(),
-            "sm_number": document.getElementById('timushuliang').value,
-            "sm_score": document.getElementById('timufenzhi').value,
+            "sm_number": document.getElementById('sm_number').value,
+            "sm_score": document.getElementById('sm_score').value,
             "strategy_sg_id": strategy_sg_id,
             "currentPage": currentPage
         }, function(data) {

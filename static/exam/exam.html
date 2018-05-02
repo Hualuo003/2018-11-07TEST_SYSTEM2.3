@@ -669,8 +669,9 @@
                 if (data.status == 1) {
                 <!--正式考试，直接关闭页面-->
                     if (navigator.userAgent.indexOf("Firefox") > 0) {
-                           window.location.href = 'about:blank ';
+                           window.location.href = '/static/exam/close.html ';
                     } else {
+                           window.open('' + ServerIp + '/static/exam/close.html');
                            window.opener = null;
                            window.open('', '_self', '');
                            window.close();

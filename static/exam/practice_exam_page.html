@@ -112,6 +112,7 @@
             type: 'POST',
             success: function(data) {
                 var data = JSON.parse(data);
+                console.log(data);
                 // 选择题
                 for (var i = 0; i < data.body[0].length; i++) {
                     $("#choice").append('<li id="' + data.body[0][i].eq_id + '"></li>');
