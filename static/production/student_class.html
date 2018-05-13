@@ -701,20 +701,24 @@
 
     function delete_class(obj) {
 
-        var data = {
-            'cl_id': $(obj).attr("cl_id")
-        }
-        // alert("delete_class   " + $(obj).attr("cl_id"));
 
-        $.post("" + ServerIp + "/StudentManage/DeleteClass", data, function(data) {
-            var data = JSON.parse(data);
-            if (data.status == 1) {
-                window.location.reload();
-            } else {
-                alert("该教务班存在考试,不能删除");
+        var password = prompt('请输入管理员密码', '');
+        if (password == '' || typeof(password) == 'undefined' || password == null) {
+            alert('您输入的管理员密码有误');
+        } else {
+            var data = {
+                'cl_id': $(obj).attr("cl_id"),
+                'deletepassword': password
             }
-
-        });
+            $.post("" + ServerIp + "/StudentManage/DeleteClass", data, function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1) {
+                    window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
     }
 
     function modify_student(obj) {
@@ -767,6 +771,9 @@
     }
 
     function delete_student(obj) {
+        if(!confirm("是否删除?")){
+                return;
+        }
         var cl_id = $(obj).attr("cl_id");
         var st_id = $(obj).attr("st_id");
         var data = {

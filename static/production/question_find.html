@@ -716,7 +716,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -778,7 +778,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -830,6 +830,25 @@
         function target_trailerPage(totalPage) {
             target_currentPage = totalPage;
             myfunction1(t);
+        }
+        function delete_question(data) {
+            var password = prompt('请输入管理员密码', '');
+            if (password == '' || typeof(password) == 'undefined' || password == null) {
+                alert('您输入的管理员密码有误');
+            } else {
+                $.post("" + ServerIp + "/QuestionBackManage/DeleteQuestion/", {
+                    "qb_id": "all",
+                    "qt_id": data.className,
+                    "deletepassword": password
+                }, function(data) {
+                    var data = JSON.parse(data);
+                    if (data.status == 1)
+                        alert('删除成功');
+                    else
+                        alert(data.message);
+                    myfunction1();
+                });
+            }
         }
         $('#SelectQuestion').click(function() {
             myfunction();

@@ -651,7 +651,7 @@
                     str = `<tr>
                                         <td>` + data.body.data[i].sg_score + `</td>
                                         <td>` + data.body.data[i].sg_name + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].sg_id + `  onclick="lookSg(this)">查看</a><a   class=` + data.body.data[i].sg_id + `onclick="deleteSg(this)">删除</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].sg_id + `  onclick="lookSg(this)">查看</a><a   class=` + data.body.data[i].sg_id + ` onclick="deleteSg(this)">删除</a></td>
                                     </tr>`
                     tablebody.append(str);
                     i += 1;
@@ -701,6 +701,24 @@
     function target_trailerPage(totalPage) {
         strategy_currentPage = totalPage;
         myfunction1();
+    }
+    function deleteSg(data){
+        var password = prompt('请输入管理员密码', '');
+        if (password == '' || typeof(password) == 'undefined' || password == null) {
+            alert('您输入的管理员密码有误');
+        } else {
+            $.post("" + ServerIp + "/StrategyManage/DelStrategy", {
+                "sg_id": data.className,
+                "deletepassword": password
+            }, function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1)
+                    alert('删除成功');
+                else
+                    alert(data.message);
+                myfunction1();
+            });
+        }
     }
     </script>
 </body>

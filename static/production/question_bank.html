@@ -320,14 +320,14 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <form class="form-horizontal form-label-left">
+                                <form class="form-horizontal form-label-left col-md-5">
                                     <div class="form-group">
-                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">当前题库:</label>
-                                        <label class="control-label col-md-2 col-xs-12" id="target_qb" value=""></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">当前题库:</label>
+                                        <label class="control-label col-md-5 col-xs-12" id="target_qb" value=""></label>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">题型选择</label>
-                                        <div class="col-md-3 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">题型选择</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
                                             <select class="form-control tixin" id="target_qt_type">
                                                 <option value="all">所有题型</option>
                                                 <option value="'choice'">选择题</option>
@@ -339,8 +339,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">难度上限</label>
-                                        <div class="col-md-3">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">难度上限</label>
+                                        <div class="col-md-9">
                                             <select class="form-control" id="target_qt_diffculty_up">
                                                 <option value="100">100</option>
                                                 <option value="90">90</option>
@@ -357,8 +357,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">难度下限</label>
-                                        <div class="col-md-3">
+                                        <label class="control-label col-md-7 col-sm-5 col-xs-12">难度上下限取上不取下，如-10< x <=100</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">难度下限</label>
+                                        <div class="col-md-9">
                                             <select class="form-control" id="target_qt_diffculty_down">
                                                 <option value="-10">-10</option>
                                                 <option value="0">0</option>
@@ -376,24 +379,64 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
-                                        <div class="col-md-3">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="float: left;">知识点</label>
+                                        <div class="col-md-9">
                                             <select class="form-control" id="target_knowledge">
                                                 <option value="all">所有知识点</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-3 col-sm-9 col-xs-12 col-md-offset-1">
+                                        <div class="col-md-5 col-sm-9 col-xs-12 col-md-offset-3">
                                             <button id="target_SelectQuestion" type="button" class="btn btn-success">查询
                                             </button>
                                             <button id="print" type="button" class="btn btn-success">导出
                                             </button>
-                                            <a href="" download="" id="downPdf">
+                                            <a href="" download="" id="downPdf"></a>
                                         </div>
                                     </div>
                                 </form>
+                                <div class="demo col-md-7" >
+                                    <br/>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">总数量：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="total_num"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">选择题：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="choice_num"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">判断题：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="judge_num"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">编程题：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="coding_num"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">程序填空题：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="filla_num"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-3">读程序写结果题：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="fillb_num"></label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -839,7 +882,7 @@
                     if (data.status == 1)
                         alert('删除成功');
                     else
-                        alert('删除失败');
+                        alert(data.message);
                     // document.getElementById("tablebody").innerHTML ='';
                     myFunction();
                 });
@@ -963,7 +1006,7 @@
         function chakantiku(data) {
             // document.getElementById("qb").innerHTML = "" + data.className + "";
             document.getElementById("target_qb").innerHTML = "" + $(data).attr("value") + "";
-            document.getElementById("target_qt_diffculty_down").value = 0;
+            document.getElementById("target_qt_diffculty_down").value = -10;
             document.getElementById("target_qt_diffculty_up").value = 100;
             document.getElementById("target_qt_type").value = "all";
             document.getElementById("target_knowledge").value = "all";
@@ -981,6 +1024,13 @@
                 "currentPage": target_currentPage
             }, function(data) {
                 var data = JSON.parse(data);
+                document.getElementById("total_num").innerHTML = data.body.message.total_num;
+                document.getElementById("choice_num").innerHTML = data.body.message.choice_num;
+                document.getElementById("judge_num").innerHTML = data.body.message.judge_num;
+                document.getElementById("coding_num").innerHTML = data.body.message.coding_num;
+                document.getElementById("filla_num").innerHTML = data.body.message.filla_num;
+                document.getElementById("fillb_num").innerHTML = data.body.message.fillb_num;
+
                 var tablebody = $('#target_tablebody');
                 document.getElementById("target_tablebody").innerHTML = '';
                 target_totalPage = data.body.totalPage;
@@ -998,7 +1048,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看<a   class=` + data.body.data[i].qt_id + `onclick="deleteTimu(this)">删除</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看<a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -1088,7 +1138,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + `onclick="deleteTimu(this)">删除</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -1202,7 +1252,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + `onclick="deleteTimu(this)">删除</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -1239,7 +1289,25 @@
             });
 
         });
-
+        function delete_question(data) {
+            var password = prompt('请输入管理员密码', '');
+            if (password == '' || typeof(password) == 'undefined' || password == null) {
+                alert('您输入的管理员密码有误');
+            } else {
+                $.post("" + ServerIp + "/QuestionBackManage/DeleteQuestion/", {
+                    "qb_id": target_qb_id,
+                    "qt_id": data.className,
+                    "deletepassword": password
+                }, function(data) {
+                    var data = JSON.parse(data);
+                    if (data.status == 1)
+                        alert('删除成功');
+                    else
+                        alert(data.message);
+                    myfunction1(target_qb_id);
+                });
+            }
+        }
         $('#print').click(function() {
             target_currentPage = 1;
             var qb_id = $("#target_qb");

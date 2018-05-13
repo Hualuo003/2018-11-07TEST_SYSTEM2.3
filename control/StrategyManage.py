@@ -295,13 +295,25 @@ class DelStrategy:
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
         params = web.input()
+        util.getFileRotatingLog().debug(params)
         strategy = model.Strategy_model(**params)
-        strategy.delete()
-        if Strategy_model.getByArgs(**params):
-            response = util.Response(status=util.Status.__error__)
+        teacher = model.Teacher_model.getByArgs(tc_level='管理员')
+        if str(params.deletepassword) != teacher[0].tc_password:
+            response = util.Response(status=util.Status.__error__, message="密码错误")
             return util.objtojson(response)
-        else:
-            response = util.Response(status=util.Status.__success__)
+        try:
+            with orm.db.transaction():
+                db.delete('strategy_term', where="strategy_sg_id = $strategy_sg_id", vars={'strategy_sg_id': params.sg_id, })
+                if strategy.delete():
+                    response = util.Response(status=util.Status.__success__, message="删除成功!")
+                    return util.objtojson(response)
+                else:
+                    response = util.Response(status=util.Status.__error__, message="删除失败!")
+                    return util.objtojson(response)
+
+        except Exception as e:
+            util.getFileRotatingLog().debug(e)
+            response = util.Response(status=util.Status.__error__, message="删除失败!")
             return util.objtojson(response)
 
 
