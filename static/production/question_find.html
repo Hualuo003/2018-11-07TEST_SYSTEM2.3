@@ -506,65 +506,72 @@
                                                 </div>
                                             </div>
                                             <div id="fillb_question" hidden>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
-                                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                                        <textarea rows="10" class="form-control" placeholder="题干" id="fillb_stem"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div id="duchengxu-answer">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">预留代码</label>
-                                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                                            <textarea rows="10" class="form-control" placeholder="预留代码" id="fb_pre_coding"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">样例输入</label>
-                                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                                        <textarea rows="2" class="form-control" placeholder="样例输入" id="fb_test_answer_in"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">样例输出</label>
-                                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                                        <textarea rows="2" class="form-control" placeholder="样例输出" id="fb_test_answer_out"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
-                                                    <div class="col-md-3">
-                                                        <select class="form-control" id="fillb_diffculty">
-                                                            <option>0</option>
-                                                            <option>10</option>
-                                                            <option>20</option>
-                                                            <option>30</option>
-                                                            <option>40</option>
-                                                            <option>50</option>
-                                                            <option>60</option>
-                                                            <option>70</option>
-                                                            <option>80</option>
-                                                            <option>90</option>
-                                                            <option>100</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">知识点</label>
-                                                    <div class="col-md-3">
-                                                        <select class="form-control" id="fillb_knowlage">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="ln_solid"></div>
-                                                <div class="form-group">
-                                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                        <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
-                                                        <button type="button" class="btn btn-success" id="save_fillb">保存修改</button>
-                                                    </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <textarea rows="10" class="form-control" placeholder="题干" id="fillb_stem"></textarea>
                                                 </div>
                                             </div>
+                                            <div id="fillb-answer">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">测试代码</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                                        <textarea rows="10" class="form-control" placeholder="完整代码，填空处用&&&隔离" id="fb_pre_coding"></textarea>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="测试输入" id="fb_test_answer_in0"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea rows="2" class="form-control" placeholder="测试输出" id="fb_test_answer_out0"></textarea>
+                                                        </div>
+                                                    </div> -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12"></label>
+                                                <div class="col-md-9">
+                                                    <button type="button" class="btn btn-primary" id="add-fillb-answer">添加</button>
+                                                    <button type="button" class="btn btn-primary" id="delete-fillb-answer">删除</button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12">试题难度</label>
+                                                <div class="col-md-3">
+                                                    <select class="form-control" id="fillb_diffculty">
+                                                        <option>0</option>
+                                                        <option>10</option>
+                                                        <option>20</option>
+                                                        <option>30</option>
+                                                        <option>40</option>
+                                                        <option>50</option>
+                                                        <option>60</option>
+                                                        <option>70</option>
+                                                        <option>80</option>
+                                                        <option>90</option>
+                                                        <option>100</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-1 col-sm-3 col-xs-12">考察知识点</label>
+                                                <div class="col-md-3">
+                                                    <select class="form-control" id="fillb_knowlage">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                    <button type="button" class="btn btn-primary" onclick="reset_save()">取消</button>
+                                                    <button type="button" class="btn btn-success" id="save_fillb">保存修改</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                             <div id="coding_question" hidden>
                                                 <div class="form-group">
                                                     <label class="control-label col-md-1 col-sm-3 col-xs-12">题干</label>
@@ -626,8 +633,6 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-                                            </div>
                                                 <div class="ln_solid"></div>
                                                 <div class="form-group">
                                                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
@@ -670,6 +675,7 @@
         $("#question").hide();
         }
         function myfunction() {
+            $('#question').hide();
             var choice_knowlage = $("#choice_knowlage");
             var judge_knowlage = $("#judge_knowlage");
             var filla_knowlage = $("#filla_knowlage");
@@ -716,7 +722,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -753,6 +759,7 @@
             });
         }
         function myfunction1(){
+            $('#question').hide();
             $.post(""+ServerIp+"/QuestionBackManage/FuzzySearch/", {
                 "qt_stem": $("#qt_stem").val(),
                 "currentPage": currentPage
@@ -778,7 +785,7 @@
                                         <td>` + data.body.data[i].qt_diffculty + `</td>
                                         <td>` + data.body.data[i].kl_name + `</td>
                                         <td>` + data.body.data[i].qt_pre_rate + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].qt_id + `  value= ` + data.body.data[i].qt_type + ` onclick="showTimuxiangqing(this)">查看</a><a   class=` + data.body.data[i].qt_id + ` onclick="delete_question(this)">删除</a></td>
                                     </tr>`
                         tablebody.append(str);
                         i += 1;
@@ -830,6 +837,26 @@
         function target_trailerPage(totalPage) {
             target_currentPage = totalPage;
             myfunction1(t);
+        }
+        function delete_question(data) {
+            $('#question').hide();
+            var password = prompt('请输入管理员密码', '');
+            if (password == '' || typeof(password) == 'undefined' || password == null) {
+                alert('您输入的管理员密码有误');
+            } else {
+                $.post("" + ServerIp + "/QuestionBackManage/DeleteQuestion/", {
+                    "qb_id": "all",
+                    "qt_id": data.className,
+                    "deletepassword": password
+                }, function(data) {
+                    var data = JSON.parse(data);
+                    if (data.status == 1)
+                        alert('已解除和所有题库关联');
+                    else
+                        alert(data.message);
+                    myfunction1();
+                });
+            }
         }
         $('#SelectQuestion').click(function() {
             myfunction();
@@ -894,6 +921,7 @@
                     document.getElementById("fillb_diffculty").value = data.body[0][0].qt_diffculty;
                     document.getElementById("fillb_knowlage").value = data.body[1][0].kl_name;
                     document.getElementById("fb_pre_coding").value = data.body[2][0].fb_pre_coding;
+
                     var fb_test_answer_in = new Array(); //定义一数组
                     var fb_test_answer_out = new Array();
                     fb_test_answer_in = data.body[2][0].fb_test_answer_in.split("&&&"); //字符分割
@@ -908,9 +936,9 @@
                     }
 
                     for (i = 1; i < fb_test_answer_in.length - 1; i++) {
-                        // alert(fb_test_answer_in[i]);
-                        $('#fillb-answer').append(`<div class="form-group" id="fb_in` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="fb_test_answer_in` + i + `"></textarea></div></div><div class="form-group" id="fb_out` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="fb_test_answer_out` + i + `"></textarea></div></div>`);
-                        document.getElementById("fb_test_answer_in" + i + "").value = fb_test_answer_in[i];
+                        //alert(fb_test_answer_in[i]);
+                        $('#fillb-answer').append(`<div class="form-group" id="fb_in` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输入</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输入" id ="fb_test_answer_in`+ i +`"></textarea></div></div><div class="form-group" id="fb_out` + i + `"><label class="control-label col-md-1 col-sm-3 col-xs-12">测试输出</label><div class="col-md-9 col-sm-9 col-xs-12"><textarea rows="2" class="form-control" placeholder="测试输出" id ="fb_test_answer_out` + i + `"></textarea></div></div>`);
+                        document.getElementById("fb_test_answer_in"+i+"").value = fb_test_answer_in[i];
                         document.getElementById("fb_test_answer_out" + i + "").value = fb_test_answer_out[i];
                         // document.getElementById("fb_test_answer_in").value = data.body[2][0].fb_test_answer_in;
                         // document.getElementById("fb_test_answer_out").value = data.body[2][0].fb_test_answer_out;
@@ -1048,14 +1076,23 @@
             });
         });
         $("#save_fillb").click(function() {
-            $.post(""+ServerIp+"/QuestionBackManage/UpdataQuestion/", {
+            var fb_test_answer_in = "&&&";
+            var fb_test_answer_out = "&&&";
+            for (var i = 1; i < coding_num; i++) {
+                // alert($("#fb_test_answer_in"+i+"").val());
+                fb_test_answer_in = fb_test_answer_in + $("#fb_test_answer_in" + i + "").val() + "&&&";
+                fb_test_answer_out = fb_test_answer_out + $("#fb_test_answer_out" + i + "").val() + "&&&";
+            }
+            $.post("" + ServerIp + "/QuestionBackManage/UpdataQuestion/", {
                 "qt_id": update_qt_id,
                 "qt_stem": document.getElementById("fillb_stem").value,
                 "qt_diffculty": document.getElementById("fillb_diffculty").value,
                 "kl_name": document.getElementById("fillb_knowlage").value,
                 "fb_pre_coding": document.getElementById("fb_pre_coding").value,
-                "fb_test_answer_in": document.getElementById("fb_test_answer_in").value,
-                "fb_test_answer_out": document.getElementById("fb_test_answer_out").value,
+                "fb_test_answer_in": fb_test_answer_in,
+                "fb_test_answer_out": fb_test_answer_out,
+                // "fb_test_answer_in": document.getElementById("fb_test_answer_in").value,
+                // "fb_test_answer_out": document.getElementById("fb_test_answer_out").value,
                 "qt_type": 'fillb',
             }, function(data) {
                 var data = JSON.parse(data);
@@ -1065,7 +1102,7 @@
                 }
                 $('#question').hide();
                 $('#fillb_question').hide();
-                myfunction();
+                myfunction1($("#target_qb").val());
             });
         });
         $("#save_coding").click(function() {

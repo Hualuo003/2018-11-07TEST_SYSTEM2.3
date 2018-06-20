@@ -112,11 +112,11 @@
             type: 'POST',
             success: function(data) {
                 var data = JSON.parse(data);
-                console.log(data);
                 // 选择题
                 for (var i = 0; i < data.body[0].length; i++) {
                     $("#choice").append('<li id="' + data.body[0][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[0][i].qt_stem = data.body[0][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[0][i].eq_pre_score + '分)</span><font>' + data.body[0][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[0][i].eq_get_score + '</font></div>'
                     $("#" + data.body[0][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="option_class_' + i + '"></div>'
@@ -140,6 +140,7 @@
                 for (var i = 0; i < data.body[1].length; i++) {
                     $("#judge").append('<li id="' + data.body[1][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[1][i].qt_stem = data.body[1][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[1][i].eq_pre_score + '分)</span><font>' + data.body[1][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[1][i].eq_get_score + '</font></div>'
                     $("#" + data.body[1][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="judge_option_class_' + i + '"></div>'
@@ -158,6 +159,7 @@
                 for (var i = 0; i < data.body[2].length; i++) {
                     $("#filla").append('<li id="' + data.body[2][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[2][i].qt_stem = data.body[2][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[2][i].eq_pre_score + '分)</span><font>' + data.body[2][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b><font style="color:red;margin-left20px;">得分: ' + data.body[2][i].eq_get_score + '</font></div>'
                     $("#" + data.body[2][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="filla_option_class_' + i + '"></div>'
@@ -177,12 +179,14 @@
                     $("#qu_3_" + i + "").append(stem);
                     var fillb_content = data.body[3][i][0].fb_pre_coding;
 
-
+                    fillb_content = fillb_content.replace(/</g, "&lt;");
                     for (var k = 0; k < data.body[3][i][1].length; k++) {
                         // alert('data.body[3][i][1]['+k+'].eq_id'+data.body[3][i][1][k].eq_id);
-                        var blank = '<input type="text" name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" style="border:none #FFFFFF;  border-bottom:#777777 solid 1px; background:transparent;height:30px; " onchange="ChangeFillb(this)"><font style="color:red;margin-left20px;">得分: ' + data.body[3][i][1][k].eq_get_score + '</font>'
+                        var blank = '<textarea name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" rows="7" cols="100" onchange="ChangeFillb(this)"></textarea><font style="color:red;margin-left20px;">得分: ' + data.body[3][i][1][k].eq_get_score + '</font>'
+
                         fillb_content = fillb_content.replace(/&&&([\s\S]*?)&&&/, blank);
                     }
+                    console.log(fillb_content);
                     var fb_pre_coding = '<font>' + fillb_content + '</font>'
                     $("#fillb_coding" + i + "").append(fb_pre_coding);
                     for (var k = 0; k < data.body[3][i][1].length; k++) {
@@ -192,7 +196,6 @@
                     }
 
                 }
-
                 // 编程题
                 for (var i = 0; i < data.body[4].length; i++) {
                     $("#coding").append('<li id="' + data.body[4][i].eq_id + '"></li>');

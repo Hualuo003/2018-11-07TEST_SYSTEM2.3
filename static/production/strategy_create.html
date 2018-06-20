@@ -382,15 +382,20 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <div class="demo col-md-7">
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label col-md-2">总分：</label>
-                                            <div class="col-md-3">
-                                                <label class="control-label col-md-2" id="total_score"></label>
-                                            </div>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="demo col-md-12">
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-2">总分：</label>
+                                        <div class="col-md-3">
+                                            <label class="control-label col-md-2" id="total_score"></label>
                                         </div>
+                                    </div>
+                                    <div class="demo">
                                         <table class="zebra bulk_action">
                                             <tr>
+                                                <th style="width:35%">题库</th>
                                                 <th>类型</th>
                                                 <th>难度上限</th>
                                                 <th>难度下限</th>
@@ -402,14 +407,13 @@
                                             <tbody id="my_body">
                                             </tbody>
                                         </table>
-                                        <div>
-                                            <ul class="pagination" id="page-list">
-                                            </ul>
-                                        </div>
                                     </div>
-                                    <br />
-                                    <br />
+                                    <div>
+                                        <ul class="pagination" id="page-list">
+                                        </ul>
+                                    </div>
                                 </div>
+                                <br />
                             </div>
                         </div>
                     </div>
@@ -488,7 +492,7 @@
                 document.getElementById("total_score").innerHTML = data.body.message;
                 var i = 0;
                 while (data.body.data[i]) {
-                    $('#my_body').append('<tr><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
+                    $('#my_body').append('<tr><td>' + data.body.data[i].qb_name + '</td><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
                     i++;
                 }
             } else {
@@ -574,7 +578,7 @@
                 document.getElementById("total_score").innerHTML = data.body.message;
                 var i = 0;
                 while (data.body.data[i]) {
-                    $('#my_body').append('<tr><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
+                    $('#my_body').append('<tr><td>' + data.body.data[i].qb_name + '</td><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
                     i++;
                 }
                 document.getElementById("page-list").innerHTML = '';

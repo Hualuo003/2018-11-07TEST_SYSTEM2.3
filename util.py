@@ -295,20 +295,20 @@ def QuestionWord(question_list,question_back_id,filepath):
         elif item.qt_type == 'fillb':
             question_data = model.Question_model.getByPK(item.qt_id)
             fillb_data = model.Fillb_model.getByPK(item.qt_id)
-            fillb_coding = fillb_data.fb_pre_coding.split('&&&')
-            print len(fillb_coding)
-            j=1
-            for i in range(1,len(fillb_coding),2):
-                fillb_coding[i] = u'空 ' + str(j)
-                j+=1
-            fillb_data.fb_pre_coding = ''.join(fillb_coding)
+            # fillb_coding = fillb_data.fb_pre_coding.split('&&&')
+            # print len(fillb_coding)
+            # j=1
+            # for i in range(1,len(fillb_coding),2):
+            #     fillb_coding[i] = u'空 ' + str(j)
+            #     j+=1
+            # fillb_data.fb_pre_coding = ''.join(fillb_coding)
             item = dict(item, **fillb_data)
             item = dict(item, **question_data)
             fillb_question.append(item)
     document.add_heading(u'选择题', 1)
     for item in choice_question:
         document.add_paragraph(
-                item['qt_stem']+ u'\n 答案: ' + item['cc_answer'] + u'\n 准确率: ' + item['qt_pre_rate'],
+                item['qt_stem']+ u'\n 答案: ' + item['cc_answer'] + u'\n 准确率: ' + str(item['qt_pre_rate']),
                 style='List Number')
 
         document.add_paragraph(
@@ -327,26 +327,26 @@ def QuestionWord(question_list,question_back_id,filepath):
     document.add_heading(u'判断题', 1)
     for item in judge_question:
         document.add_paragraph(
-                item['qt_stem']+ u'\n 答案: ' + item['jd_answer'] + u'\n 准确率: ' + item['qt_pre_rate'],
+                item['qt_stem']+ u'\n 答案: ' + item['jd_answer'] + u'\n 准确率: ' + str(item['qt_pre_rate']),
                 style='List Number')
 
     document.add_heading(u'读程序写结果', 1)
     for item in filla_question:
         document.add_paragraph(
-                item['qt_stem'] + u'\n 答案: ' + item['filla_answer'] + u'\n 准确率: ' + item['qt_pre_rate'],
+                item['qt_stem'] + u'\n 答案: ' + item['filla_answer'] + u'\n 准确率: ' + str(item['qt_pre_rate']),
                 style='List Number')
 
     document.add_heading(u'程序填空', 1)
     for item in fillb_question:
-        print item
+        getFileRotatingLog().debug(item)
         document.add_paragraph(
-            item['qt_stem'] + u'\n' + item['fb_pre_coding'] + u'\n' + u'\n 准确率: ' + item['qt_pre_rate'], style='List Number'
+            item['qt_stem'] + u'\n' + item['fb_pre_coding'] +  u'\n 准确率: ' + str(item['qt_pre_rate']) , style='List Number'
         )
 
     document.add_heading(u'编程题', 1)
     for item in coding_question:
         document.add_paragraph(
-                item['qt_stem'] + u'\n 预留代码: ' + item['co_test_coding'] + u'\n 准确率: ' + item['qt_pre_rate'],
+                item['qt_stem'] + u'\n 预留代码: ' + item['co_test_coding'] + u'\n 准确率: ' + str(item['qt_pre_rate']),
                 style='List Number')
 
     # #增加有序列表
@@ -391,7 +391,6 @@ def upInformationScore(in_id):
 def GetScore(delay, in_id):
     while 1:
         time.sleep(delay)
-        print "getscore"
         exam_question = model.Exam_question_model.getByArgs(information_in_id=in_id)
         score = 0
         flag = 0

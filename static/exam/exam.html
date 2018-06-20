@@ -20,10 +20,7 @@
 <br/><br/>
 <h1 style="font-size: 40px;" id="exam">软件工程实验室</h1>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false"
-      onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()>
-
-    <div class=" main
-">
+      onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()">
 <!--nr start-->
 <div class="test_main">
     <div class="nr_left">
@@ -161,7 +158,7 @@
                 </div>
                 <div class="test_content">
                     <div class="test_content_title">
-                        <h2>程序填空</h2>
+                        <h2>程序填空(不能修改已有程序)</h2>
                     </div>
                 </div>
                 <div class="test_content_nr">
@@ -309,6 +306,7 @@
             data: {
                 "eq_id": examId,
                 "eq_answer": $(this).val(),
+                'eq_qt_type':'choice',
             },
             success: function(data) {
                 var data = JSON.parse(data);
@@ -318,6 +316,7 @@
                 } else {
                     // alert("error");
                     alert(data.message);
+                    window.location.href = '/static/exam/close.html ';
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {}
@@ -343,6 +342,7 @@
             data: {
                 "eq_id": examId,
                 "eq_answer": $(this).val(),
+                'eq_qt_type':'judge',
             },
             success: function(data) {
                 var data = JSON.parse(data);
@@ -352,6 +352,7 @@
                 } else {
                     // alert("error");
                     alert(data.message);
+                    window.location.href = '/static/exam/close.html ';
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {}
@@ -385,6 +386,7 @@
                 } else {
                     // alert("error");
                     alert(data.message);
+                    window.location.href = '/static/exam/close.html ';
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {}
@@ -410,6 +412,7 @@
             data: {
                 "eq_id": data.name,
                 "eq_answer": data.value,
+                'eq_qt_type':'fillb',
             },
             success: function(data) {
                 var data = JSON.parse(data);
@@ -419,6 +422,7 @@
                 } else {
                     // alert("error");
                     alert(data.message);
+                    window.location.href = '/static/exam/close.html ';
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {}
@@ -443,6 +447,7 @@
             data: {
                 "eq_id": data.name,
                 "eq_answer": data.value,
+                'eq_qt_type':'coding',
             },
             success: function(data) {
                 var data = JSON.parse(data);
@@ -452,12 +457,12 @@
                 } else {
                     // alert("error");
                     alert(data.message);
+                    window.location.href = '/static/exam/close.html ';
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {}
         });
     }
-
 
     $(document).ready(function() {
 
@@ -485,6 +490,7 @@
                 for (var i = 0; i < data.body[0].length; i++) {
                     $("#choice").append('<li id="' + data.body[0][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[0][i].qt_stem = data.body[0][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[0][i].eq_pre_score + '分)</span><font>' + data.body[0][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
                     $("#" + data.body[0][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="option_class_' + i + '"></div>'
@@ -514,6 +520,7 @@
                 for (var i = 0; i < data.body[1].length; i++) {
                     $("#judge").append('<li id="' + data.body[1][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[1][i].qt_stem = data.body[1][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[1][i].eq_pre_score + '分)</span><font>' + data.body[1][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
                     $("#" + data.body[1][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="judge_option_class_' + i + '"></div>'
@@ -539,6 +546,7 @@
                 for (var i = 0; i < data.body[2].length; i++) {
                     $("#filla").append('<li id="' + data.body[2][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[2][i].qt_stem = data.body[2][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[2][i].eq_pre_score + '分)</span><font>' + data.body[2][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
                     $("#" + data.body[2][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="filla_option_class_' + i + '"></div>'
@@ -556,7 +564,7 @@
                     }
                 }
                 // 程序填空
-                // alert("data.body[3].length"+data.body[3].length);
+                //alert("data.body[3].length"+data.body[3].length);
                 for (var i = 0; i < data.body[3].length; i++) {
                     $("#fillb").append('<li id="qu_3_' + i + '"></li>');
                     var j = i + 1;
@@ -564,10 +572,11 @@
                     $("#qu_3_" + i + "").append(stem);
                     var fillb_content = data.body[3][i][0].fb_pre_coding;
 
-
+                    fillb_content = fillb_content.replace(/</g, "&lt;");
                     for (var k = 0; k < data.body[3][i][1].length; k++) {
                         // alert('data.body[3][i][1]['+k+'].eq_id'+data.body[3][i][1][k].eq_id);
-                        var blank = '<input type="text" name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" style="border:none #FFFFFF;  border-bottom:#777777 solid 1px; background:transparent;height:30px; " onchange="ChangeFillb(this)">'
+                        var blank = '<textarea name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" rows="7" cols="100" onchange="ChangeFillb(this)"></textarea>'
+
                         fillb_content = fillb_content.replace(/&&&([\s\S]*?)&&&/, blank);
                     }
                     var fb_pre_coding = '<font>' + fillb_content + '</font>'
@@ -647,11 +656,16 @@
        }
     }
     var hand_exam=0;//1表示时间到了自动交卷
+    var hand_count = 0;
     function HandInExam() {
         if(hand_exam==0){
             if(!confirm("是否交卷?")){
                 return;
             }
+        if(hand_count==1){
+              alert('123');
+              return;
+          }
         }
         $.ajax({
             url: "" + ServerIp + "/Student/HandInExam", //加上这句话 
@@ -661,11 +675,12 @@
             crossDomain: true,
             type: 'POST',
             async: false,
+
             dataType: "text",
             data: {},
             success: function(data) {
                 var data = JSON.parse(data);
-
+                hand_count==1
                 if (data.status == 1) {
                 <!--正式考试，直接关闭页面-->
                     if (navigator.userAgent.indexOf("Firefox") > 0) {
@@ -675,7 +690,7 @@
                            window.opener = null;
                            window.open('', '_self', '');
                            window.close();
-                    }
+                         }
                 } else{
                 <!--非正式考试，关闭页面。打开考卷-->
                      if (navigator.userAgent.indexOf("Firefox") > 0) {
@@ -686,14 +701,13 @@
                            window.opener = null;
                            window.open('', '_self', '');
                            window.close();
-
-                     }
-                     //CloseWebPage();
-                     //window.open('' + ServerIp + '/static/exam/practice_exam_page.html');
+                         }
                 }
 
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {}
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                hand_count = 0;
+                }
         });
         // OpenWindow = window.open("", "newwin", "height=250, width=250,top=250 ,left=500 ,");
         // //写成一行 
@@ -707,6 +721,7 @@
     setInterval(function() {
         if (CountDown <= 1000) {
             hand_exam=1;
+            hand_count = 1;
             HandInExam();
             // window.close();
         }

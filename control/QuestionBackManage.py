@@ -105,10 +105,12 @@ class ConfirmDeleteQuestionBack:
         qb = model.Questions_bank_model()
         must_params = set (['qb_id'])
         web.header("Access-Control-Allow-Origin", "*")
+        session = web.ctx.session
+        util.getFileRotatingLog().debug(session.password)
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
-        elif str(mydata.deletepassword) == '123456':
+        elif str(mydata.deletepassword) == session.password:
             qb.qb_id = mydata.qb_id
             result = model.Questions_bank_has_question_model.getByArgs( \
                 questions_bank_qb_id = qb.qb_id)
@@ -121,9 +123,12 @@ class ConfirmDeleteQuestionBack:
                 response = util.Response(status=util.Status.__success__)
                 return util.objtojson(response)
             else:
-                response = util.Response(status=util.Status.__error__)
+                response = util.Response(status=util.Status.__error__,message = "删除失败")
                 return util.objtojson(response)
-        response = util.Response(status=util.Status.__error__)
+        else:
+            response = util.Response(status=util.Status.__error__, message="密码错误")
+            return util.objtojson(response)
+        response = util.Response(status=util.Status.__error__,message = "删除失败")
         return util.objtojson(response)
 # # 查看题库
 class OpenQuestionBack:
@@ -148,10 +153,32 @@ class OpenQuestionBack:
             questionlist = []
             result = [model.Question_model(**item) for item in result ]
             # print result
-            result1= question.query('select count(*) from question where qt_id in (select question_qt_id \
+            count = dict()
+            total_num= question.query('select count(*) from question where qt_id in (select question_qt_id \
                 from questions_bank_has_question where questions_bank_qb_id = %s )'%(mydata.questions_bank_qb_id))
             # print result1[0]
-            count = result1[0]['count(*)']
+            choice_num = question.query('select count(*) from question where qt_id in (select question_qt_id \
+                            from questions_bank_has_question where questions_bank_qb_id = %s ) and qt_type = \'choice\'' % (
+                    mydata.questions_bank_qb_id))
+            coding_num = question.query('select count(*) from question where qt_id in (select question_qt_id \
+                                        from questions_bank_has_question where questions_bank_qb_id = %s ) and qt_type = \'coding\'' % (
+                mydata.questions_bank_qb_id))
+            filla_num = question.query('select count(*) from question where qt_id in (select question_qt_id \
+                                                    from questions_bank_has_question where questions_bank_qb_id = %s ) \
+                                                     and qt_type = \'filla\'' % (mydata.questions_bank_qb_id))
+            fillb_num = question.query('select count(*) from question where qt_id in (select question_qt_id \
+                                                                from questions_bank_has_question where questions_bank_qb_id = %s ) \
+                                                                 and qt_type = \'fillb\'' % (mydata.questions_bank_qb_id))
+            judge_num = question.query('select count(*) from question where qt_id in (select question_qt_id \
+                                                                from questions_bank_has_question where questions_bank_qb_id = %s ) \
+                                                                 and qt_type = \'judge\'' % (mydata.questions_bank_qb_id))
+            count['total_num'] = total_num[0]['count(*)']
+            count['choice_num'] = choice_num[0]['count(*)']
+            count['coding_num'] = coding_num[0]['count(*)']
+            count['filla_num'] = filla_num[0]['count(*)']
+            count['fillb_num'] = fillb_num[0]['count(*)']
+            count['judge_num'] = judge_num[0]['count(*)']
+            util.getFileRotatingLog().debug(count)
             for params in result:
                 qt = params
                 qt['qt_type']=util.type[qt.qt_type]
@@ -161,7 +188,7 @@ class OpenQuestionBack:
                 questionlist.append(qt)
             # response = util.Response(status=util.Status.__success__,body = questionlist)
             # return util.objtojson(response)
-            page = util.Page(data = questionlist, totalRow = count, currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
+            page = util.Page(data = questionlist, totalRow = int(count['total_num']), currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = count)
             response = util.Response(status=util.Status.__success__,body=page)
             return util.objtojson(response) 
 # 返回题库和知识点信息
@@ -234,13 +261,13 @@ class AddQuestion:
                 exam_question.eq_answer = coding.co_test_coding
                 result = exam_question.insertBackid()
                 eq_id = result[0]['max(eq_id)']
-                while 1:
+                for i in range(60):
                     time.sleep(1)
                     exam_question = model.Exam_question_model.getByPK(eq_id)
                     if exam_question.eq_get_score ==100:
                         response = util.Response(status=util.Status.__success__)
                         return util.objtojson(response)
-                    if exam_question.eq_get_score ==0:
+                    if exam_question.eq_get_score ==0 or i == 59:
                         exam_question.delete()
                         qbhq.delete()
                         coding.delete()
@@ -263,10 +290,7 @@ class AddQuestion:
             elif mydata.qt_type == 'fillb':
                 Fillb = model.Fillb_model(**mydata)
                 with orm.db.transaction():
-                    qt.insert()
-                    reasurt = qt.query('select max(qt_id) from question')
-                    Fillb.question_qt_id = reasurt[0]['max(qt_id)']
-                    qt.qt_id =  Fillb.question_qt_id
+                    Fillb.question_qt_id=qt.qt_id=qt.insertBackid()[0]['max(qt_id)']
                     Fillb.insert()
                     qbhq.question_qt_id = Fillb.question_qt_id
                     qbhq.questions_bank_qb_id = mydata.questions_bank_qb_id
@@ -287,16 +311,18 @@ class AddQuestion:
                 exam_question.eq_qt_type = 'fillb'
                 exam_question.eq_pre_score = 100
                 exam_question.eq_get_score = '-2'
-                exam_question.eq_answer = Fillb.fb_pre_coding.replace('&&&',' ')
+                exam_question.eq_answer = Fillb.fb_pre_coding
+                exam_question.fillb_coding = Fillb.fb_pre_coding.replace('&&&',' ')
+                util.getFileRotatingLog().debug(exam_question.fillb_coding)
                 result = exam_question.insertBackid()
                 eq_id = result[0]['max(eq_id)']
-                while 1:
+                for i in range(60):
                     time.sleep(1)
                     exam_question = model.Exam_question_model.getByPK(eq_id)
                     if exam_question.eq_get_score == 100:
                         response = util.Response(status=util.Status.__success__)
                         return util.objtojson(response)
-                    if exam_question.eq_get_score == 0:
+                    if exam_question.eq_get_score == 0 or i == 59:
                         exam_question.delete()
                         qbhq.delete()
                         Fillb.delete()
@@ -348,6 +374,7 @@ class UpdataQuestion:
         qt = model.Question_model()
         recover_question = model.Question_model.getByPK(mydata.qt_id)
         recover_coding = model.Coding_model.getByPK(mydata.qt_id)
+        recover_fillb = model.Fillb_model.getByPK(mydata.qt_id)
         kp = model.Knowledge_model()
         web.header("Access-Control-Allow-Origin", "*")
         must_params = set({'qt_id','qt_type','qt_stem','kl_name','qb_id',})
@@ -380,15 +407,16 @@ class UpdataQuestion:
                 exam_question.eq_answer = coding.co_test_coding
                 result = exam_question.insertBackid()
                 eq_id = result[0]['max(eq_id)']
-                while 1:
+                for i in range(60):
                     time.sleep(1)
                     exam_question = model.Exam_question_model.getByPK(eq_id)
                     if exam_question.eq_get_score == 100:
                         response = util.Response(status=util.Status.__success__)
                         return util.objtojson(response)
-                    if exam_question.eq_get_score == 0:
+                    if exam_question.eq_get_score == 0 or i == 59:
                         recover_coding.update()
                         recover_question.update()
+                        qt.update()
                         response = util.Response(status=util.Status.__error__)
                         return util.objtojson(response)
             elif mydata.qt_type == 'filla':
@@ -401,6 +429,28 @@ class UpdataQuestion:
                 Fillb = model.Fillb_model(**mydata)
                 Fillb.question_qt_id = qt.qt_id
                 Fillb.update()
+                exam_question = model.Exam_question_model()
+                exam_question.information_in_id = 1
+                exam_question.qt_id = qt.qt_id
+                exam_question.eq_qt_type = 'fillb'
+                exam_question.eq_pre_score = 100
+                exam_question.eq_get_score = '-2'
+                exam_question.eq_answer = Fillb.fb_pre_coding
+                exam_question.fillb_coding = Fillb.fb_pre_coding.replace('&&&', ' ')
+                result = exam_question.insertBackid()
+                eq_id = result[0]['max(eq_id)']
+                for i in range(60):
+                    time.sleep(1)
+                    exam_question = model.Exam_question_model.getByPK(eq_id)
+                    if exam_question.eq_get_score == 100:
+                        response = util.Response(status=util.Status.__success__)
+                        return util.objtojson(response)
+                    if exam_question.eq_get_score == 0 or i == 59:
+                        recover_fillb.update()
+                        recover_question.update()
+                        qt.update()
+                        response = util.Response(status=util.Status.__error__)
+                        return util.objtojson(response)
                 response = util.Response(status=util.Status.__success__)
                 return util.objtojson(response)
             elif mydata.qt_type == 'judge':
@@ -588,7 +638,6 @@ class FuzzySearch:
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
         else:
-            print 222
             result = orm.db.query('select * from question where qt_stem like \'%%%s%%\'\
                 order by qt_id limit %s,%s'%(mydata.qt_stem,currentPage*10,10))
             # result = orm.db.query('select * from question where qt_stem like \'%%%s%%\''%(mydata.qt_stem))
@@ -616,16 +665,40 @@ class DeleteQuestion:
         qbhq = model.Questions_bank_has_question_model()
         web.header("Access-Control-Allow-Origin", "*")
         must_params = set({'qt_id'})
-        if(util.paramsok(must_params,mydata) == 2):
-            response = util.Response(status = util.Status.__params_not_ok__)
-            return util.objtojson(response)
-        else:
-            result = qbhq.getByArgs(question_qt_id = mydata.qt_id)
-            for k in result:
-                qbhq.qbhq_id = k.qbhq_id
-                qbhq.delete()
-            response = util.Response(status = util.Status.__success__)
-            return util.objtojson(response)
+        util.getFileRotatingLog().debug(mydata)
+        session = web.ctx.session
+        teacher = model.Teacher_model.getByArgs(tc_level='管理员')
+        try:
+            if(util.paramsok(must_params,mydata) == 2):
+                response = util.Response(status = util.Status.__params_not_ok__)
+                return util.objtojson(response)
+            elif mydata.qb_id == "all":
+
+                if str(mydata.deletepassword) == teacher[0].tc_password:
+                    result = qbhq.getByArgs(question_qt_id = mydata.qt_id)
+                    for k in result:
+                        qbhq.qbhq_id = k.qbhq_id
+                        qbhq.delete()
+                    response = util.Response(status = util.Status.__success__)
+                    return util.objtojson(response)
+                else:
+                    response = util.Response(status=util.Status.__error__,message="密码错误")
+                    return util.objtojson(response)
+            else:
+                if str(mydata.deletepassword) == teacher[0].tc_password:
+                    result = qbhq.query('select * from questions_bank_has_question where question_qt_id = %s \
+                                 and questions_bank_qb_id = %s'%(mydata.qt_id,mydata.qb_id))
+                    qbhq = model.Questions_bank_has_question_model(**result[0])
+                    qbhq.delete()
+                    response = util.Response(status=util.Status.__success__)
+                    return util.objtojson(response)
+                else:
+                    response = util.Response(status=util.Status.__error__,message="密码错误")
+                    return util.objtojson(response)
+        except Exception as e:
+           util.getFileRotatingLog().debug(e)
+           response = util.Response(status=util.Status.__error__,message="删除失败")
+           return util.objtojson(response)
 
 # 导入题目
 class BatchAddQuestion:

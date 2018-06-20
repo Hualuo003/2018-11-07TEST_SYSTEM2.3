@@ -199,6 +199,7 @@ class SuspendExam:
         exam = model.Exam_model.getByPK(params.ex_id)
         exam['ex_state'] = '5'
         exam.update()
+        db.update('information', where="exam_ex_id=%s and in_state = %s" % (params.ex_id,'1'), in_state=2, )
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)
 

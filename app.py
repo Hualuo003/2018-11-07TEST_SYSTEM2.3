@@ -50,7 +50,7 @@ urls = (
 
 # render = web.template.render('template/')
 
-app = web.application(urls, globals(), autoreload = True)
+app = web.application(urls, locals(), autoreload = True)
 web.config.debug = False
 if web.config.get("_session") is None:
     # store = web.session.DiskStore('sessions')

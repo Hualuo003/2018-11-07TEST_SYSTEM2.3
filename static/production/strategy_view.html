@@ -372,12 +372,16 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-9 col-xs-12 col-md-offset-5">
-                                            <button type="reset" class="btn btn-primary">重置</button>
-                                            <button type="button" id="add" class="btn btn-success">>></button>
+                                            <!--<button type="reset" class="btn btn-primary">重置</button>-->
+                                            <button type="button" id="add" class="btn btn-success">添加</button>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="demo col-md-7">
+
+                                <br />
+                            </div>
+                        </div>
+                        <div class="demo col-md-12">
                                     <div class="form-group col-md-12">
                                         <label class="control-label col-md-2">总分：</label>
                                         <div class="col-md-3">
@@ -387,6 +391,7 @@
                                     <div class="demo">
                                         <table class="zebra bulk_action">
                                             <tr>
+                                                <th style="width:35%">题库</th>
                                                 <th>类型</th>
                                                 <th>难度上限</th>
                                                 <th>难度下限</th>
@@ -405,9 +410,6 @@
                                     </div>
                                 </div>
                                 <br />
-                                <br />
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -486,7 +488,7 @@
                 document.getElementById("total_score").innerHTML = data.body.message;
                 var i = 0;
                 while (data.body.data[i]) {
-                    $('#my_body').append('<tr><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
+                    $('#my_body').append('<tr><td>' + data.body.data[i].qb_name + '</td><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
                     i++;
                 }
             } else {
@@ -584,7 +586,7 @@
                 document.getElementById("total_score").innerHTML = data.body.message;
                 var i = 0;
                 while (data.body.data[i]) {
-                    $('#my_body').append('<tr><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
+                    $('#my_body').append('<tr><td>' + data.body.data[i].qb_name + '</td><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
                     i++;
                 }
                 document.getElementById("page-list").innerHTML = '';
@@ -651,7 +653,7 @@
                     str = `<tr>
                                         <td>` + data.body.data[i].sg_score + `</td>
                                         <td>` + data.body.data[i].sg_name + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].sg_id + `  onclick="lookSg(this)">查看</a><a   class=` + data.body.data[i].sg_id + `onclick="deleteSg(this)">删除</a></td>
+                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].sg_id + `  onclick="lookSg(this)">查看</a><a   class=` + data.body.data[i].sg_id + ` onclick="deleteSg(this)">删除</a></td>
                                     </tr>`
                     tablebody.append(str);
                     i += 1;
@@ -701,6 +703,24 @@
     function target_trailerPage(totalPage) {
         strategy_currentPage = totalPage;
         myfunction1();
+    }
+    function deleteSg(data){
+        var password = prompt('请输入管理员密码', '');
+        if (password == '' || typeof(password) == 'undefined' || password == null) {
+            alert('您输入的管理员密码有误');
+        } else {
+            $.post("" + ServerIp + "/StrategyManage/DelStrategy", {
+                "sg_id": data.className,
+                "deletepassword": password
+            }, function(data) {
+                var data = JSON.parse(data);
+                if (data.status == 1)
+                    alert('删除成功');
+                else
+                    alert(data.message);
+                myfunction1();
+            });
+        }
     }
     </script>
 </body>

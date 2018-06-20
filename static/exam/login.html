@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="remind" hidden>
-            <p id="remind" align="left"></p>
+            <textarea  id="remind"  style="text-align: left;width: 92%;margin-left: 4%;font-size: 20px;" rows="20"></textarea>
         </div>
         <label hidden id="read" style="font-size: 40px;">
             <input type="radio" id="login" onclick="exam()">我已仔细阅读</label>
@@ -83,7 +83,8 @@
         $(".panel").hide();
         $.get("" + ServerIp + "/Teacher/Remind", {}, function(data) {
             var data = JSON.parse(data);
-            var message = data.message.replace(/\n/g, "<br>")
+            var message = data.message
+            <!--var message = data.message.replace(/\n/g, "<br>")-->
             $("#remind").html(message);
             $("#read").show()
             <!--setInterval(function() {-->

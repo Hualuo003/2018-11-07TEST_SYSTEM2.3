@@ -35,13 +35,6 @@ class BatchPrintExam:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
-        # class Params:
-        #     def __init__(self):
-        #         self.class_cl_id = 2
-        #         self.ex_id = 2
-        #
-        # params = Params()
-
         class_ = model.Class_model.getByPK(params.class_cl_id)
         exam = model.Exam_model.getByPK(params.ex_id)
         ex, cl = exam.ex_id, class_.cl_id
@@ -148,12 +141,13 @@ class Login:
         params = web.input()
         session = web.ctx.session
         teacher = model.Teacher_model.getByArgs(tc_id=params.tc_id)
-        util.getFileRotatingLog().debug(params)
+        # util.getFileRotatingLog().debug(params)
         if teacher[0].tc_password != params.password:
             response = util.Response(status=util.Status.__error__, message=u"密码错误")
             return util.objtojson(response)
         else:
             session.username = params.tc_id
+            session.password = params.password
             response = util.Response(status=util.Status.__success__, )
             return util.objtojson(response)
 
@@ -165,13 +159,15 @@ class GetTeacher:
         params = web.input()
         try:
             session = web.ctx.session
+
             username = session.username
+            # util.getFileRotatingLog().debug(username)
             if not username:
-                print "not login"
                 response = util.Response(status=util.Status.__not_login__, message='4')
                 return util.objtojson(response)
         except Exception as e:
             print e
+            util.getFileRotatingLog().debug(e)
             response = util.Response(status=util.Status.__not_login__, message='4')
             return util.objtojson(response)
         teacher = model.Teacher_model.getByArgs(tc_id=session.username)

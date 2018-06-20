@@ -279,24 +279,30 @@ class AddClass:#增加教务班
 class DeleteClass:#删除教务班
     def POST(self):
 
-        #修改为不需要管理员密码就能够删除
         web.header("Access-Control-Allow-Origin","*")
         must_params = ('cl_id',)
-        params = web.input()
-        
-        if util.paramsok(must_params, params) == Status.__params_not_ok__:
+        mydata = web.input()
+        if util.paramsok(must_params, mydata) == Status.__params_not_ok__:
             response = Response(status = Status.__params_not_ok__ ,message = "参数错误!")
             return  util.objtojson(response)
-        params = Class_model(cl_id = params.cl_id)
-        print "delete_class";
-        with orm.db.transaction():
-            db.delete('student_has_class', where="class_cl_id = $class_cl_id", vars={'class_cl_id': params.cl_id, })
-            if db.delete('class', where="cl_id = $cl_id", vars={'cl_id': params.cl_id, }):
-                response = Response(status=Status.__success__, message="班级删除成功!")
-                return util.objtojson(response)
-            else:
-                response = Response(status=Status.__error__, message="班级删除失败!")
-                return util.objtojson(response)
+        params = Class_model(cl_id = mydata.cl_id)
+        teacher = model.Teacher_model.getByArgs(tc_level='管理员')
+        if str(mydata.deletepassword) != teacher[0].tc_password:
+            response = util.Response(status=util.Status.__error__,message = "密码错误")
+            return util.objtojson(response)
+        try:
+            with orm.db.transaction():
+                db.delete('student_has_class', where="class_cl_id = $class_cl_id", vars={'class_cl_id': params.cl_id, })
+                if db.delete('class', where="cl_id = $cl_id", vars={'cl_id': params.cl_id, }):
+                    response = Response(status=Status.__success__, message="班级删除成功!")
+                    return util.objtojson(response)
+                else:
+                    response = Response(status=Status.__error__, message="班级删除失败!")
+                    return util.objtojson(response)
+        except Exception as e:
+            util.getFileRotatingLog().debug(e)
+            response = Response(status=Status.__error__, message="班级删除失败!")
+            return util.objtojson(response)
        
 class OpenClass:
     def POST(self):
