@@ -377,6 +377,7 @@
             data: {
                 "eq_id": data.name,
                 "eq_answer": data.value,
+                'eq_qt_type':'filla',
             },
             success: function(data) {
                 var data = JSON.parse(data);
@@ -497,6 +498,10 @@
                     $("#" + data.body[0][i].eq_id + "").append(option);
                     var option_ul = '<ul id ="option_ul_' + i + '"></ul>'
                     $("#option_class_" + i + "").append(option_ul);
+                    data.body[0][i].cc_a = data.body[0][i].cc_a.replace(/</g, "&lt;");
+                    data.body[0][i].cc_b = data.body[0][i].cc_b.replace(/</g, "&lt;");
+                    data.body[0][i].cc_c = data.body[0][i].cc_c.replace(/</g, "&lt;");
+                    data.body[0][i].cc_d = data.body[0][i].cc_d.replace(/</g, "&lt;");
                     var option_a = '<li class="option" ><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_1" value="A"/><label for="0_answer_' + j + '_option_1">A.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_a + '</p></label></li>'
                     $("#option_ul_" + i + "").append(option_a);
                     var option_b = '<li class="option"><input type="radio" class="radioOrCheck" name="answer0' + j + '" id="0_answer_' + j + '_option_2" value="B"/><label for="0_answer_' + j + '_option_2">B.&nbsp;&nbsp; <p class="ue" style="display: inline;">' + data.body[0][i].cc_b + '</p></label></li>'
@@ -571,8 +576,8 @@
                     var stem = '<div class="test_content_nr_tt" id="fillb_coding' + i + '""><i>' + j + '</i><span>(' + data.body[3][i][0].eq_pre_score * data.body[3][i][1].length + '分)</span><font>' + data.body[3][i][0].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></br></div>'
                     $("#qu_3_" + i + "").append(stem);
                     var fillb_content = data.body[3][i][0].fb_pre_coding;
-
                     fillb_content = fillb_content.replace(/</g, "&lt;");
+                    data.body[3][i][0].qt_stem = data.body[3][i][0].qt_stem.replace(/</g, "&lt;");
                     for (var k = 0; k < data.body[3][i][1].length; k++) {
                         // alert('data.body[3][i][1]['+k+'].eq_id'+data.body[3][i][1][k].eq_id);
                         var blank = '<textarea name="' + data.body[3][i][1][k].eq_id + '" value="" class="' + data.body[3][i][1][k].eq_id + '" id="fillb' + i + '" rows="7" cols="100" onchange="ChangeFillb(this)"></textarea>'
@@ -599,6 +604,7 @@
                 for (var i = 0; i < data.body[4].length; i++) {
                     $("#coding").append('<li id="' + data.body[4][i].eq_id + '"></li>');
                     var j = i + 1;
+                    data.body[4][i].qt_stem = data.body[4][i].qt_stem.replace(/</g, "&lt;");
                     var stem = '<div class="test_content_nr_tt"><i>' + j + '</i><span>(' + data.body[4][i].eq_pre_score + '分)</span><font>' + data.body[4][i].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
                     $("#" + data.body[4][i].eq_id + "").append(stem);
                     var option = '<div class="test_content_nr_main" id ="coding_option_class_' + i + '"></div>'

@@ -9,7 +9,7 @@ Default configurations.
 
 configs = {
     'db': {
-        'host': '192.168.3.1',
+        'host': '127.0.0.1',
         'port': 3306,
         'user': 'admin',
         'password': 'EXAMhost#6636',

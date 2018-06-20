@@ -349,3 +349,11 @@ int main()
 [2018-06-14 09:07:06,423] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 19L, 'total_num': 550L, 'fillb_num': 12L, 'filla_num': 8L, 'coding_num': 342L, 'choice_num': 169L}
 [2018-06-14 10:14:29,034] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 19L, 'total_num': 550L, 'fillb_num': 12L, 'filla_num': 8L, 'coding_num': 342L, 'choice_num': 169L}
 [2018-06-14 10:14:29,034] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 19L, 'total_num': 550L, 'fillb_num': 12L, 'filla_num': 8L, 'coding_num': 342L, 'choice_num': 169L}
+[2018-06-20 15:49:52,470] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 0L, 'total_num': 465L, 'fillb_num': 8L, 'filla_num': 0L, 'coding_num': 288L, 'choice_num': 169L}
+[2018-06-20 15:50:01,984] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 0L, 'total_num': 16L, 'fillb_num': 0L, 'filla_num': 0L, 'coding_num': 16L, 'choice_num': 0L}
+[2018-06-20 15:50:10,003] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 0L, 'total_num': 3L, 'fillb_num': 3L, 'filla_num': 0L, 'coding_num': 0L, 'choice_num': 0L}
+[2018-06-20 15:50:21,330] QuestionBackManage.py:668(POST): [DEBUG] <Storage {'deletepassword': u'admin', 'qt_id': u'1921', 'qb_id': u'1078'}>
+[2018-06-20 15:50:26,494] QuestionBackManage.py:668(POST): [DEBUG] <Storage {'deletepassword': u'admin', 'qt_id': u'1922', 'qb_id': u'1078'}>
+[2018-06-20 15:50:26,494] QuestionBackManage.py:668(POST): [DEBUG] <Storage {'deletepassword': u'admin', 'qt_id': u'1922', 'qb_id': u'1078'}>
+[2018-06-20 15:51:22,131] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 0L, 'total_num': 465L, 'fillb_num': 8L, 'filla_num': 0L, 'coding_num': 288L, 'choice_num': 169L}
+[2018-06-20 15:51:22,131] QuestionBackManage.py:181(POST): [DEBUG] {'judge_num': 0L, 'total_num': 465L, 'fillb_num': 8L, 'filla_num': 0L, 'coding_num': 288L, 'choice_num': 169L}
