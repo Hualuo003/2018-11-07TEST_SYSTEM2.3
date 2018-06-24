@@ -15,6 +15,11 @@ import shutil
 from config_default import question_source
 from config_default import server_num
 
+def upExamQuestionState(delay):
+    while (1):
+        # print threadName
+        time.sleep(delay)
+        db.update('exam_question', where="eq_get_score = '-3'", eq_get_score='-2', )
 
 def upExamStatusStart(delay):
     while (1):
@@ -158,6 +163,7 @@ threads.append(threading.Thread(target=upExamStatusStart, args=(1,)))
 threads.append(threading.Thread(target=upExamStatusStop, args=(1,)))
 threads.append(threading.Thread(target=upInformationState, args=(1,)))
 threads.append(threading.Thread(target=CreatQuestionSource, args=(1,)))
+threads.append(threading.Thread(target=upExamQuestionState, args=(1000,)))
 
 if __name__ == '__main__':
     for t in threads:
