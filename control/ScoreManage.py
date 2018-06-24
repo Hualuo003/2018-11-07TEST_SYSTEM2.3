@@ -42,35 +42,61 @@ class getdata:
 
 class selectScore:
     def POST(self):
-        web.header("Access-Control-Allow-Origin", "*")
-        mydata = web.input()
-        cl = model.Class_model()
-        exam = model.Exam_model()
-        information = model.Information_model()
+        debug=0
+        if debug == 1:
+            class Mydata:
+                pass
+            mydata=Mydata()
+            mydata.ex_id=4
+            mydata.cl_id=2
+        else:
+            web.header("Access-Control-Allow-Origin", "*")
+            mydata = web.input()
         student = model.Student_model()
         information_data = orm.db.query('select * from information where exam_ex_id = %s and class_cl_id = %s'%(mydata.ex_id,mydata.cl_id))
-        # information_data = orm.db.query('select * from information where exam_ex_id = %s'%(mydata.ex_id))
         information_data = [model.Information_model(**item) for item in information_data]
-        student_data = []
-        examquestion_data = []
-        for k in information_data:
-            result = student.getByArgs(st_id = k.student_st_id)
-            student_data.append(result)
-            k['in_state'] = util.in_state[int(k.in_state)]
-            if k['in_score'] == -1:
-                k['in_score'] = u'未出分'
-            result = model.Exam_question_model.getByArgs(information_in_id=k.in_id)
-            for question in result:
-                if question.eq_get_score <0:
-                    question.eq_get_score = u'未出分'
-            examquestion_data.append(result)
         data = []
-        data.append(information_data)
-        data.append(student_data)
-        data.append(examquestion_data)
-        page = util.Page(data = data, totalRow = len(student_data), currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
-        response = util.Response(status = util.Status.__success__,body = page)
-        return util.objtojson(response)
+        for single_information in information_data:
+            single_student_data = []
+            single_student_data.append(student.getByPK(single_information.student_st_id))
+            single_student_data.append(single_information)
+            single_information['in_state'] = util.in_state[int(single_information.in_state)]
+            if single_information['in_score'] == -1:
+                single_information['in_score'] = u'未出分'
+            result = model.Exam_question_model.getByArgs(information_in_id=single_information.in_id)
+            result_mapping = {'choice':[],'judge':[],'filla':[],'fillb':[],'coding':[]}
+            for question in result:
+                if question.eq_qt_type == 'fillb':
+                    if len(result_mapping["fillb"])== 0 or result_mapping["fillb"][-1].qt_id != question.qt_id:
+                        if question.eq_get_score<0:
+                            question.eq_get_score=u'未出分'
+                        result_mapping["fillb"].append(question)
+                    elif result_mapping["fillb"][-1].qt_id == question.qt_id:
+                        if result_mapping["fillb"][-1].eq_get_score==u'未出分' or question.eq_get_score<0:
+                            result_mapping["fillb"][-1].eq_get_score = u'未出分'
+                        else:
+                            result_mapping["fillb"][-1].eq_get_score += question.eq_get_score
+                else:
+                    if question.eq_get_score < 0:
+                        question.eq_get_score = u'未出分'
+                    result_mapping[str(question.eq_qt_type)].append(question)
+            examquestion_data = []
+            examquestion_data.extend(result_mapping['choice'])
+            examquestion_data.extend(result_mapping['judge'])
+            examquestion_data.extend(result_mapping['filla'])
+            examquestion_data.extend(result_mapping["fillb"])
+            examquestion_data.extend(result_mapping['coding'])
+            single_student_data.append(examquestion_data)
+            print(single_student_data)
+            data.append(single_student_data)
+        if debug!=1:
+            page = util.Page(data = data, totalRow = len(data), currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
+            response = util.Response(status = util.Status.__success__,body = page)
+            return util.objtojson(response)
+
+
+if __name__ == "__main__":
+    selectScore().POST()
 
 class printToExcel:
     def GET(self):
@@ -88,9 +114,3 @@ class printToExcel:
 
 app = web.application(urls,globals())
 render = web.template.render('template')
-if __name__ == '__main__':
-    
-    if len(urls)&1 == 1:
-        print "urls error, the size of urls must be even."
-    else:
-        app.run()

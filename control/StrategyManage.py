@@ -118,10 +118,11 @@ class CreatStrategyTerm:
                     response = util.Response(status=util.Status.__error__, body=result_message)
                     return util.objtojson(response)
             if strategyTerm.insert():
+                pageSize = 9999
                 currentPage = int(params.currentPage) - 1
                 result = strategyTerm.query(
                     'select * from strategy_term where strategy_sg_id =%s order by sm_id desc limit %s,%s' % \
-                    (strategyTerm.strategy_sg_id, currentPage * 5, 5))
+                    (strategyTerm.strategy_sg_id, currentPage * pageSize, pageSize))
                 strategyTermList = []
                 total_score = 0
                 for item in result:
@@ -143,7 +144,7 @@ class CreatStrategyTerm:
                 result = strategyTerm.query('select count(*) from strategy_term where strategy_sg_id =%s' % \
                                             (strategyTerm.strategy_sg_id))
                 page = util.Page(data=strategyTermList, totalRow=int(result[0]['count(*)']) * 2,
-                                 currentPage=int(params.currentPage), pageSize=5,
+                                 currentPage=int(params.currentPage), pageSize=pageSize,
                                  status=util.Status.__success__, message=total_score)
                 print page
                 response = util.Response(status=util.Status.__success__, body=page)
@@ -159,10 +160,11 @@ class GetStrategyTerm:
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
         params = web.input()
+        pageSize = 9999
         strategyTerm = model.Strategy_term_model(**params)
         currentPage = int(params.currentPage) - 1
         result = strategyTerm.query('select * from strategy_term where strategy_sg_id =%s \
-            order by sm_id desc limit %s,%s' % (strategyTerm.strategy_sg_id, currentPage * 5, 5))
+            order by sm_id desc limit %s,%s' % (strategyTerm.strategy_sg_id, currentPage * pageSize, pageSize))
         strategyTermList = []
         total_score = 0
         for item in result:
@@ -184,7 +186,7 @@ class GetStrategyTerm:
         result = strategyTerm.query('select count(*) from strategy_term where \
             strategy_sg_id =%s' % (strategyTerm.strategy_sg_id))
         page = util.Page(data=strategyTermList, totalRow=result[0]['count(*)'], currentPage=int(params.currentPage),
-                         pageSize=5, status=util.Status.__success__, message=total_score)
+                         pageSize=pageSize, status=util.Status.__success__, message=total_score)
         response = util.Response(status=util.Status.__success__, body=page)
         return util.objtojson(response)
 

@@ -178,7 +178,7 @@
                     $("#fillb").append('<li id="qu_3_' + i + '"></li>');
                     var j = i + 1;
                     data.body[4][i].qt_stem = data.body[4][i].qt_stem.replace(/</g, "&lt;");
-                    var stem = '<div class="test_content_nr_tt" id="fillb_coding' + i + '""><i>' + j + '</i><span>(' + data.body[3][i][0].eq_pre_score * data.body[3][i][1].length + '分)</span><font>' + data.body[3][i][0].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
+                    var stem = '<div class="test_content_nr_tt" id="fillb_coding' + i + '""><i>' + j + '</i><span>(' + Math.ceil(data.body[3][i][0].eq_pre_score * data.body[3][i][1].length) + '分)</span><font>' + data.body[3][i][0].qt_stem + '</font><b class="icon iconfont">&#xe881;</b></div>'
                     $("#qu_3_" + i + "").append(stem);
                     var fillb_content = data.body[3][i][0].fb_pre_coding;
 

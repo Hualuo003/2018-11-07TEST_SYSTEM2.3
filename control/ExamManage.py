@@ -252,11 +252,12 @@ class RestartreadExam:
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
         exam = model.Exam_model.getByPK(params.ex_id)
-        exam.state='3'
+        exam.ex_state='3'
         exam.update()
         db.update('exam_question', where="information_in_id in (select \
                  in_id from information where exam_ex_id = \
                  %s)"%(params.ex_id), eq_get_score='-2', )
+        db.update('information', where="exam_ex_id = %s" % (params.ex_id), in_score='-1', )
         thread.start_new(upExamStatusFour, (1, exam.ex_id))
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)

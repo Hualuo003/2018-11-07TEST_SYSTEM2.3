@@ -418,6 +418,7 @@ def SaveFillb(information_in_id):
             fillb_question = [model.Exam_question_model(**item) for item in fillb_question]
             i = 1
             for item in fillb_question:
+                getFileRotatingLog().debug(item)
                 j = 2 * i - 1
                 fillb_coding = fillb.fb_pre_coding.split('&&&')
                 fillb_coding[j] = item.eq_answer
