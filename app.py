@@ -1,11 +1,12 @@
 # #!/usr/bin/env python
 # # -*- coding: utf-8 -*-
 import os,sys
+from imp import reload
 abspath = os.path.dirname(__file__)
-print abspath
+print(abspath)
 sys.path.append(abspath)
 reload(sys)
-sys.setdefaultencoding("utf-8")
+# sys.setdefaultencoding("utf-8")       # py3取消了该用法
 
 import web
 from web import form
@@ -19,20 +20,21 @@ from control import ExamManage
 from control import ScoreManage
 from control import StudentManage
 from control import Teacher
+from control import GrobalParams
 import util
 import datetime
 import time
 from model.orm import *
-import thread
+import _thread
 import os
 import shutil
 from config_default import question_source
 from config_default import server_num
 
 urls = (
-    '/login','Login',
-    '/Student/',Student.app,
-    '/Teacher/',Teacher.app,
+    '/Login', 'Login',
+    '/Student/', Student.app,
+    '/Teacher/', Teacher.app,
      # 题库管理
     '/QuestionBackManage/', QuestionBackManage.app,
      # 知识点管理
@@ -45,172 +47,47 @@ urls = (
     '/ScoreManage/', ScoreManage.app,
      # 学生管理
     '/StudentManage/', StudentManage.app,
-
 )
 
-# render = web.template.render('template/')
+# render = web.template.render('template/')                 # 不需要使用模板
 
+# 该方法搭建一个WebApp， urls为路由表，locals()以字典形式返回局部命名空间，因此可以通过名字来获取对象
 app = web.application(urls, locals(), autoreload = True)
-web.config.debug = False
-if web.config.get("_session") is None:
-    # store = web.session.DiskStore('sessions')
-    store = web.session.DBStore(orm.db, 'sessions')
-    session = web.session.Session(app, store, initializer={'student_id': '',"status": 1,'ex_id':''})
-    web.config._session = session
+web.config.debug = False                                    # session的使用需要禁用调试
+
+# session用来存储页面访问的次数，从而实现对访问次数的记录
+if web.config.get("_session") is None:                      # 判断session是否存在于web.config中
+    # store = web.session.DiskStore('sessions')db的一个实例化对象
+    store = web.session.DBStore(orm.db, 'sessions')         # session是orm.
+    '''orm.db = web.database(host=configs.db.host, port=configs.db.port, dbn='mysql', db=configs.db.database, user=configs.db.user,
+    pw=configs.db.password)'''
+    # session = web.session.Session(app, store, initializer={'student_id': '', "status": 1, 'ex_id': ''})    # 初始化session，并网session的字典中添加三个参数
+    session = web.session.Session(app, web.session.DiskStore("session"), initializer={'student_id': '', "status": 1, 'ex_id': ''})
+    web.config._session = session                           # 赋值web.config._session
 else:
-    session = web.config._session
+    session = web.config._session                           # 如果web.config中存在session,则直接赋值给session
+
+
+# web.ctx用于获取客户端信息。它基于ThreadDict，他能够与线程的id相对应，多用户访问时，可以为某一特定的http请求提供数据
+# 可用web.ctx操作Session(会话)
+# 通过session_hook()来赋值web.ctx,使session成为全局变量，并能通过web.ctx调用
 def session_hook():
-    web.ctx.session = session
+    web.ctx.session = session                               # 赋值客户端session,使session成为全局变量
+
+
+# 通过web.loadhook()(加载钩子)添加应用处理器来修改全局变量web.ctx
 app.add_processor(web.loadhook(session_hook))
 
-application = app.wsgifunc()
+
+application = app.wsgifunc()        # 该函数返回一个WSGI兼容的函数，实现了URL的路由等功能。该函数目的是与WSGI应用服务器对接
+
+
+class Login:
+    def GET(self):
+        print("app.Login")
+        return "ok"
+
 
 if __name__ == '__main__':
+    print("app.py作为主程序")
     app.run()
-# #
-# def upExamStatusStart(threadName, delay):
-#     while (1):
-#         # print threadName
-#         time.sleep(delay)
-#         startExam = dict(ex_state=0)
-#         examModel = model.Exam_model()
-#         # 未开始的考试
-#         exams = examModel.getByArgs(**startExam)
-#         for exam in exams:
-#             if exam['ex_time_start'] < datetime.datetime.now():
-#                 exam['ex_state'] = '1'
-#                 exam.update()
-# def upExamStatusFour(delay,ex_id):
-#     while 1:
-#         time.sleep(delay)
-#         # print "four"
-#         exam = model.Exam_model.getByPK(ex_id)
-#         informations = model.Information_model.getByArgs(exam_ex_id=ex_id)
-#         flag = 0
-#         for information in informations:
-#             information.in_score = util.upInformationScore(information.in_id)
-#             if information.in_score ==-1:
-#                 flag = 1
-#                 break
-#             else:
-#                 information.update()
-#         if flag==0:
-#             exam.ex_state='4'
-#             exam.update()
-#             break
-#
-# def upExamStatusStop(threadName, delay):
-#     while (1):
-#         # print threadName
-#         time.sleep(delay)
-#         startExam = dict(ex_state=1)
-#         examModel = model.Exam_model()
-#         # 正在考试的考试
-#         exams = examModel.getByArgs(**startExam)
-#         for exam in exams:
-#             # 可能变成2,3,4
-#             # 练习模式考试直接出成绩
-#             if exam.ex_type =='0':
-#                 if exam['ex_time_end'] < datetime.datetime.now():
-#                     exam['ex_state'] = '4'
-#                     exam.update()
-#             else:
-#                 # 正式考试,自动判卷,转到正在阅卷
-#                 if exam.ex_auto=='1':
-#                     if exam['ex_time_end'] < datetime.datetime.now():
-#                         exam['ex_state'] = '3'
-#                         thread.start_new(upExamStatusFour, (1,exam.ex_id))
-#                         exam.update()
-#                 else:
-#                     # 正式考试,非自动判卷,转到结束考试但成绩未出
-#                     if exam['ex_time_end'] < datetime.datetime.now():
-#                         exam['ex_state'] = '2'
-#                         exam.update()
-#
-#
-# def upInformationState(threadName, delay):
-#     while (1):
-#         # print threadName
-#
-#         time.sleep(delay)
-#         startExam = dict(in_state=1)
-#         # 正在考试的学生
-#         information = model.Information_model.getByArgs(**startExam)
-#         delta = datetime.timedelta(minutes=1)
-#         for item in information:
-#             if item['in_endtime'] < datetime.datetime.now()-delta:
-#                 item['in_state'] = '2'
-#                 item['in_temp_ip'] = None
-#                 item.update()
-#                 util.SaveFillb(item['in_id'])
-#                 db.update('exam_question', where="information_in_id = %s" % (item['in_id']), eq_get_score='-2',)
-#                 thread.start_new(util.GetScore, (1, item['in_id']))
-#
-# def CreatQuestionSource(threadName, delay):
-#     while (1):
-#         # print threadName
-#         num = int(10**server_num)
-#         num = num/10
-#         question = model.Question_model.query('select * from question where qt_state div %s %% 10 = 0'%(num))
-#         # question = model.Question_model.getByArgs(qt_state=0)
-#         question = [model.Question_model(**item) for item in question]
-#         for item in question:
-#             if item.qt_type =='coding':
-#                 coding = model.Coding_model.getByArgs(question_qt_id= item.qt_id)
-#                 coding = coding[0]
-#                 try:
-#                     os.mkdir('%s/%s' % (question_source, item.qt_id))
-#                     item.qt_state += num
-#                     item.update()
-#                 except:
-#                     # 删除文件
-#                     shutil.rmtree('%s/%s' % (question_source, item.qt_id))
-#                     continue
-#
-#                 test_in = coding.co_test_answer_in.split('&&&')
-#                 test_out = coding.co_test_answer_out.split('&&&')
-#                 # print len(test_in)
-#                 for k in range(1, len(test_in) - 1):
-#                     with open('%s/%s/%s.in' % (question_source, coding.question_qt_id, k), 'w') as f:
-#                         f.write(test_in[k])
-#                     with open('%s/%s/%s.out' % (question_source, coding.question_qt_id, k), 'w') as f:
-#                         f.write("%s" % test_out[k])
-#             elif item.qt_type == 'fillb':
-#                 Fillb = model.Fillb_model.getByArgs(question_qt_id= item.qt_id)
-#                 Fillb = Fillb[0]
-#                 # if os.path.exists('%s/%s' % (question_source, item.qt_id))==False:
-#                 #     continue
-#                 # else:
-#                 #     os.mkdir('%s/%s' % (question_source, item.qt_id))
-#                 # os.mkdir('%s/%s' % (question_source, Fillb.question_qt_id))
-#                 try:
-#                     os.mkdir('%s/%s' % (question_source, item.qt_id))
-#                     item.qt_state += num
-#                     item.update()
-#                 except:
-#                     # 删除文件
-#                     shutil.rmtree('%s/%s' % (question_source, item.qt_id))
-#                     continue
-#                 test_in = Fillb.fb_test_answer_in.split('&&&')
-#                 test_out = Fillb.fb_test_answer_out.split('&&&')
-#                 for k in range(1, len(test_in) - 1):
-#                     # with open('../examTransplant1.7/source/question/%s/%s.in' % (Fillb.question_qt_id, k), 'w') as f:
-#                     with open('%s/%s/%s.in' % (question_source, Fillb.question_qt_id, k), 'w') as f:
-#                         f.write(test_in[k])
-#                     with open('%s/%s/%s.out' % (question_source, Fillb.question_qt_id, k), 'w') as f:
-#                         f.write("%s" % test_out[k])
-#         time.sleep(delay)
-
-# application = app.wsgifunc()
-# thread.start_new(upExamStatusStart, ("thread-1", 1,))
-# thread.start_new(upExamStatusStop, ("thread-2", 1,))
-# thread.start_new(upInformationState, ("thread-3", 1,))
-# thread.start_new(CreatQuestionSource, ("thread-4", 1,))
-
-
-# if __name__ == '__main__':
-    # thread.start_new(upExamStatusStart, ("thread-1", 1,))
-    # thread.start_new(upExamStatusStop, ("thread-2", 1,))
-    # thread.start_new(upInformationState, ("thread-3", 1,))
-    # thread.start_new(CreatQuestionSource, ("thread-4", 1,))
-    # thread.start_new(app.run())

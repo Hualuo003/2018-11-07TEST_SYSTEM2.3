@@ -136,106 +136,11 @@
     </style>
 </head>
 
-<body class="nav-md">
+<body class="nav-md"  style="background-image: url(../vendors/tushuguan.jpg);background-repeat: no-repeat;background-size: cover;">
     <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view" style="position:fixed;">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a class="site_title"><span>考试后台管理系统</span></a>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li id="question_back_manage">
-                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="question_bank.html">题库管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_find.html">查找题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_single_add.html">添加题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_batch_add.html">导入题目</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="student_class.html">教务班管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_batch_add.html">导入学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_single_add.html">添加学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_find.html">查找学生</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="strategy_create.html">新增策略</a>
-                                        </li>
-                                        <li>
-                                            <a href="strategy_view.html">查看策略</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                               
-                                <li>
-                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="exam_create.html">新建考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_view.html">查看考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_monitor.html">考试监控</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
-                                </li>
-                                <li>
-                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
-                                </li>
-                                <li>
-                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
-                                </li>
-                                
-                                <li>
-                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="document_exam_paper.html">考卷导出</a>
-                                        </li>
-                                        <li>
-                                            <a href="remind.html">考试规则</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="main_container" >
+            <div id="menu">
+             <!--加载侧边栏-->
             </div>
             <!-- page content -->
             <div class="right_col" role="main">
@@ -262,6 +167,7 @@
                                     <form class="form-horizontal form-label-left">
                                         <div class="form-group">
                                             <label class="control-label col-md-1 col-sm-3 col-xs-12">题库选择</label>
+                                            <label type="text" id="qb_lang_show" style="width: 5%;"></label>
                                             <div class="col-md-3 col-sm-9 col-xs-12">
                                                 <select class="select2_single form-control" id="qb_id">
                                                 </select>
@@ -269,6 +175,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-1 col-sm-3 col-xs-12">目标题库</label>
+                                            <label type="text" id="target_qb_lang_show" style="width: 5%;" value=""></label>
                                             <div class="col-md-3 col-sm-9 col-xs-12">
                                                 <select class="select2_single form-control" tabindex="-1" id="target_qb">
                                                 </select>
@@ -401,7 +308,7 @@
                                 <form class="form-horizontal form-label-left">
                                     <div class="form-group">
                                         <label class="control-label col-md-1 col-sm-3 col-xs-12">当前题库:</label>
-                                        <label class="control-label col-md-2 col-xs-12" id="qb" value=""></label>
+                                        <label class="control-label col-md-2 col-xs-12" id="qb" value=""></label>           
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-1 col-sm-3 col-xs-12">题型选择</label>
@@ -529,7 +436,34 @@
     <script src="../build/js/custom.min.js"></script>
     <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
     <script src="../exam/js/config.js"></script>
-    <script src="../exam/js/AuthorityManagement.js"></script>
+    <!--<script src="../exam/js/AuthorityManagement.js"></script>-->
+    <script src="../exam/js/menu.js"></script>
+        
+    <script type="text/javascript">
+    	$(function () 
+		 {
+    		$.ajax
+			({
+	      	    url: "" + ServerIp + "/StudentManage/Menu", //加上这句话
+	            type: 'POST',				//请求的类型
+	            async: false,
+	            dataType: "text",			//数据类型		          
+	            data: {					         		            
+	            },					            
+	            success:function(data) 	 //操作后台的返回值
+	            {
+	            	//alert(data);
+	            	data = JSON.parse(data);		           
+	            	$("#menu").append(data);		            	
+				},
+	            error: function(e)
+	            {
+	            	alert("error");
+	            }
+		    });
+		})
+    </script>
+    
     <script>
     var currentPage = 1;
     var target_currentPage = 1;
@@ -561,6 +495,11 @@
             "currentPage": currentPage
         }, function(data) {
             var data = JSON.parse(data);
+            if(data.status == 0)
+            {
+            	alert(data.message);
+            	return;
+            }	
             var tablebody = $('#tablebody');
             document.getElementById("tablebody").innerHTML = '';
             totalPage = data.body.totalPage;
@@ -853,15 +792,22 @@
         var target_Knowledge = $("#target_Knowledge");
         var qb = $("#qb_id");
         var target_qb = $("#target_qb");
+        var qb_lang_show = $("#qb_lang_show");
+        var target_qb_lang_show = $("#target_qb_lang_show");
         $.get("" + ServerIp + "/QuestionBackManage/RequestQuestionBack/", {}, function(data) {
             var data = JSON.parse(data);
+            qb.append("<option value = 'null'></option>");
+            target_qb.append("<option value = 'null'></option>");
             for (var i = 0; i < data.body[0].length; i++) {
                 Knowledge.append("<option value = '" + data.body[0][i].kl_id + "'>" + data.body[0][i].kl_name + "</option>");
             }
             for (var i = 0; i < data.body[1].length; i++) {
+            	//if(data.body[1][i].qb_lang == '0'){  qb_lang_show.append("<mark>C语言</mark>");}
+            		
+            	
                 qb.append("<option value = '" + data.body[1][i].qb_id + "'>" + data.body[1][i].qb_name + "</option>");
-            }
-            for (var i = 0; i < data.body[1].length; i++) {
+                var input = document.getElementsByTagName("qb_lang");
+				input.value=data.body[1][i].qb_lang;
                 target_qb.append("<option value = '" + data.body[1][i].qb_id + "'>" + data.body[1][i].qb_name + "</option>");
             }
             for (var i = 0; i < data.body[0].length; i++) {
@@ -874,6 +820,72 @@
         $(".select2_group").select2({});
 
     });
+
+//  $("#qb_id").change(function ()
+//  {
+//  	qb_lang_show();
+//  	target_qb_lang_show();
+//  });
+    $("#qb_id").change(function (){
+	 	var qb_id = $("#qb_id").val();
+		$.ajax
+		({
+      	    url: "" + ServerIp + "/QuestionBackManage/Getlang/", //加上这句话
+            type: 'POST',				//请求的类型
+            async: false,
+            dataType: "text",			//数据类型		          
+            data: {	
+            	"qb_id":qb_id,
+            },					            
+            success:function(data) 	 //操作后台的返回值
+            {
+            	data = JSON.parse(data);
+            	switch(data[0].qb_lang){
+            		case '0': document.getElementById("qb_lang_show").innerHTML = "C语言";break;
+            		case '1': document.getElementById("qb_lang_show").innerHTML = "Python2";break;
+            		case '2': document.getElementById("qb_lang_show").innerHTML = "Python3";break;
+            		case '3': document.getElementById("qb_lang_show").innerHTML = "Java";break;
+            		case '4': document.getElementById("qb_lang_show").innerHTML = "C#";break;
+            		case '5': document.getElementById("qb_lang_show").innerHTML = "go语言";break;
+            	}
+			},
+            error: function(e)
+            {
+            	alert("error");
+            }
+	    });
+	});
+    $("#target_qb").change(function (){ 
+	 	var target_qb_id = $("#target_qb").val();
+		$.ajax
+		({
+      	    url: "" + ServerIp + "/QuestionBackManage/Getlang/", //加上这句话
+            type: 'POST',				//请求的类型
+            async: false,
+            dataType: "text",			//数据类型		          
+            data: {	
+            	"qb_id":target_qb_id,
+            },					            
+            success:function(data) 	 //操作后台的返回值
+            {
+            	data = JSON.parse(data);
+            	switch(data[0].qb_lang){
+            		case '0': document.getElementById("target_qb_lang_show").innerHTML = "C语言";break;
+            		case '1': document.getElementById("target_qb_lang_show").innerHTML = "Python2";break;
+            		case '2': document.getElementById("target_qb_lang_show").innerHTML = "Python3";break;
+            		case '3': document.getElementById("target_qb_lang_show").innerHTML = "Java";break;
+            		case '4': document.getElementById("target_qb_lang_show").innerHTML = "C#";break;
+            		case '5': document.getElementById("target_qb_lang_show").innerHTML = "go语言";break;
+            	}
+            	//document.getElementById("target_qb_lang_show").innerHTML = '';
+			},
+            error: function(e)
+            {
+            	alert("error");
+            }
+	    });
+	});
+    
     </script>
 </body>
 

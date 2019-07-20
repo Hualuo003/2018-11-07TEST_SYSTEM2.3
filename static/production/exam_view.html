@@ -8,17 +8,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>考试后台管理系统</title>
+    
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="../exam/js/jquery.js"></script>
+    
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link href="../vendors/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <style>
+    
+	<!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <!--<script src="../exam/js/AuthorityManagement.js"></script>-->    
+    
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+
+	<!--Datatables--> 
+	<link rel="stylesheet" type="text/css" href="../exam/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="../exam/js/jquery.dataTables.js"></script>
+	<script src="../exam/js/handlebars-v3.0.1.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/jquery.dataTables.js"></script>
+	
+    <!--DatatablesButtons--> 
+    <script type="text/javascript" charset="utf8" src="../exam/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/buttons.print.min.js"></script>
+	<link rel="stylesheet" href="../exam/css/buttons.dataTables.min.css"> 
+    
+    
+    
+    
+    <style> 	
     table {
         *border-collapse: collapse;
         border-spacing: 0;
@@ -136,106 +173,11 @@
     </style>
 </head>
 
-<body class="nav-md">
+<body class="nav-md"  style="background-image: url(../vendors/tushuguan.jpg);background-repeat: no-repeat;background-size: cover;">
     <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view" style="position:fixed;">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a class="site_title"><span>考试后台管理系统</span></a>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li id="question_back_manage">
-                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="question_bank.html">题库管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_find.html">查找题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_single_add.html">添加题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_batch_add.html">导入题目</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="student_class.html">教务班管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_batch_add.html">导入学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_single_add.html">添加学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_find.html">查找学生</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="strategy_create.html">新增策略</a>
-                                        </li>
-                                        <li>
-                                            <a href="strategy_view.html">查看策略</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                               
-                                <li>
-                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="exam_create.html">新建考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_view.html">查看考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_monitor.html">考试监控</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
-                                </li>
-                                <li>
-                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
-                                </li>
-                                <li>
-                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
-                                </li>
-                                
-                                <li>
-                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="document_exam_paper.html">考卷导出</a>
-                                        </li>
-                                        <li>
-                                            <a href="remind.html">考试规则</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="main_container" >
+            <div id="menu">
+             <!--加载侧边栏-->
             </div>
             <!-- page content -->
             <div class="right_col" role="main">
@@ -301,14 +243,23 @@
                                 </div>
                                 <div class="x_content">
                                     <div class="demo">
-                                        <table class="zebra bulk_action">
-                                            <tr>
+                                        <table id="exam_table" class="zebra bulk_action" class=display>
+                                            <!--<tr>
                                                 <th style="width: 30%;">考试名称</th>
                                                 <th>开始日期</th>
                                                 <th>结束日期</th>
                                                 <th>考试状态</th>
                                                 <th style="width: 30%;">操作</th>
-                                            </tr>
+                                            </tr>-->
+                                            <thead>
+                                            	<tr>
+                                            		<th style="width: 30%;">考试名称</th>
+	                                                <th>开始日期</th>
+	                                                <th>结束日期</th>
+	                                                <th>考试状态</th>
+	                                                <th style="width: 30%;">操作</th>
+                                            	</tr>
+                                            </thead>
                                             <tbody id="tablebody">
                                             </tbody>
                                         </table>
@@ -445,8 +396,8 @@
                                             <tr>
                                             </tr>
                                         </tbody>
-                                    </table>
-                                </div>
+                                    </table>                                
+                                </div>								
                             </div>
                         </div>
                     </div>
@@ -455,30 +406,117 @@
             <!-- /page content -->
         </div>
     </div>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-    <script src="../vendors/bootstrap/dist/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="../vendors/bootstrap/dist/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-    <script src="../exam/js/config.js"></script>
-    <script src="../exam/js/AuthorityManagement.js"></script>
+
+<!--0 未开始考试     html1查看详情lookExam() html2删除考试deleteExam()        html3开始考试beginExam()    html4开始阅卷readExam_State0()
+    1 正在考试        html1查看详情lookExam() html5暂停考试suspend_exam()      html6停止考试stopExam()     html4开始阅卷readExam_State0()
+    2 已结束考试     html1查看详情lookExam() html11删除考试deleteExam_state() html9重新考试RestartExam()  html10开始阅卷 readExam()
+    3 正在阅卷        html1查看详情lookExam() html11删除考试deleteExam_state() html9重新考试RestartExam()  正在阅卷（文字）
+    4 成绩已出        html1查看详情lookExam() html11删除考试deleteExam_state() html9重新考试RestartExam()  html7重新阅卷RestartreadExam()
+    5 已暂停考试     html1查看详情(lookExam) html8继续考试continue_exam()     html9 重新考试RestartExam() html10开始阅卷readExam()-->
+<!--定义操作列按钮模板-->
+	<script id="tpl" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp2" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp3" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp4" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp5" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp6" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp7" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp8" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp9" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp10" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp11" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	
+	<script src="../exam/js/menu.js"></script>
+        
+    <script type="text/javascript">
+    	$(function () 
+		 {
+    		$.ajax
+			({
+	      	    url: "" + ServerIp + "/StudentManage/Menu", //加上这句话
+	            type: 'POST',				//请求的类型
+	            async: false,
+	            dataType: "text",			//数据类型		          
+	            data: {					         		            
+	            },					            
+	            success:function(data) 	 //操作后台的返回值
+	            {
+	            	//alert(data);
+	            	data = JSON.parse(data);		           
+	            	$("#menu").append(data);		            	
+				},
+	            error: function(e)
+	            {
+	            	alert("error");
+	            }
+		    });
+		})
+    </script>
     <script>
     var add_class_cl_id = new Set();
     var delete_class_cl_id = new Set();
     var class_cl_id = new Set(); //记录已经存在的教务班id
     var ex_id;
     var totalPage = 0;
+    
+    function DestroyTable()//清除datatable表格内容以供刷新
+        {
+        	var datatable = $("#exam_table").dataTable();
+        	if (datatable) 
+        	{
+	         	datatable.fnClearTable();    //清空数据
+	         	datatable.fnDestroy();         //销毁datatable
+       	 	} 
+
+        }
+    
     // 考试详情
-    function lookExam(data) {
-        ex_id = data.className;
+    function lookExam(exam_id) {
+        ex_id = exam_id;
         $('#List').show();
         // class_cl_id = ',';
         var className = $("#className");
@@ -537,8 +575,9 @@
                 });
             });
         });
+        //alert(ex_id);
     }
-
+    
     // 删除教务班
     function deleteClass(data) {
         $("#className").prepend("<option value=" + data.id + ">" + data.className + "</option>");
@@ -562,7 +601,7 @@
         }
         $("#className option[value=" + $('#className').val() + "]").remove();
     });
-
+	
     // 修改考试
     $("#saveExam").click(function() {
         clss_id_add = ','
@@ -575,8 +614,9 @@
             clss_id_delete += x;
             clss_id_delete += ',';
         }
-        // alert(clss_id_add);
+        //alert(ex_id);
         // alert(clss_id_delete);
+        
         $.post("" + ServerIp + "/StrategyManage/ChangeExam", {
                 "ex_name": $("#ex_name").val(),
                 "ex_type": $('input:radio[name="ex_type"]:checked').val(),
@@ -595,6 +635,7 @@
                 "ex_id": ex_id,
             },
             function(data) {
+            	alert(data);
                 document.location.reload();
             });
     })
@@ -607,135 +648,478 @@
     });
     var currentPage = 1;
     // 填充考试表
-    $(document).ready(function() {
+    $(document).ready(function() 
+    {
+    	//定义按钮模板
+		    var tpl = $("#tpl").html();
+		    var tp2 = $("#tp2").html();
+		    var tp3 = $("#tp3").html();
+		    var tp4 = $("#tp4").html();
+		    var tp5 = $("#tp5").html();
+		    var tp6 = $("#tp6").html();
+		    var tp7 = $("#tp7").html();
+		    var tp8 = $("#tp8").html();
+		    var tp9 = $("#tp9").html();
+		    var tp10 = $("#tp10").html();
+		    var tp11 = $("#tp11").html();
+			//预编译模板
+	        var template = Handlebars.compile(tpl);
+	        var template = Handlebars.compile(tp2);
+	        var template = Handlebars.compile(tp3);
+	        var template = Handlebars.compile(tp4);
+	        var template = Handlebars.compile(tp5);
+	        var template = Handlebars.compile(tp6);
+	        var template = Handlebars.compile(tp7);
+	        var template = Handlebars.compile(tp8);
+	        var template = Handlebars.compile(tp9);
+	        var template = Handlebars.compile(tp10);
+	        var template = Handlebars.compile(tp11);
+			$.ajax({
+				url: "" + ServerIp + "/StrategyManage/SelectAllExam",
+				type: 'POST', //请求的类型
+				async: false,
+				dataType: "text", //数据类型
+				data: {"currentPage": currentPage,
+				},
+				success: function(data) //操作后台的返回值
+				{	
+					data = JSON.parse(data);
+					data = data.body;
+					//alert(data.data);
+		           totalPage = data.totalPage;
+		            var firstPage = data.firstPage;
+		            var lastPage = data.lastPage;
+		            var currentPage = data.currentPage;
+		            document.getElementById("page-list").innerHTML = '';
+		            var pageList = $('#page-list');
+		            if (lastPage) {
+		                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+		            } else {
+		                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+		            }
+		            pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+		            if (totalPage > 1) {
+		                if (totalPage - currentPage >= 2) {
+		                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+		                }
+		                if (currentPage > 1 && currentPage != totalPage) {
+		                    pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+		                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+		                } else {
+		                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+		                }
+		                pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+		            }
+		            document.getElementById("questionback" + currentPage + "").style.background = "#426384";
+		            if (firstPage) {
+		                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+		            } else {
+		                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+		            }
+		            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+		            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+		            var i=0;
+		            while(i < data.data.length)
+			            {
+			            if(data.data[i].ex_state==0) {data.data[i].ex_state="未开始考试";}
+			            else if (data.data[i].ex_state==1) {data.data[i].ex_state="正在考试";}
+			            else if(data.data[i].ex_state==2) {data.data[i].ex_state="已结束考试";}
+			            else if(data.data[i].ex_state==3) {data.data[i].ex_state="正在阅卷";}
+			            else if(data.data[i].ex_state==4) {data.data[i].ex_state="成绩已出";}
+			            else if(data.data[i].ex_state==5) {data.data[i].ex_state="已暂停考试";}
+			            i = i + 1;
+			            }          
+					table = $('#exam_table').DataTable({
+						dom: 'Bfrtip',
+						data: data.data,
+						"paging": false, //禁止分页
+						retrieve: true, //实例化检索
+						"columns": [
+							{
+								data: 'ex_name'
+						    },
+						    {
+								data: 'ex_time_start'
+						    },
+						    {
+								data: 'ex_time_end'
+						    },
+						    {
+								data: 'ex_state'
+						    },
+							{
+								data: null//占位空列
+							} 
 
-        $.post("" + ServerIp + "/StrategyManage/SelectAllExam", {
-            "currentPage": currentPage,
-        }, function(data) {
-            var data = JSON.parse(data);
-            totalPage = data.body.totalPage;
-            var firstPage = data.body.firstPage;
-            var lastPage = data.body.lastPage;
-            var currentPage = data.body.currentPage
-            for (var i = 0; i < data.body.data.length; i++) {
-                if (data.body.data[i].ex_state == 0) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td > ' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >未开始考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "beginExam(this)" >开始考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_ids + '" onclick = "readExam_state0(this)" >开始阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 1) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >正在考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "suspend_exam(this)" >暂停考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "stopExam(this)" >停止考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "readExam_state0(this)" >开始阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 2) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >已结束考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam_state(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "RestartExam(this)"  >重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "readExam(this)" >开始阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 3) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >正在阅卷</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam_state(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '"  onclick = "RestartExam(this)">重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '"  >正在阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 4) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >成绩已出</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam_state(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '"  onclick = "RestartExam(this)">重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "RestartreadExam(this)" >重新阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 5) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >已暂停考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "continue_exam(this)" >继续考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "RestartExam(this)"  >重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "readExam(this)" >开始阅卷</a></td></tr>');
-                }
-            }
-            document.getElementById("page-list").innerHTML = '';
-            var pageList = $('#page-list');
-            if (lastPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
-            } else {
-                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
-            }
-            pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
-            if (totalPage > 1) {
-                if (totalPage - currentPage >= 2) {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                if (currentPage > 1 && currentPage != totalPage) {
-                    pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                } else {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
-            }
-            document.getElementById("questionback" + currentPage + "").style.background = "#426384";
-            if (firstPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
-            } else {
-                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
-            }
-            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
-            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
-        });
-    });
+						],
+						"columnDefs": [{
+								"searchable": false,
+								"orderable": false,
+								"targets": [0. - 1]					// 表格填充的范围,[0,-1]为所有
+							},
+							{
+								"targets": 4,
+								"render": function(a, b, c, d) {
+										 var context1 =
+				                        {
+				                            func: [
+				                                {"name": "查看详情", "fn": "lookExam(\'" + c.ex_id + "\')", "type": "primary"},
+				                                
+				                            ]
+				                        };
+				                        var html1 = template(context1);
+				                        
+				                        var context2 =
+				                        {
+				                            func: [
+				                                {"name": "删除考试", "fn": "deleteExam(\'" + c.ex_id + "\')", "type": "danger"},		//添加按键     name为按键属性
+				                                
+				                            ]
+				                        };
+				                        var html2 = template(context2);
+				                        
+				                        var context3 =
+				                        {
+				                            func: [
+				                                {"name": "开始考试", "fn": "beginExam(\'" + c.ex_id + "\')", "type": "info"},
+				                                
+				                            ]
+				                        };
+				                        var html3 = template(context3);
+				                        
+				                        var context4 =
+				                        {
+				                            func: [
+				                                {"name": "开始阅卷", "fn": "readExam_state0(\'" + c.ex_id + "\')", "type": "success"},
+				                                
+				                            ]
+				                        };
+				                        var html4 = template(context4);
+				                        
+				                        var context5 =
+				                        {
+				                            func: [
+				                                {"name": "暂停考试", "fn": "suspend_exam(\'" + c.ex_id + "\')", "type": "danger"},
+				                                
+				                            ]
+				                        };
+				                        var html5 = template(context5);
+				                        
+				                        var context6 =
+				                        {
+				                            func: [
+				                                {"name": "停止考试", "fn": "stopExam(\'" + c.ex_id + "\')", "type": "info"},
+				                                
+				                            ]
+				                        };
+				                        var html6 = template(context6);
+				                        
+				                        var context7 =
+				                        {
+				                            func: [
+				                                {"name": "重新阅卷", "fn": "RestartreadExam(\'" + c.ex_id + "\')", "type": "success"},
+				                                
+				                            ]
+				                        };
+				                        var html7 = template(context7);
+				                        
+				                        var context8 =
+				                        {
+				                            func: [
+				                                {"name": "继续考试", "fn": "continue_exam(\'" + c.ex_id + "\')", "type": "danger"},
+				                                
+				                            ]
+				                        };
+				                        var html8 = template(context8);
+				                        
+				                        var context9 =
+				                        {
+				                            func: [
+				                                {"name": "重新考试", "fn": "RestartExam(\'" + c.ex_id + "\')", "type": "info"},
+				                                
+				                            ]
+				                        };
+				                        var html9 = template(context9);
+				                        
+				                        var context10 =
+				                        {
+				                            func: [
+				                                {"name": "开始阅卷", "fn": "readExam(\'" + c.ex_id + "\')", "type": "success"},
+				                                
+				                            ]
+				                        };
+				                        var html10 = template(context10);
+				                        
+				                        var context11 =
+				                        {
+				                            func: [
+				                                {"name": "删除考试", "fn": "deleteExam_state(\'" + c.ex_id + "\')", "type": "danger"},
+				                                
+				                            ]
+				                        };
+				                        var html11 = template(context11);
+				                        
+										if(c.ex_state=="未开始考试") return html1+html2+html3+html4;
+										else if(c.ex_state=="正在考试") return html1+html5+html6+html4;
+										else if(c.ex_state=="已结束考试") return html1+html11+html9+html10;
+										else if(c.ex_state=="正在阅卷") return html1+html11+html9+"  正在阅卷  ";
+										else if(c.ex_state=="成绩已出") return html1+html11+html9+html7;
+										else if(c.ex_state=="已暂停考试") return html1+html8+html9+html10;
+								}
+							},
+						]
+					});
+					
+				}
+			});
+    })
+    // 通过查询条件填充考试表   
+    function myFunction()
+    {
+    	var tpl = $("#tpl").html(); 
+	    var tp2 = $("#tp2").html();
+	    var tp3 = $("#tp3").html();
+	    var tp4 = $("#tp4").html();
+	    var tp5 = $("#tp5").html();
+	    var tp6 = $("#tp6").html();
+	    var tp7 = $("#tp7").html();
+	    var tp8 = $("#tp8").html();
+	    var tp9 = $("#tp9").html();
+	    var tp10 = $("#tp10").html();
+	    var tp11 = $("#tp11").html();
+		//预编译模板
+        var template = Handlebars.compile(tpl);
+        var template = Handlebars.compile(tp2);
+        var template = Handlebars.compile(tp3);
+        var template = Handlebars.compile(tp4);
+        var template = Handlebars.compile(tp5);
+        var template = Handlebars.compile(tp6);
+        var template = Handlebars.compile(tp7);
+        var template = Handlebars.compile(tp8);
+        var template = Handlebars.compile(tp9);
+        var template = Handlebars.compile(tp10);
+        var template = Handlebars.compile(tp11);
+		$.ajax({
+			url: "" + ServerIp + "/StrategyManage/SelectExamByName",
+			type: 'POST', //请求的类型
+			async: false,
+			dataType: "text", //数据类型
+			data: { "currentPage": currentPage,
+		            "ex_time_start": $("#ex_date_start").val(),
+		            "ex_time_end": $("#ex_date_end").val(),
+		            "ex_name": $("#select_ex_name").val(),
+			},
+			success: function(data) //操作后台的返回值
+			{	
+				data = JSON.parse(data);
+				data = data.body;
+				totalPage = data.totalPage;
+	            var firstPage = data.firstPage;
+	            var lastPage = data.lastPage;
+	            var currentPage = data.currentPage
+				//alert(data.data);		       
+				document.getElementById("page-list").innerHTML = '';
+	            var pageList = $('#page-list');
+	            if (lastPage) {
+	                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+	            } else {
+	                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+	            }
+	            pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+	            if (totalPage > 1) {
+	                if (totalPage - currentPage >= 2) {
+	                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+	                }
+	                if (currentPage > 1 && currentPage != totalPage) {
+	                    pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+	                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+	                } else {
+	                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+	                }
+	                pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+	            }
+	            document.getElementById("questionback" + currentPage).style.background = "#426384";
+	            if (firstPage) {
+	                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+	            } else {
+	                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+	            }
+	            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+	            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+	            var i=0;
+	            while(i < data.data.length)
+		            {
+		            if(data.data[i].ex_state==0) {data.data[i].ex_state="未开始考试";}
+		            else if (data.data[i].ex_state==1) {data.data[i].ex_state="正在考试";}
+		            else if(data.data[i].ex_state==2) {data.data[i].ex_state="已结束考试";}
+		            else if(data.data[i].ex_state==3) {data.data[i].ex_state="正在阅卷";}
+		            else if(data.data[i].ex_state==4) {data.data[i].ex_state="成绩已出";}
+		            else if(data.data[i].ex_state==5) {data.data[i].ex_state="已暂停考试";}
+		            i = i + 1;
+		            }          
+				table = $('#exam_table').DataTable({
+					dom: 'Bfrtip',
+					data: data.data,
+					"paging": false, //禁止分页
+					retrieve: true, //实例化检索
+					"columns": [
+						{
+							data: 'ex_name'
+					    },
+					    {
+							data: 'ex_time_start'
+					    },
+					    {
+							data: 'ex_time_end'
+					    },
+					    {
+							data: 'ex_state'
+					    },
+						{
+							data: null//占位空列
+						} 
 
-    // 通过查询条件填充考试表
-    function myFunction() {
-        $.post("" + ServerIp + "/StrategyManage/SelectExamByName", {
-            "currentPage": currentPage,
-            "ex_time_start": $("#ex_date_start").val(),
-            "ex_time_end": $("#ex_date_end").val(),
-            "ex_name": $("#select_ex_name").val(),
-        }, function(data) {
-            var data = JSON.parse(data);
-            totalPage = data.body.totalPage;
-            var firstPage = data.body.firstPage;
-            var lastPage = data.body.lastPage;
-            var currentPage = data.body.currentPage
-            $('#tablebody').empty();
-            for (var i = 0; i < data.body.data.length; i++) {
-                if (data.body.data[i].ex_state == 0) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td > ' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >未开始考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "beginExam(this)" >开始考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_ids + '" onclick = "readExam_state0(this)" >开始阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 1) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >正在考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "suspend_exam(this)" >暂停考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "stopExam(this)" >停止考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "readExam_state0(this)" >开始阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 2) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >已结束考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam_state(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "RestartExam(this)"  >重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "readExam(this)" >开始阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 3) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >正在阅卷</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam_state(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '"  onclick = "RestartExam(this)">重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '"  >正在阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 4) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >成绩已出</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "deleteExam_state(this)" >删除考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '"  onclick = "RestartExam(this)">重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "RestartreadExam(this)" >重新阅卷</a></td></tr>');
-                } else if (data.body.data[i].ex_state == 5) {
-                    $('#tablebody').append('<tr id = ' + data.body.data[i].ex_id + '><td >' + data.body.data[i].ex_name + '</td><td >' + data.body.data[i].ex_time_start + '</td><td >' + data.body.data[i].ex_time_end + '</td><td >已暂停考试</td><td><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "lookExam(this)" >查看详情</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "continue_exam(this)" >继续考试</a><a href="#" style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "RestartExam(this)"  >重新考试</a><a href="#"  style="margin-right: 10px;" class="' + data.body.data[i].ex_id + '" onclick = "readExam(this)" >开始阅卷</a></td></tr>');
-                }
-            }
-            document.getElementById("page-list").innerHTML = '';
-            var pageList = $('#page-list');
-            if (lastPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
-            } else {
-                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
-            }
-            pageList.append('<li><a id = questionback' + totalPage + ' onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
-            if (totalPage > 1) {
-                if (totalPage - currentPage >= 2) {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                if (currentPage > 1 && currentPage != totalPage) {
-                    pageList.append('<li ><a id = questionback' + currentPage + ' chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                } else {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                pageList.append('<li ><a id = questionback' + 1 + ' chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
-            }
-            document.getElementById("questionback" + currentPage).style.background = "#426384";
-            if (firstPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
-            } else {
-                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
-            }
-            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
-            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
-        });
+					],
+					"columnDefs": [{
+							"searchable": false,
+							"orderable": false,
+							"targets": [0. - 1]					// 表格填充的范围,[0,-1]为所有
+						},
+						{
+							"targets": 4,
+							"render": function(a, b, c, d) {
+									 var context1 =
+			                        {
+			                            func: [
+			                                {"name": "查看详情", "fn": "lookExam(\'" + c.ex_id + "\')", "type": "primary"},
+			                                
+			                            ]
+			                        };
+			                        var html1 = template(context1);
+			                        
+			                        var context2 =
+			                        {
+			                            func: [
+			                                {"name": "删除考试", "fn": "deleteExam(\'" + c.ex_id + "\')", "type": "danger"},		//添加按键     name为按键属性
+			                                
+			                            ]
+			                        };
+			                        var html2 = template(context2);
+			                        
+			                        var context3 =
+			                        {
+			                            func: [
+			                                {"name": "开始考试", "fn": "beginExam(\'" + c.ex_id + "\')", "type": "info"},
+			                                
+			                            ]
+			                        };
+			                        var html3 = template(context3);
+			                        
+			                        var context4 =
+			                        {
+			                            func: [
+			                                {"name": "开始阅卷", "fn": "readExam_state0(\'" + c.ex_id + "\')", "type": "success"},
+			                                
+			                            ]
+			                        };
+			                        var html4 = template(context4);
+			                        
+			                        var context5 =
+			                        {
+			                            func: [
+			                                {"name": "暂停考试", "fn": "suspend_exam(\'" + c.ex_id + "\')", "type": "danger"},
+			                                
+			                            ]
+			                        };
+			                        var html5 = template(context5);
+			                        
+			                        var context6 =
+			                        {
+			                            func: [
+			                                {"name": "停止考试", "fn": "stopExam(\'" + c.ex_id + "\')", "type": "info"},
+			                                
+			                            ]
+			                        };
+			                        var html6 = template(context6);
+			                        
+			                        var context7 =
+			                        {
+			                            func: [
+			                                {"name": "重新阅卷", "fn": "RestartreadExam(\'" + c.ex_id + "\')", "type": "success"},
+			                                
+			                            ]
+			                        };
+			                        var html7 = template(context7);
+			                        
+			                        var context8 =
+			                        {
+			                            func: [
+			                                {"name": "继续考试", "fn": "continue_exam(\'" + c.ex_id + "\')", "type": "danger"},
+			                                
+			                            ]
+			                        };
+			                        var html8 = template(context8);
+			                        
+			                        var context9 =
+			                        {
+			                            func: [
+			                                {"name": "重新考试", "fn": "RestartExam(\'" + c.ex_id + "\')", "type": "info"},
+			                                
+			                            ]
+			                        };
+			                        var html9 = template(context9);
+			                        
+			                        var context10 =
+			                        {
+			                            func: [
+			                                {"name": "开始阅卷", "fn": "readExam(\'" + c.ex_id + "\')", "type": "success"},
+			                                
+			                            ]
+			                        };
+			                        var html10 = template(context10);
+			                        
+			                        var context11 =
+			                        {
+			                            func: [
+			                                {"name": "删除考试", "fn": "deleteExam_state(\'" + c.ex_id + "\')", "type": "danger"},
+			                                
+			                            ]
+			                        };
+			                        var html11 = template(context11);
+			                        
+									if(c.ex_state=="未开始考试") return html1+html2+html3+html4;
+									else if(c.ex_state=="正在考试") return html1+html5+html6+html4;
+									else if(c.ex_state=="已结束考试") return html1+html11+html9+html10;
+									else if(c.ex_state=="正在阅卷") return html1+html11+html9+" 正在阅卷   ";
+									else if(c.ex_state=="成绩已出") return html1+html11+html9+html7;
+									else if(c.ex_state=="已暂停考试") return html1+html8+html9+html10;
+							}
+						},
+					]
+				});
+				
+			}
+		});
     }
+
     $("#selectExam").click(function() {
         currentPage = 1;
+        DestroyTable();
         myFunction();
     })
     $('#page-list').on("click", "#nextpage", function() {
         currentPage += 1;
+        DestroyTable();
         myFunction();
     });
     $('#page-list').on("click", "#lastpage", function() {
         currentPage -= 1;
+        DestroyTable();
         myFunction();
     });
     $('#page-list').on("click", "#target1", function() {
         currentPage = 1;
+        DestroyTable();
         myFunction();
     });
     function turing_page() {
@@ -744,89 +1128,105 @@
                 return;
             }
             currentPage = $("#page_num").val();
+            DestroyTable();
             myFunction();
 
         }
 
     function trailerPage(totalPage) {
         currentPage = totalPage;
+        DestroyTable();
         myFunction();
     }
 
-    function beginExam(data) {
+    function beginExam(ex_id) {
         $.post("" + ServerIp + "/ExamManage/StartExamByUser", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
             // myFunction();
             window.location.reload();
         });
     }
 
-    function stopExam(data) {
-        $.post("" + ServerIp + "/ExamManage/StopExamByUser", {
-            "ex_id": data.className,
+    function stopExam(ex_id) {
+    	var p = prompt("如需停止考试，请输入密码","");
+    	if(p=="admin")
+    	{
+    	$.post("" + ServerIp + "/ExamManage/StopExamByUser", {
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
-        });
+        });}
+    	else alert("密码错误！")
+    	
     }
-
-
-    function suspend_exam(data) {
+    function suspend_exam(ex_id) {
         $.post("" + ServerIp + "/ExamManage/SuspendExam", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
         });
     }
 
-    function continue_exam(data) {
+    function continue_exam(ex_id) {
         $.post("" + ServerIp + "/ExamManage/ContinueExam", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
         });
     }
 
-    function deleteExam(data) {
+    function deleteExam(ex_id) {
+    	if(!confirm("是否删除考试？")){
+                return;
+        }
         $.post("" + ServerIp + "/ExamManage/deleteExam", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
         });
     }
 
-    function deleteExam_state(data) {
+    function deleteExam_state(ex_id) {
         alert("不能删除该考试");
     }
 
-    function readExam(data) {
+    function readExam(ex_id) {
         $.post("" + ServerIp + "/ExamManage/readExam", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
         });
     }
 
-    function RestartreadExam(data) {
+    function RestartreadExam(ex_id) {
+    	alert("重新阅卷");
         $.post("" + ServerIp + "/ExamManage/RestartreadExam", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
         });
     }
 
-    function RestartExam(data) {
+    function RestartExam(ex_id) {
         if(!confirm("是否重新考试，重新考试将删除该场考试所有数据")){
                 return;
         }
         $.post("" + ServerIp + "/ExamManage/RestartExam", {
-            "ex_id": data.className,
+            "ex_id": ex_id,
         }, function(data) {
+        	DestroyTable();
             myFunction();
         });
     }
 
-    function readExam_state0(data) {
+    function readExam_state0(ex_id) {
         alert("该场考试还未结束,不能开始阅卷,请先结束考试");
     }
     </script>

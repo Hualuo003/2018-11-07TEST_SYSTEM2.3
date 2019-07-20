@@ -5,18 +5,45 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>考试后台管理系统</title>
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../vendors/jquery-table2excel-master/dist/jquery.table2excel.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <!--<script src="../exam/js/AuthorityManagement.js"></script>-->
+    
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+
+    <!--Datatables--> 
+	<link rel="stylesheet" type="text/css" href="../exam/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="../exam/js/jquery.dataTables.js"></script>
+	<script src="../exam/js/handlebars-v3.0.1.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/jquery.dataTables.js"></script>
+    
+    
     <style>
     table {
         *border-collapse: collapse;
@@ -121,106 +148,11 @@
     </style>
 </head>
 
-<body class="nav-md">
+<body class="nav-md"  style="background-image: url(../vendors/tushuguan.jpg);background-repeat: no-repeat;background-size: cover;">
     <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view" style="position:fixed;">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a class="site_title"><span>考试后台管理系统</span></a>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li id="question_back_manage">
-                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="question_bank.html">题库管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_find.html">查找题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_single_add.html">添加题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_batch_add.html">导入题目</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="student_class.html">教务班管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_batch_add.html">导入学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_single_add.html">添加学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_find.html">查找学生</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="strategy_create.html">新增策略</a>
-                                        </li>
-                                        <li>
-                                            <a href="strategy_view.html">查看策略</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                               
-                                <li>
-                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="exam_create.html">新建考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_view.html">查看考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_monitor.html">考试监控</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
-                                </li>
-                                <li>
-                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
-                                </li>
-                                <li>
-                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
-                                </li>
-                                
-                                <li>
-                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="document_exam_paper.html">考卷导出</a>
-                                        </li>
-                                        <li>
-                                            <a href="remind.html">考试规则</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="main_container" >
+            <div id="menu">
+             <!--加载侧边栏-->
             </div>
             <!-- page content -->
             <div class="right_col" role="main">
@@ -235,7 +167,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>成绩查询</h2>
+                                    <h2>成绩统计</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li>
                                             <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -283,9 +215,19 @@
                                 </div>
                                 <div class="x_content">
                                     <div class="demo">
-                                        <table class="zebra bulk_action" id="score_table">
-                                            <tr id="score_tr">
-                                            </tr>
+                                        <table class="zebra bulk_action" id="score_table" class=display>
+                                            <!--<tr id="score_tr">
+                                            </tr>-->
+                                            <thead>
+                                            	<tr>
+                                            		<th>学号</th>
+                                            		<th>姓名</th>
+                                            		<th>状态</th>
+                                            		<th>ip</th>
+                                            		<th>成绩</th>
+                                            		<th>操作</th>
+                                            	</tr>
+                                            </thead>
                                             <tbody id="tablebody">
                                             </tbody>
                                         </table>
@@ -303,79 +245,160 @@
             <!-- /page content -->
         </div>
     </div>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-    <script src="../vendors/jquery-table2excel-master/dist/jquery.table2excel.min.js"></script>
-    <script src="../exam/js/config.js"></script>
-    <script src="../exam/js/AuthorityManagement.js"></script>
+	
+	<script src="../exam/js/menu.js"></script>
+	<script id="tpl" type="text/x-handlebars-template">
+		{{#each func}}
+		<button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button> {{/each}}
+	</script>
+        
+    <script type="text/javascript">
+    	$(function () 
+		 {
+    		$.ajax
+			({
+	      	    url: "" + ServerIp + "/StudentManage/Menu", //加上这句话
+	            type: 'POST',				//请求的类型
+	            async: false,
+	            dataType: "text",			//数据类型		          
+	            data: {					         		            
+	            },					            
+	            success:function(data) 	 //操作后台的返回值
+	            {
+	            	//alert(data);
+	            	data = JSON.parse(data);		           
+	            	$("#menu").append(data);		            	
+				},
+	            error: function(e)
+	            {
+	            	alert("error");
+	            }
+		    });
+		})
+    </script>
+
     <script>
     var currentPage = 1;
 
-    function myFunction() {
-        var totalPage = 0;
+	function DestroyTable()//清除datatable表格内容以供刷新
+        {
+        	var datatable = $("#score_table").dataTable();
+        	if (datatable) 
+        	{
+	         	datatable.fnClearTable();    //清空数据
+	         	datatable.fnDestroy();         //销毁datatable
+       	 	} 
+
+        }
+	function myFunction()
+	{	var totalPage = 0;
         var pageSize = 0;
         var firstPage = 0;
         var lastPage = 0;
+        //定义按钮模板
+		var tpl = $("#tpl").html();				
+		
+		//预编译模板
+		var template = Handlebars.compile(tpl);
         // var pageList = $('.page-list');
         var tablebody = $('#tablebody');
         document.getElementById("tablebody").innerHTML = '';
-        document.getElementById("score_tr").innerHTML = '';
-        $.post("" + ServerIp + "/ScoreManage/selectScore/", {
-            "currentPage": currentPage,
-            "cl_id": $("#student_class").val(),
-            "ex_id": $("#exam").val(),
-        }, function(data) {
-            // alert(data);
-            var tablebody = $('#tablebody');
-            var data = JSON.parse(data);
+		
+		$.ajax({
+			url: "" + ServerIp + "/ScoreManage/selectScore/",
+			type: 'POST', //请求的类型
+			async: false,
+			dataType: "text", //数据类型
+			data: { "currentPage": currentPage,
+		            "cl_id": $("#student_class").val(),
+		            "ex_id": $("#exam").val()
+			},
+			success: function(data) //操作后台的返回值
+			{	
+				data = JSON.parse(data);
+				//alert(data.data);		 
+//					while (i<data.length)
+//					{
+//						data = data[i][]
+//					}
+//					totalPage = data.totalPage;
+//		            pageSize = data.pageSize;
+//		            firstPage = data.firstPage;
+//		            lastPage = data.lastPage;
+//		            currentPage = data.currentPage; 
+				table = $('#score_table').DataTable({
+					dom: 'Bfrtip',
+					data: data,
+					"paging": false, //禁止分页
+					retrieve: true, //实例化检索
+					"columns": [
+						{
+							data:'st_id'
+					    },
+					    {
+							data: 'st_name'
+					    },
+					    {
+							data:'in_state'
+					    },
+					    {
+							data:'in_ip'
+					    },
+					    {
+							data:'in_score'
+					    },
+						{
+								data: null//占位空列
+						} 
 
-            totalPage = data.body.totalPage;
-            pageSize = data.body.pageSize;
-            firstPage = data.body.firstPage;
-            lastPage = data.body.lastPage;
-            currentPage = data.body.currentPage;
-            var str = `<th>学号</th>
-                        <th>姓名</th>
-                        <th>状态</th>
-                        <th>ip</th>
-                        <th>成绩</th>`;
-            $("#score_tr").append(str);
-            var str = '';
-            var count = {'choice':1,'judge':1,'filla':1,'fillb':1,'coding':1};
-            var type = {'choice':'选择题','judge':'判断题','filla':'填空题','fillb':'程序填空题','coding':'编程题'};
-            for (var j = 1; j <= data.body.data[0][2].length; j++) {
-                str = `<th hidden>` + type[data.body.data[0][2][j-1].eq_qt_type] + ``+count[data.body.data[0][2][j-1].eq_qt_type]++ + `</th>`
-                $("#score_tr").append(str);
-            }
-            var i = 0;
-            var str = '';
-            while (i<data.body.data.length) {
-                str = `<tr id=` + data.body.data[i][0].st_id + `>
-                                        <td>` + data.body.data[i][0].st_id + `</td>
-                                        <td>` + data.body.data[i][0].st_name + `</td>
-                                        <td>` + data.body.data[i][1].in_state + `</td>
-                                        <td>` + data.body.data[i][1].in_ip + `</td>
-                                       <td>` + data.body.data[i][1].in_score + `</td>
-                                    </tr>`
-                tablebody.append(str);
-                for (var k = 0; k < data.body.data[i][2].length; k++) {
-                    str = `<td hidden>` + data.body.data[i][2][k].eq_get_score + `</td>`
-                    $("#" + data.body.data[i][0].st_id + "").append(str);
-                }
-                i++;
-            }
+					], 
+					"columnDefs": 
+							[
+								{
+									"searchable": false,
+									"orderable": false,
+									"targets": [0. - 1]					// 表格填充的范围,[0,-1]为所有
+								},
+								{
+									"targets": -1,
+									"render": function(a, b, c, d) 
+									{		
+											var context =
+											{
+												func: 
+												[
+													{
+														"name": "重新阅卷",
+														"fn": "RestartsinglereadExam(\'" + c.st_id + "\')",
+														"type": "primary"
+														
+													}, //添加按键     name为按键属性
+												]
+											};
+											var html1 = template(context);
+										return html1;	
+										
+											
+										
+									}
+								},
+							]
+				});		
+			}
+			
+		});
+	}
+	function RestartsinglereadExam(st_id) {
+    	alert(st_id);
+        $.post("" + ServerIp + "/ExamManage/RestartsinglereadExam", {
+            "st_id": st_id,
+            "ex_id": $("#exam").val()
+        }, function(data) {
+        	DestroyTable();
+            myFunction();
         });
-    }
-    $("#search").click(function() {
+    } 
+    $("#search").click(function() { 
         myFunction();
     })
     $(document).ready(function() {
@@ -402,8 +425,11 @@
                 $("#student_class").append("<option value = '" + data.body[i].cl_id + "'>" + data.body[i].cl_name + "</option>");
             }
             if ($("#student_class").val() == null) {
-                // alert("该考试没有教务班参加");
+                 //alert("该考试没有教务班参加");
+                 DestroyTable();
+                 myFunction();
             } else {
+            	DestroyTable();
                 myFunction();
             }
 
@@ -419,9 +445,13 @@
     $(function() {
         $("#student_class").select2();
         $("#student_class").change("select2:select", function() {
+        	DestroyTable();
             myFunction();
         });
     });
+    
+    
+    //导出成绩
     $("#print_excel").click(function() {
         $("#score_table").table2excel({
             exclude: ".noExl", //不导出的表格数据选择器，不导出的数据加class加上 noExl就可以了  

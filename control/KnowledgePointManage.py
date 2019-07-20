@@ -65,7 +65,7 @@ class RequestKnowledgePoint:
 class UpdataKnowledgePoint:
     def POST(self):
         mydata = web.input()
-        print mydata
+        print(mydata)
         kp = model.Knowledge_model()
         must_params = kp.__notnull__
         web.header("Access-Control-Allow-Origin", "*") 
@@ -84,15 +84,17 @@ class UpdataKnowledgePoint:
 class DeleteKnowledgePoint:
     def POST(self):
         mydata = web.input()
+        print("删除知识点", mydata)
         kp = model.Knowledge_model()
         must_params = set ({'kl_id'})
-        web.header("Access-Control-Allow-Origin", "*") 
+        web.header("Access-Control-Allow-Origin", "*")
+        session = web.ctx.session
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
-        elif str(mydata.deletepassword) == '123456':
+        elif str(mydata.deletepassword) == session.password:
             kp.kl_id = mydata.kl_id
-            print kp.kl_id
+            print(kp.kl_id)
             if kp.delete():
                 response = util.Response(status=util.Status.__success__)
                 return util.objtojson(response)
@@ -107,24 +109,20 @@ class SelectKnowledge:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         mydata = web.input()
-        print mydata
+        print(mydata)
         Knowledge = model.Knowledge_model()
         result = Knowledge.getByArgs(kl_name = mydata.kl_name)
         page = util.Page(data = result, totalRow = len(result), currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
-        print len(result)
+        print(len(result))
         response = util.Response(status=util.Status.__success__,body=page)
         return util.objtojson(response)
 
-
-
-
-        
 
 app = web.application(urls,globals())
 render = web.template.render('template')
 if __name__ == '__main__':
     
     if len(urls)&1 == 1:
-        print "urls error, the size of urls must be even."
+        print("urls error, the size of urls must be even.")
     else:
         app.run()

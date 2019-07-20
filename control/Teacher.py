@@ -4,9 +4,10 @@
 import sys
 import os
 import shutil
+from imp import reload
 
 reload(sys)
-sys.setdefaultencoding("utf-8")
+# sys.setdefaultencoding("utf-8")
 
 sys.path.append('../')
 from config import configs
@@ -16,6 +17,7 @@ import util
 from model.orm import *
 from config_default import remind_source
 from config_default import exampage_source
+from control import GrobalParams
 import time
 
 urls = (
@@ -24,6 +26,7 @@ urls = (
     'SelectTeacher', 'SelectTeacher',
     'AddTeacher', 'AddTeacher',
     'DeleteTeacher', 'DeleteTeacher',
+    'UpdateTeacher', 'UpdateTeacher',
     'print_exam', 'print_exam',
     'BatchPrintExam', 'BatchPrintExam',
     'Remind', 'Remind',
@@ -49,7 +52,7 @@ class BatchPrintExam:
             student = model.Student_has_class_model.getByArgs(class_cl_id=params.class_cl_id)
             for student_id in student:
                 filepath = examDir + u'/%s.docx' % (student_id.student_st_id)
-                print filepath
+                print(filepath)
                 util.word(student_id.student_st_id, params.ex_id, filepath)
             zip_path = u'/source/exampage/%s.zip' % (ex_cl)
             util.zip_path(examDir,
@@ -94,19 +97,35 @@ class print_exam:
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
         params = web.input()
-        session = web.ctx.session
+        session = web.ctx.session                                 # 暂时注释掉session
         session.student_id = params.student_id
         session.ex_id = params.ex_id
         response = util.Response(status=util.Status.__success__, )
         return util.objtojson(response)
 
 
-class DeleteTeacher:
+class UpdateTeacher:
+    ''' 更新 2018-8-26 新添加的函数'''
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
+        params = web.input()
+        print(params)
+        teacher = model.Teacher_model(**params)
+        if teacher.update():
+            response = util.Response(status=util.Status.__success__, )
+            print(util.objtojson(response))
+            return util.objtojson(response)
+        else:
+            response = util.Response(status=util.Status.__error__, )
+            return util.objtojson(response)
+
+
+class DeleteTeacher:
+    def POST(self):
+        web.header("Access-Control-Allow-Origin", "true")
         # 接收参数
         params = web.input()
-        print params
+        print(params)
         teacher = model.Teacher_model(**params)
         if teacher.delete():
             response = util.Response(status=util.Status.__success__, )
@@ -121,7 +140,7 @@ class AddTeacher:
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
         params = web.input()
-        print params
+        print(params)
         teacher = model.Teacher_model(**params)
         if teacher.insert():
             response = util.Response(status=util.Status.__success__, )
@@ -133,14 +152,18 @@ class AddTeacher:
 
 class Login:
     def GET(self):
-        return web.seeother('/static/exam/TeacherLogin.html', True)
+        print("Teacher.py  Login.GET()")
+        return web.seeother(r'/static/exam/TeacherLogin.html', True)
 
     def POST(self):
+        print("--------------------------POST")
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
         params = web.input()
+        print(params)
         session = web.ctx.session
         teacher = model.Teacher_model.getByArgs(tc_id=params.tc_id)
+
         # util.getFileRotatingLog().debug(params)
         if teacher[0].tc_password != params.password:
             response = util.Response(status=util.Status.__error__, message=u"密码错误")
@@ -148,7 +171,10 @@ class Login:
         else:
             session.username = params.tc_id
             session.password = params.password
-            response = util.Response(status=util.Status.__success__, )
+            response = util.Response(status=util.Status.__success__, )          # 收集用户信息
+            GrobalParams.tc_message = teacher
+            print('GrobalParams.tc_message---------------',GrobalParams.tc_message)
+            print(util.objtojson(response))
             return util.objtojson(response)
 
 
@@ -166,7 +192,7 @@ class GetTeacher:
                 response = util.Response(status=util.Status.__not_login__, message='4')
                 return util.objtojson(response)
         except Exception as e:
-            print e
+            print(e)
             util.getFileRotatingLog().debug(e)
             response = util.Response(status=util.Status.__not_login__, message='4')
             return util.objtojson(response)
@@ -180,6 +206,7 @@ class GetTeacher:
 
 
 class SelectTeacher:
+    '''更新 2018-8-26 查询所有教师'''
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         # 接收参数
@@ -188,8 +215,7 @@ class SelectTeacher:
         currentPage = int(params.currentPage) - 1
         count = model.Teacher_model.count()
         if params.tc_name == '' and params.tc_id == '':
-            teacher = model.Teacher_model.query('select * from teacher where tc_level\
-             = %s order by tc_id limit %s,%s' % ("'" + params.tc_level + "'", currentPage * 10, currentPage * 10 + 9))
+            teacher = model.Teacher_model.query('select * from teacher order by tc_id limit %s,%s' % (currentPage * 10, currentPage * 10 + 9))
             teacher = [model.Teacher_model(**item) for item in teacher]
             page = util.Page(data=teacher, totalRow=count, currentPage=int(params.currentPage), pageSize=10,
                              status=util.Status.__success__, message="未知")
@@ -197,8 +223,8 @@ class SelectTeacher:
             return util.objtojson(response)
         elif params.tc_name != '' and params.tc_id == '':
             teacher = model.Teacher_model.query('select * from teacher where tc_name \
-             like %s and tc_level = %s order by tc_id limit %s,%s' % (
-                params.tc_name, "'" + params.tc_level + "'", currentPage * 10, currentPage * 10 + 9))
+             like %s order by tc_id limit %s,%s' % (
+                params.tc_name, currentPage * 10, currentPage * 10 + 9))
             teacher = [model.Teacher_model(**item) for item in teacher]
             page = util.Page(data=teacher, totalRow=teacher.__len__(), currentPage=int(params.currentPage), pageSize=10,
                              status=util.Status.__success__, message="未知")
@@ -215,7 +241,9 @@ class SelectTeacher:
 class Remind:
     def GET(self):
         web.header("Access-Control-Allow-Origin", "*")
+        #f = open('%s/remind.txt' % (remind_source), 'r', encoding="utf-8")
         f = open('%s/remind.txt' % (remind_source), 'r')
+        # f = open(r'D:/Desktop/gexinghuashiyanshi/Version_Alter/WEB-System/exam/source/remind.txt', 'r',encoding="utf-8")
         message = f.read()
         f.close()
         response = util.Response(status=util.Status.__success__, message=message)

@@ -10,7 +10,7 @@ from model import model
 import util
 import datetime
 import time
-import thread
+import _thread
 from model.orm import *
 urls = (
     '/','index',
@@ -23,6 +23,7 @@ urls = (
     'deleteExam','deleteExam',
     'readExam','readExam',
     'RestartreadExam','RestartreadExam',
+    'RestartsinglereadExam','RestartsinglereadExam',
     'StopExamByClass','StopExamByClass',
     'SuspendExam','SuspendExam',
     'ContinueExam','ContinueExam',
@@ -86,14 +87,15 @@ class StopExamByClass:
                         db.update('exam_question', where="information_in_id = %s" % (information.in_id),
                               eq_get_score='-2', )
                         information.update()
-                        thread.start_new(util.GetScore, (1,information.in_id))
+                        _thread.start_new(util.GetScore, (1,information.in_id))
             response = util.Response(status=util.Status.__success__, )
             return util.objtojson(response)
+
 class delay_exam:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
-        print params
+        print(params)
         information=model.Information_model.getByPK(params.in_id)
         try:
             minutes = datetime.timedelta(minutes=int(params.delay_time))
@@ -109,7 +111,7 @@ class change_pc:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
-        print params
+        print(params)
         information=model.Information_model.getByPK(params.in_id)
         try:
             information.in_ip =None
@@ -120,6 +122,7 @@ class change_pc:
             return util.objtojson(response)
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)
+
 # 作弊单个停止考试
 class stop_exam:
     def POST(self):
@@ -136,6 +139,7 @@ class stop_exam:
             return util.objtojson(response)
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)
+
 # 重新考试
 class RestartExam:
     def POST(self):
@@ -170,6 +174,7 @@ class StartExamByUser:
         exam.update()
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)
+
 # 停止这场考试
 class StopExamByUser:
     def POST(self):
@@ -182,7 +187,7 @@ class StopExamByUser:
             # 正式考试,自动判卷,转到正在阅卷
             if exam.ex_auto == '1':
                 exam['ex_state'] = '3'
-                thread.start_new(upExamStatusFour, (1, exam.ex_id))
+                _thread.start_new(upExamStatusFour, (1, exam.ex_id))
             else:
                 # 正式考试,非自动判卷,转到结束考试但成绩未出
                 exam['ex_state'] = '2'
@@ -243,9 +248,10 @@ class readExam:
         db.update('exam_question', where="information_in_id in (select \
                  in_id from information where exam_ex_id = \
                  %s)"%(params.ex_id), eq_get_score='-2', )
-        thread.start_new(upExamStatusFour, (10, exam.ex_id))
+        _thread.start_new(upExamStatusFour, (10, exam.ex_id))
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)
+
 # 重新阅卷
 class RestartreadExam:
     def POST(self):
@@ -258,9 +264,27 @@ class RestartreadExam:
                  in_id from information where exam_ex_id = \
                  %s)"%(params.ex_id), eq_get_score='-2', )
         db.update('information', where="exam_ex_id = %s" % (params.ex_id), in_score='-1', )
-        thread.start_new(upExamStatusFour, (1, exam.ex_id))
+        _thread.start_new(upExamStatusFour, (1, exam.ex_id))
         response = util.Response(status=util.Status.__success__,)
         return util.objtojson(response)
+
+# 重新单个学生阅卷
+class RestartsinglereadExam:
+    def POST(self):
+        web.header("Access-Control-Allow-Origin", "*")
+        params = web.input()
+        print(params)
+        exam = model.Exam_model.getByPK(params.ex_id)
+        #exam.ex_state='3'
+        exam.update()
+        db.update('exam_question', where="information_in_id in (select \
+                 in_id from information where exam_ex_id = \
+                 %s and student_st_id = %s)"%(params.ex_id,params.st_id), eq_get_score='-2', )
+        db.update('information', where="exam_ex_id = %s and student_st_id = %s" % (params.ex_id,params.st_id), in_score='-1', )
+        _thread.start_new(upExamStatusFour, (1, exam.ex_id))
+        response = util.Response(status=util.Status.__success__,)
+        return util.objtojson(response)
+
 class deleteExam:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
@@ -284,6 +308,6 @@ render = web.template.render('template')
 if __name__ == '__main__':
     
     if len(urls)&1 == 1:
-        print "urls error, the size of urls must be even."
+        print("urls error, the size of urls must be even.")
     else:
         app.run()

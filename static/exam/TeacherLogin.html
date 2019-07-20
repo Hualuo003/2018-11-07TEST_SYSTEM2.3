@@ -2,43 +2,59 @@
 <html lang="en">
 
 <head lang="en">
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1" />
     <title></title>
     <link rel="stylesheet" href="css/login.css">
     <!--<script src="js/jquery-1.11.3.min.js"></script>-->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-</head>
+    <!--<script src="../vendors/jquery/dist/jquery.min.js"></script>-->
 
-<body onkeydown="keyLogin();">
-    <h1 style="text-align: center;margin-top: 3%;font-size: 60px;">信息学院软件工程实验室</h1>
-    <div class="content">
-        <!--  登录面板    -->
-        <div class="panel">
-            <form>
-                <!--  账号和密码组    -->
-                <div class="group">
-                    <label>账号</label>
-                    <input placeholder="请输入账号" name="username" id="username" value="">
-                    <span id="usernameText"></span>
-                </div>
-                <div class="group">
-                    <label>密码</label>
-                    <input placeholder="请输入密码" type="password" name="password" id="password">
-                    <span id="passwordText"></span>
-                </div>
-                <!--  登录按钮    -->
-            </form>
-            <div class="login">
-                <button type="button" onclick="login()">登录</button>
-            </div>
-        </div>
-       
-    </div>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link href="css/fonts.css" rel="stylesheet">
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+ 
+<body onkeydown="keyLogin();" style="background-image: url(../vendors/tushuguan.jpg);background-repeat: no-repeat;background-size: cover;">
+<div class="w3-agile-banner"> 
+	<div class="center-container"> 
+		<!--header-->  
+		<!--<br /><br />-->
+		<div class="header-w3l">
+			<h1>信息学院软件工程实验室</h1>  
+		</div>
+		<!--//header-->  
+		<!--main-->
+		<div class="main-content-agile">
+			<div class="wthree-pro">
+				<h2>Login Now</h2>
+			</div>
+			<div class="sub-main-w3">	
+				<form> 
+					<input placeholder="请输入账号" type="text" id="username" required=""> 
+					<span class="icon1" id="usernameText"><i class="fa fa-user" aria-hidden="true"></i></span>
+					<input  placeholder="请输入密码" type="password" id="password" required="">
+					<span class="icon2" id="passwordText"><i class="fa fa-unlock" aria-hidden="true"></i></span>					
+               			<button type="button" onclick="login()">登录</button>       
+            		</div>
+				</form>
+			</div>
+		</div> 
+		<!--//main-->
+<!--		<footer>-->
+<!--		<br /><br /><br /><br />-->
+		<!--<div class="footer">
+			<p>&copy; 2018 Software Engineering Lab. All rights reserved.</p>
+		</div>-->
+		<!--//footer-->
+	</div>
+</div>
     <script src="js/config.js"></script>
     <script>
     function keyLogin() {
         //回车键的键值为13
         if (event.keyCode == 13) {
+//      	alert("回车键按下");
             login(); //调用登录按钮的登录事件
         }
     }
@@ -46,18 +62,27 @@
     
 
     function login() {
+    	
         if ($("#username").val() == '') {
-            document.getElementById("usernameText").innerHTML = "用户名不能为空";
-            document.getElementById("username").focus();
+//          document.getElementById("usernameText").innerHTML = "用户名不能为空";
+//          document.getElementById("username").focus();
+			alert("用户名不能为空");
+			document.getElementById("username").focus();
             return false;
         }
         if ($("#password").val() == '') {
-            document.getElementById("passwordText").innerHTML = "密码不能为空";
-            document.getElementById("password").focus();
+//          document.getElementById("passwordText").innerHTML = "密码不能为空";
+//          document.getElementById("password").focus();
+			alert("密码不能为空");
+			document.getElementById("password").focus();
             return false;
         }
+        
+        //alert("选择登录");
+//      alert("" + ServerIp + "/Teacher/Login");
+        //window.location.href = "" + ServerIp + "/Teacher/Login"; 
         $.ajax({
-            url: "" + ServerIp + "/Teacher/Login", //加上这句话
+              url: "" + ServerIp + "/Teacher/Login", //加上这句话
             xhrFields: {
                 withCredentials: true
             },

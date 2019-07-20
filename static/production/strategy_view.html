@@ -8,17 +8,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>考试后台管理系统</title>
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="../exam/js/jquery.js"></script>
+    
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" charset="utf8" src="../exam/js/bootstrap-datetimepicker.min.js"></script>
+    
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
+    
+    <!-- NProgress --> 
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Custom Theme Style -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    
+    <!-- Custom Theme  -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="../exam/js/config.js"></script>
+    <!--<script src="../exam/js/AuthorityManagement.js"></script>-->
+    
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    
+    <!--Datatables--> 
+	<link rel="stylesheet" type="text/css" href="../exam/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="../exam/js/jquery.dataTables.js"></script>
+	<script src="../exam/js/handlebars-v3.0.1.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/jquery.dataTables.js"></script>
+	
+    <!--DatatablesButtons--> 
+    <script type="text/javascript" charset="utf8" src="../exam/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="../exam/js/buttons.print.min.js"></script>
+	<link rel="stylesheet" href="../exam/css/buttons.dataTables.min.css">
+
+    
     <style>
     table {
         *border-collapse: collapse;
@@ -139,104 +172,11 @@
     </script>
 </head>
 
-<body class="nav-md">
+<body class="nav-md"  style="background-image: url(../vendors/tushuguan.jpg);background-repeat: no-repeat;background-size: cover;">
     <div class="container body">
-        <div class="main_container">
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view" style="position:fixed;">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a class="site_title"><span>考试后台管理系统</span></a>
-                    </div>
-                    <br /><br /><br />
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li id="question_back_manage">
-                                    <a><i class="fa fa-edit"></i> 题目管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="question_bank.html">题库管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_find.html">查找题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_single_add.html">添加题目</a>
-                                        </li>
-                                        <li>
-                                            <a href="question_batch_add.html">导入题目</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-home"></i> 学生管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="student_class.html">教务班管理</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_batch_add.html">导入学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_single_add.html">添加学生</a>
-                                        </li>
-                                        <li>
-                                            <a href="student_find.html">查找学生</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a><i class="fa fa-desktop"></i> 策略管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="strategy_create.html">新增策略</a>
-                                        </li>
-                                        <li>
-                                            <a href="strategy_view.html">查看策略</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                               
-                                <li>
-                                    <a><i class="fa fa-clone"></i>考试管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="exam_create.html">新建考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_view.html">查看考试</a>
-                                        </li>
-                                        <li>
-                                            <a href="exam_monitor.html">考试监控</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="score.html"><i class="fa fa-clone"></i>成绩管理</a>
-                                </li>
-                                <li>
-                                    <a href="knowledge.html"><i class="fa fa-table"></i> 知识点管理</a>
-                                </li>
-                                <li>
-                                    <a href="teacher_manage.html" id="teacher_manage"><i class="fa fa-clone"></i>教师管理</a>
-                                </li>
-                                
-                                <li>
-                                    <a><i class="fa fa-clone"></i>文档管理 <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li>
-                                            <a href="document_exam_paper.html">考卷导出</a>
-                                        </li>
-                                        <li>
-                                            <a href="remind.html">考试规则</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="main_container" >
+            <div id="menu">
+             <!--加载侧边栏-->
             </div>
             <div class="right_col" role="main">
                 <div class="page-title">
@@ -259,12 +199,19 @@
                             </div>
                             <div class="x_content">
                                 <div class="demo">
-                                    <table class="zebra bulk_action">
-                                        <tr>
+                                    <table id="strategy_table" class="zebra bulk_action" class=display>
+                                        <!--<tr>
                                             <th>分数</th>
                                             <th>策略名称</th>
                                             <th>操作</th>
-                                        </tr>
+                                        </tr>-->
+                                        <thead>
+                                        	<tr>
+                                        		<th class="td0">分数</th>
+                                        		<th class="td0">策略名称</th>
+                                        		<th class="td1">操作</th>
+                                        	</tr>
+                                        </thead>
                                         <tbody id="tablebody">
                                         </tbody>
                                     </table>
@@ -389,8 +336,8 @@
                                         </div>
                                     </div>
                                     <div class="demo">
-                                        <table class="zebra bulk_action">
-                                            <tr>
+                                        <table id="strategy_item" class="zebra bulk_action" class=display>
+                                            <!--<tr>
                                                 <th style="width:35%">题库</th>
                                                 <th>类型</th>
                                                 <th>难度上限</th>
@@ -399,7 +346,19 @@
                                                 <th>数量</th>
                                                 <th>范围</th>
                                                 <th>删除</th>
-                                            </tr>
+                                            </tr>-->
+                                            <thead>
+                                            	<tr>
+                                            		<th style="width:35%">题库</th>
+                                            		<th>类型</th>
+                                            		<th>难度上限</th>
+	                                                <th>难度下限</th>
+	                                                <th>分数</th>
+	                                                <th>数量</th>
+	                                                <th>范围</th>
+	                                                <th>操作</th>
+                                            	</tr>
+                                            </thead>
                                             <tbody id="my_body">
                                             </tbody>
                                         </table>
@@ -418,25 +377,53 @@
     <!-- /page content -->
     </div>
     </div>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-    <script src="../exam/js/config.js"></script>
-    <script src="../exam/js/AuthorityManagement.js"></script>
+   <!--定义操作列按钮模板-->
+	<script id="tpl" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp2" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script id="tp3" type="text/x-handlebars-template">
+	    {{#each func}}
+	    <button type="button" class="btn btn-{{this.type}} btn-sm" onclick="{{this.fn}}">{{this.name}}</button>
+	    {{/each}}
+	</script>
+	<script src="../exam/js/menu.js"></script>
+        
+    <script type="text/javascript">
+    	$(function () 
+		 {
+    		$.ajax
+			({
+	      	    url: "" + ServerIp + "/StudentManage/Menu", //加上这句话
+	            type: 'POST',				//请求的类型
+	            async: false,
+	            dataType: "text",			//数据类型		          
+	            data: {					         		            
+	            },					            
+	            success:function(data) 	 //操作后台的返回值
+	            {
+	            	//alert(data);
+	            	data = JSON.parse(data);		           
+	            	$("#menu").append(data);		            	
+				},
+	            error: function(e)
+	            {
+	            	alert("error");
+	            }
+		    });
+		})
+    </script>
+	
     <script>
     $(document).ready(function() {
         $(".select2_single").select2({
-            placeholder: "请选择一个班级",
+            placeholder: "请选择题库",
             allowClear: true
         });
         $(".select2_group").select2({});
@@ -448,15 +435,39 @@
     var strategy_currentPage = 1;
     var totalPage=0;
 
-    function deleteItem(data) {
+	function DestroyTable1()//清除查看策略datatable表格内容以供刷新
+        {
+        	var datatable = $("#strategy_table").dataTable();
+        	if (datatable) 
+        	{
+	         	datatable.fnClearTable();    //清空数据
+	         	datatable.fnDestroy();         //销毁datatable
+       	 	} 
+
+        }
+
+	function DestroyTable2()//清除策略项datatable表格内容以供刷新
+        {
+        	var datatable = $("#strategy_item").dataTable();
+        	if (datatable) 
+        	{
+	         	datatable.fnClearTable();    //清空数据
+	         	datatable.fnDestroy();         //销毁datatable
+       	 	} 
+
+        }
+
+    //删除策略项
+    function deleteItem(sm_id) {
         <!--alert(data.className);-->
         $.post(""+ServerIp+"/StrategyManage/DelStrategyTerm", {
-                sm_id: data.className
+                sm_id: sm_id
             },
             function(data) {
                 try {
                     data = JSON.parse(data);
                     if (data.status == 1) {
+                    	DestroyTable2();
                         myfunction();
                     }
                 } catch (e) {
@@ -465,75 +476,200 @@
             }
         )
     }
-
-    function lookSg(data) {
-        strategy_sg_id = data.className;
+	
+	//查看按钮
+//  function lookSg(data) {
+//      strategy_sg_id = data.className;
+//      $("#sgList").show();
+//      myfunction();
+//  }
+	function lookSg(sg_id) {
+        strategy_sg_id = sg_id;
         $("#sgList").show();
+        DestroyTable2();
         myfunction();
     }
 
-    function myfunction() {
-        var pageList = $('#page-list');
-        $.post(""+ServerIp+"/StrategyManage/GetStrategyTerm", {
-            "strategy_sg_id": strategy_sg_id,
-            "currentPage": currentPage
-        }, function(data) {
-            data = JSON.parse(data);
-            if (data.status == 1) {
+	//点击查看后弹出的表格即策略项表格
+	function myfunction()
+	{
+		//定义按钮模板
+	    var tp3 = $("#tpl").html();		    
+		//预编译模板
+        var template = Handlebars.compile(tp3);
+		$.ajax({
+			url: "" + ServerIp + "/StrategyManage/GetStrategyTerm",
+			type: 'POST', //请求的类型
+			async: false,
+			dataType: "text", //数据类型
+			data: { "strategy_sg_id": strategy_sg_id,
+            		"currentPage": currentPage
+			},
+			success: function(data) //操作后台的返回值
+			{	var pageList = $('#page-list');
+				data = JSON.parse(data);				
+				//alert(data.data);
+				if (data.status == 1) {
                 totalPage = data.body.totalPage;
                 var firstPage = data.body.firstPage;
                 var lastPage = data.body.lastPage;
                 var currentPage = data.body.currentPage;
                 document.getElementById("my_body").innerHTML = '';
                 document.getElementById("total_score").innerHTML = data.body.message;
-                var i = 0;
-                while (data.body.data[i]) {
-                    $('#my_body').append('<tr><td>' + data.body.data[i].qb_name + '</td><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
-                    i++;
-                }
-            } else {
+                } else {
                 // <!--alert('Oh, No!');-->
                 alert(data.body);
-            }
-            document.getElementById("page-list").innerHTML = '';
-            if (lastPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
-            } else {
-                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
-            }
-            pageList.append('<li><a id = "sm' + totalPage + '" onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
-            if (totalPage > 1) {
-                if (totalPage - currentPage >= 2) {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                if (currentPage > 1 && currentPage != totalPage) {
-                    pageList.append('<li ><a id = "sm' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                } else {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                pageList.append('<li ><a id = "sm' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
-            }
-            document.getElementById("sm" + currentPage).style.background = "#426384";
-            if (firstPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
-            } else {
-                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
-            }
-            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
-            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
-        });
-    }
+	            }
+	            document.getElementById("page-list").innerHTML = '';
+	            if (lastPage) {
+	                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+	            } else {
+	                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+	            }
+	            pageList.append('<li><a id = "sm' + totalPage + '" onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+	            if (totalPage > 1) {
+	                if (totalPage - currentPage >= 2) {
+	                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+	                }
+	                if (currentPage > 1 && currentPage != totalPage) {
+	                    pageList.append('<li ><a id = "sm' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+	                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+	                } else {
+	                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+	                }
+	                pageList.append('<li ><a id = "sm' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+	            }
+	            document.getElementById("sm" + currentPage).style.background = "#426384";
+	            if (firstPage) {
+	                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+	            } else {
+	                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+	            }
+	            pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+	            pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+                data = data.body;
+	           	table = $('#strategy_item').DataTable({
+					dom: 'Bfrtip',
+					data: data.data,
+					"paging": false, //禁止分页
+					retrieve: true, //实例化检索
+					"columns": [
+						{
+							data: 'qb_name'
+					    },
+					    {
+							data: 'sm_type'
+					    },	
+					    {
+							data: 'sm_difficulty_high'
+					    },
+						{
+							data: 'sm_difficulty_low'
+					    },
+					    {
+							data: 'sm_score'
+					    },
+					    {
+							data: 'sm_number'
+					    },
+					    {
+							data: 'kl_name'
+					    },
+						{
+							data: null//占位空列
+						} 
+
+					],
+					"columnDefs": [{
+							"searchable": false,
+							"orderable": false,
+							"targets": [0. - 1]					// 表格填充的范围,[0,-1]为所有
+						},
+						{
+							"targets": 7,
+							"render": function(a, b, c, d) {
+									 var context1 =
+			                        {
+			                            func: [
+			                                {"name": "删除", "fn": "deleteItem(\'" + c.sm_id + "\')", "type": "danger"},
+			                                
+			                            ]
+			                        };
+			                        var html1 = template(context1);			                        			                        
+			                        return html1;
+							}
+						},
+					]
+				});
+				
+			}
+		});
+	}
+//  function myfunction() {
+//      var pageList = $('#page-list');
+//      $.post(""+ServerIp+"/StrategyManage/GetStrategyTerm", {
+//          "strategy_sg_id": strategy_sg_id,
+//          "currentPage": currentPage
+//      }, function(data) {
+//          data = JSON.parse(data);
+//          if (data.status == 1) {
+//              totalPage = data.body.totalPage;
+//              var firstPage = data.body.firstPage;
+//              var lastPage = data.body.lastPage;
+//              var currentPage = data.body.currentPage;
+//              document.getElementById("my_body").innerHTML = '';
+//              document.getElementById("total_score").innerHTML = data.body.message;
+//              var i = 0;
+//              while (data.body.data[i]) {
+//                  $('#my_body').append('<tr><td>' + data.body.data[i].qb_name + '</td><td>' + data.body.data[i].sm_type + '</td><td>' + data.body.data[i].sm_difficulty_high + '</td><td>' + data.body.data[i].sm_difficulty_low + '</td><td>' + data.body.data[i].sm_score + '</td><td>' + data.body.data[i].sm_number + '</td><td>' + data.body.data[i].kl_name + '</td><td><a href="#" class="' + data.body.data[i].sm_id + '" onclick = "deleteItem(this)" >删除</a></td></tr>');
+//                  i++;
+//              }
+//          } else {
+//              // <!--alert('Oh, No!');-->
+//              alert(data.body);
+//          }
+//          document.getElementById("page-list").innerHTML = '';
+//          if (lastPage) {
+//              pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+//          } else {
+//              pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+//          }
+//          pageList.append('<li><a id = "sm' + totalPage + '" onclick="trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+//          if (totalPage > 1) {
+//              if (totalPage - currentPage >= 2) {
+//                  pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+//              }
+//              if (currentPage > 1 && currentPage != totalPage) {
+//                  pageList.append('<li ><a id = "sm' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+//                  pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+//              } else {
+//                  pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+//              }
+//              pageList.append('<li ><a id = "sm' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+//          }
+//          document.getElementById("sm" + currentPage).style.background = "#426384";
+//          if (firstPage) {
+//              pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+//          } else {
+//              pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+//          }
+//          pageList.append('<input style="width:50px;height:30px;margin-top:5px;margin-right:20px;" id="page_num"></input>');
+//          pageList.append('<li onclick = "turing_page()"><a href="#">翻页</a></li>');
+//      });
+//  }
     $('#page-list').on("click", "#nextpage", function() {
         currentPage += 1;
+        DestroyTable2();
         myfunction();
     });
     $('#page-list').on("click", "#lastpage", function() {
         currentPage -= 1;
+        DestroyTable2();
         myfunction();
     });
     $('#page-list').on("click", "#sm1", function() {
         currentPage = 1;
+        DestroyTable2();
         myfunction();
     });
     function turing_page() {
@@ -548,9 +684,11 @@
 
     function trailerPage(totalPage) {
         currentPage = totalPage;
+        DestroyTable2();
         myfunction();
     }
 
+	//添加策略按钮
     $('#add').click(function() {
         if (parseInt($('#qt_diffculty_up').val()) < parseInt($('#qt_diffculty_down').val())) {
             alert('难度上限小于难度下限');
@@ -621,6 +759,7 @@
         });
     });
     $(document).ready(function() {
+        DestroyTable1();
         myfunction1();
         var knowledge = $("#knowledge");
         var qb = $("#qb_id");
@@ -634,90 +773,203 @@
             }
         });
     });
+	
+	//查看策略表格(第一个表格)
+	function myfunction1()
+	{
+		//定义按钮模板
+		    var tpl = $("#tpl").html();
+		    var tp2 = $("#tp2").html();
+			//预编译模板
+	        var template = Handlebars.compile(tpl);
+	        var template = Handlebars.compile(tp2);
+			$.ajax({
+				url: "" + ServerIp + "/StrategyManage/SelectStrategy",
+				type: 'POST', //请求的类型
+				async: false,
+				dataType: "text", //数据类型
+				data: {"currentPage": strategy_currentPage
+				},
+				success: function(data) //操作后台的返回值
+				{	
+					data = JSON.parse(data);
+					data = data.body;
+					//alert(data.data);
+		            var tablebody = $('#tablebody');
+		            document.getElementById("tablebody").innerHTML = '';
+		            var totalPage = data.totalPage;
+		            var firstPage = data.firstPage;
+		            var lastPage = data.lastPage;
+		            var currentPage = data.currentPage;
+		            pageList = $("#strategy_page-list");
+		            document.getElementById("strategy_page-list").innerHTML = '';
+		            if (lastPage) {
+		                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+		            } else {
+		                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+		            }
+		            pageList.append('<li><a id = target' + totalPage + ' onclick="target_trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+		            if (totalPage > 1) {
+		                if (totalPage - currentPage >= 2) {
+		                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+		                }
+		                if (currentPage > 1 && currentPage != totalPage) {
+		                    pageList.append('<li ><a id = "target' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+		                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+		                } else {
+		                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+		                }
+		                pageList.append('<li ><a id = "target' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+		            }
+		            document.getElementById("target" + currentPage).style.background = "#426384";
+		            if (firstPage) {
+		                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+		            } else {
+		                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+		            }
+					table = $('#strategy_table').DataTable({
+						dom: 'Bfrtip',
+						data: data.data,
+						"paging": false, //禁止分页
+						retrieve: true, //实例化检索
+						"columns": [
+							{
+								data: 'sg_score'
+						    },
+						    {
+								data: 'sg_name'
+						    },	
+							{
+								data: null//占位空列
+							} 
 
-    function myfunction1() {
-        $.post(""+ServerIp+"/StrategyManage/SelectStrategy", {
-            "currentPage": strategy_currentPage
-        }, function(data) {
-            var data = JSON.parse(data);
-            var tablebody = $('#tablebody');
-            document.getElementById("tablebody").innerHTML = '';
-            var totalPage = data.body.totalPage;
-            var firstPage = data.body.firstPage;
-            var lastPage = data.body.lastPage;
-            var currentPage = data.body.currentPage;
-            var i = 0;
-            var str = '';
-            try {
-                while (data.body.data[i]) {
-                    str = `<tr>
-                                        <td>` + data.body.data[i].sg_score + `</td>
-                                        <td>` + data.body.data[i].sg_name + `</td>
-                                        <td><a style="margin-right: 10px;" class=` + data.body.data[i].sg_id + `  onclick="lookSg(this)">查看</a><a   class=` + data.body.data[i].sg_id + ` onclick="deleteSg(this)">删除</a></td>
-                                    </tr>`
-                    tablebody.append(str);
-                    i += 1;
-                }
-            } catch (err) {}
-            pageList = $("#strategy_page-list");
-            document.getElementById("strategy_page-list").innerHTML = '';
-            if (lastPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
-            } else {
-                pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
-            }
-            pageList.append('<li><a id = target' + totalPage + ' onclick="target_trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
-            if (totalPage > 1) {
-                if (totalPage - currentPage >= 2) {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                if (currentPage > 1 && currentPage != totalPage) {
-                    pageList.append('<li ><a id = "target' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                } else {
-                    pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
-                }
-                pageList.append('<li ><a id = "target' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
-            }
-            document.getElementById("target" + currentPage).style.background = "#426384";
-            if (firstPage) {
-                pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
-            } else {
-                pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
-            }
-        });
-    }
+						],
+						"columnDefs": [{
+								"searchable": false,
+								"orderable": false,
+								"targets": [0. - 1]					// 表格填充的范围,[0,-1]为所有
+							},
+							{
+								"targets": 2,
+								"render": function(a, b, c, d) {
+										 var context1 =
+				                        {
+				                            func: [
+				                                {"name": "查看", "fn": "lookSg(\'" + c.sg_id + "\')", "type": "primary"},
+				                                
+				                            ]
+				                        };
+				                        var html1 = template(context1);
+				                        
+				                        var context2 =
+				                        {
+				                            func: [
+				                                {"name": "删除", "fn": "deleteSg(\'" + c.sg_id + "\')", "type": "danger"},		//添加按键     name为按键属性
+				                                
+				                            ]
+				                        };
+				                        var html2 = template(context2);
+				                        return html1+html2;
+								}
+							},
+						]
+					});
+					
+				}
+			});
+	}
+//  function myfunction1() {
+//      $.post(""+ServerIp+"/StrategyManage/SelectStrategy", {
+//          "currentPage": strategy_currentPage
+//      }, function(data) {
+//          var data = JSON.parse(data);
+//          var tablebody = $('#tablebody');
+//          document.getElementById("tablebody").innerHTML = '';
+//          var totalPage = data.body.totalPage;
+//          var firstPage = data.body.firstPage;
+//          var lastPage = data.body.lastPage;
+//          var currentPage = data.body.currentPage;
+//          var i = 0;
+//          var str = '';
+//          try {
+//              while (data.body.data[i]) {
+//                  str = `<tr>
+//                                      <td>` + data.body.data[i].sg_score + `</td>
+//                                      <td>` + data.body.data[i].sg_name + `</td>
+//                                      <td><a style="margin-right: 10px;" class=` + data.body.data[i].sg_id + `  onclick="lookSg(this)">查看</a><a   class=` + data.body.data[i].sg_id + ` onclick="deleteSg(this)">删除</a></td>
+//                                  </tr>`
+//                  tablebody.append(str);
+//                  i += 1;
+//              }
+//          } catch (err) {}
+//          pageList = $("#strategy_page-list");
+//          document.getElementById("strategy_page-list").innerHTML = '';
+//          if (lastPage) {
+//              pageList.append('<li><a style="color: #777;cursor: not-allowed;">下页</a></li>')
+//          } else {
+//              pageList.append('<li id = "nextpage"><a href="#">下页</a></li>');
+//          }
+//          pageList.append('<li><a id = target' + totalPage + ' onclick="target_trailerPage(' + totalPage + ')" href="#"style="background: wight;" >  ' + totalPage + '</a></li>');
+//          if (totalPage > 1) {
+//              if (totalPage - currentPage >= 2) {
+//                  pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+//              }
+//              if (currentPage > 1 && currentPage != totalPage) {
+//                  pageList.append('<li ><a id = "target' + currentPage + '" chref="#"style="background: wight;" >  ' + currentPage + '</a></li>');
+//                  pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+//              } else {
+//                  pageList.append('<li><a style="color: #777;cursor: not-allowed;">....</a></li>');
+//              }
+//              pageList.append('<li ><a id = "target' + 1 + '" chref="#"style="background: wight;" >  ' + 1 + '</a></li>');
+//          }
+//          document.getElementById("target" + currentPage).style.background = "#426384";
+//          if (firstPage) {
+//              pageList.append('<li><a style="color: #777;cursor: not-allowed;">上页</a></li>')
+//          } else {
+//              pageList.append('<li id = "lastpage"><a chref="#">上页</a></li>');
+//          }
+//      });
+//  }
     $('#strategy_page-list').on("click", "#nextpage", function() {
         strategy_currentPage += 1;
-        myfunction1();
+        DestroyTable1();
+        myfunction1(); 
     });
     $('#strategy_page-list').on("click", "#lastpage", function() {
         strategy_currentPage -= 1;
+        DestroyTable1();
         myfunction1();
     });
     $('#strategy_page-list').on("click", "#target1", function() {
         strategy_currentPage = 1;
+        DestroyTable1();
         myfunction1();
     });
 
     function target_trailerPage(totalPage) {
         strategy_currentPage = totalPage;
+        DestroyTable1();
         myfunction1();
     }
-    function deleteSg(data){
+    
+    //删除策略
+    function deleteSg(sg_id){
+    	//alert(sg_id);
         var password = prompt('请输入管理员密码', '');
         if (password == '' || typeof(password) == 'undefined' || password == null) {
             alert('您输入的管理员密码有误');
         } else {
             $.post("" + ServerIp + "/StrategyManage/DelStrategy", {
-                "sg_id": data.className,
+                "sg_id": sg_id,
                 "deletepassword": password
             }, function(data) {
                 var data = JSON.parse(data);
+                //alert(data.status);
                 if (data.status == 1)
                     alert('删除成功');
                 else
                     alert(data.message);
+                DestroyTable1();
                 myfunction1();
             });
         }

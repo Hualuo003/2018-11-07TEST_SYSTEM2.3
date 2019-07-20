@@ -3,7 +3,8 @@
 
 
 
-from orm import Model
+from .orm import Model
+''' 所有模块都继承Model '''
 
 # 选择题
 class Choice_model(Model):
@@ -16,6 +17,8 @@ class Choice_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 班级
 class Class_model(Model):
     __table__ = 'class'
     __pk__ = 'cl_id'
@@ -25,6 +28,8 @@ class Class_model(Model):
     __notnull__ = set({'cl_name',})
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
+
+
 # 编程题
 class Coding_model(Model):
     __table__ = 'coding'
@@ -36,6 +41,8 @@ class Coding_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 考试表
 class Exam_model(Model):
     __table__ = 'exam'
     __pk__ = 'ex_id'
@@ -46,15 +53,20 @@ class Exam_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 试题表
 class Exam_question_model(Model):
+    '''2018-08-23 更改：添加了eq_lang字段'''
     __table__ = 'exam_question'
     __pk__ = 'eq_id'
-    __attr__ = set(['eq_id','information_in_id','qt_id','eq_qt_type','eq_pre_score','eq_get_score','eq_answer','fillb_coding'])
-    __insertable__ = set({'information_in_id','qt_id','eq_qt_type','eq_pre_score','eq_get_score','eq_answer','fillb_coding'})
-    __updateable__ = set({'information_in_id','qt_id','eq_qt_type','eq_pre_score','eq_get_score','eq_answer','fillb_coding'})
-    __notnull__ = set({'information_in_id',})
+    __attr__ = set(['eq_id','information_in_id','qt_id','eq_qt_type','eq_pre_score','eq_get_score','eq_answer','fillb_coding', 'eq_lang'])
+    __insertable__ = set({'information_in_id','qt_id','eq_qt_type','eq_pre_score','eq_get_score','eq_answer','fillb_coding', 'eq_lang'})
+    __updateable__ = set({'information_in_id','qt_id','eq_qt_type','eq_pre_score','eq_get_score','eq_answer','fillb_coding', 'eq_lang'})
+    __notnull__ = set({'information_in_id'})
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
+
+
 # 读程序写结果
 class Filla_model(Model):
     __table__ = 'filla'
@@ -65,6 +77,8 @@ class Filla_model(Model):
     __notnull__ = set({})
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
+
+
 # 程序填空
 class Fillb_model(Model):
     __table__ = 'fillb'
@@ -76,6 +90,8 @@ class Fillb_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 试卷信息表
 class Information_model(Model):
     __table__ = 'information'
     __pk__ = 'in_id'
@@ -85,6 +101,8 @@ class Information_model(Model):
     __notnull__ = set({'exam_ex_id','class_cl_id','student_st_id',})
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
+
+
 # 判断题
 class Judge_model(Model):
     __table__ = 'judge'
@@ -96,6 +114,8 @@ class Judge_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 知识点
 class Knowledge_model(Model):
     __table__ = 'knowledge'
     __pk__ = 'kl_id'
@@ -106,26 +126,34 @@ class Knowledge_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 题目表
 class Question_model(Model):
+    '''2018-08-23 更改：添加了qt_lang字段'''
     __table__ = 'question'
     __pk__ = 'qt_id'
-    __attr__ = set(['qt_id','qt_type','qt_stem','qt_use_number','qt_right_number','qt_pre_rate','qt_diffculty','qt_node','knowledge_kl_id','qt_state'])
-    __insertable__ = set({'qt_type','qt_stem','qt_use_number','qt_right_number','qt_diffculty','qt_node','knowledge_kl_id','qt_state'})
-    __updateable__ = set({'qt_type','qt_stem','qt_use_number','qt_right_number','qt_diffculty','qt_node','knowledge_kl_id','qt_state'})
-    __notnull__ = set({'qt_type','qt_stem',})
+    __attr__ = set(['qt_id','qt_type','qt_stem','qt_use_number','qt_right_number','qt_pre_rate','qt_diffculty','qt_node','knowledge_kl_id','qt_state', 'qt_lang'])
+    __insertable__ = set({'qt_type','qt_stem','qt_use_number','qt_right_number','qt_diffculty','qt_node','knowledge_kl_id','qt_state', 'qt_lang'})
+    __updateable__ = set({'qt_type','qt_stem','qt_use_number','qt_right_number','qt_diffculty','qt_node','knowledge_kl_id','qt_state', 'qt_lang'})
+    __notnull__ = set({'qt_type','qt_stem'})
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 题库表
 class Questions_bank_model(Model):
+    '''2018-08-23 更改：添加了qb_lang字段'''
     __table__ = 'questions_bank'
     __pk__ = 'qb_id'
-    __attr__ = set(['qb_id','qb_name','qb_node',])
-    __insertable__ = set({'qb_name','qb_node',})
-    __updateable__ = set({'qb_name','qb_node',})
-    __notnull__ = set({'qb_name',})
+    __attr__ = set(['qb_id','qb_name','qb_node', 'qb_lang'])
+    __insertable__ = set({'qb_name','qb_node', 'qb_lang'})
+    __updateable__ = set({'qb_name','qb_node', 'qb_lang'})
+    __notnull__ = set({'qb_name'})
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 题库包含的题目
 class Questions_bank_has_question_model(Model):
     __table__ = 'questions_bank_has_question'
     __pk__ = 'qbhq_id'
@@ -136,6 +164,8 @@ class Questions_bank_has_question_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 策略表
 class Strategy_model(Model):
     __table__ = 'strategy'
     __pk__ = 'sg_id'
@@ -146,6 +176,8 @@ class Strategy_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 策略项
 class Strategy_term_model(Model):
     __table__ = 'strategy_term'
     __pk__ = 'sm_id'
@@ -156,6 +188,8 @@ class Strategy_term_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 学生表
 class Student_model(Model):
     __table__ = 'student'
     __pk__ = 'st_id'
@@ -166,6 +200,8 @@ class Student_model(Model):
     __attrnum__ = len(__attr__)
     __countperpage__ = 10
 
+
+# 班级包含的学生表
 class Student_has_class_model(Model):
     __table__ = 'student_has_class'
     __pk__ = 'shc_id'
@@ -177,6 +213,7 @@ class Student_has_class_model(Model):
     __countperpage__ = 10
 
 
+# 教师表
 class Teacher_model(Model):
     __table__ = 'teacher'
     __pk__ = 'tc_id'

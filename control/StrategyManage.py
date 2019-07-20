@@ -4,7 +4,7 @@ import random
 
 import time
 
-import thread
+import _thread
 
 import datetime
 import web
@@ -111,7 +111,7 @@ class CreatStrategyTerm:
                         int(item.sm_difficulty_high) <= int(strategyTerm.sm_difficulty_low) \
                         or int(strategyTerm.sm_difficulty_low) < int(item.sm_difficulty_low) \
                         and int(strategyTerm.sm_difficulty_high) <= int(item.sm_difficulty_low):
-                    print '无交集'
+                    print('无交集')
                 else:
                     # result_message = "diffculty error"
                     result_message = u"难度交叉"
@@ -146,7 +146,7 @@ class CreatStrategyTerm:
                 page = util.Page(data=strategyTermList, totalRow=int(result[0]['count(*)']) * 2,
                                  currentPage=int(params.currentPage), pageSize=pageSize,
                                  status=util.Status.__success__, message=total_score)
-                print page
+                print(page)
                 response = util.Response(status=util.Status.__success__, body=page)
                 return util.objtojson(response)
             else:
@@ -237,7 +237,7 @@ class SelectStrategyTerm:
         # 接收参数
         params = web.input()
         currentPage = params['requestPage'].encode('utf-8')
-        print currentPage
+        print(currentPage)
         del params['requestPage']
         args = dict(strategy_sg_id=params.get('strategy_sg_id'))
         totalCount = model.Strategy_term_model.count(**args)
@@ -381,6 +381,7 @@ class AddExam:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
+        print("添加考试：前端传入的数据 ", params)
         exam = model.Exam_model()
         must_params = exam.__notnull__
         if (util.paramsok(must_params, params) == 2):
@@ -393,11 +394,12 @@ class AddExam:
                 result = exam.query("select max(ex_id) from exam")
                 lastExamId = int(result[0]['max(ex_id)'])
                 # 获取教务班学生id
-                stuHasClass = model.Student_has_class_model();
-                classId = params['class_cl_id'].encode('utf-8')
+                stuHasClass = model.Student_has_class_model()
+                #classId = params['class_cl_id'].encode('utf-8')
+                classId = params['class_cl_id']
                 classId = classId.split(',')
                 for k in range(1, len(classId) - 1):
-                    listStuid = stuHasClass.getByArgs(class_cl_id=classId[k]);
+                    listStuid = stuHasClass.getByArgs(class_cl_id=classId[k])
                     for stuID in listStuid:
                         informationArgs = dict(student_st_id=stuID.student_st_id, exam_ex_id=lastExamId,
                                                class_cl_id=classId[k], sg_id=exam.strategy_sg_id)
@@ -415,6 +417,7 @@ class ChangeExam:
     def POST(self):
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
+        print("修改考试", params)
         exam = model.Exam_model()
         must_params = exam.__notnull__
         if (util.paramsok(must_params, params) == 2):
@@ -425,8 +428,9 @@ class ChangeExam:
             exam.ex_state = 0
             if exam.update():
                 # 获取教务班学生id
-                stuHasClass = model.Student_has_class_model();
-                classId = params['add_class_cl_id'].encode('utf-8')
+                stuHasClass = model.Student_has_class_model()
+                # classId = params['add_class_cl_id'].encode('utf-8')
+                classId = params['add_class_cl_id']
                 classId = classId.split(',')
                 for k in range(1, len(classId) - 1):
                     listStuid = stuHasClass.getByArgs(class_cl_id=classId[k])
@@ -435,7 +439,8 @@ class ChangeExam:
                                                class_cl_id=classId[k], sg_id=exam.strategy_sg_id)
                         information = model.Information_model(**informationArgs)
                         information.insert()
-                delete_classId = params['delete_class_cl_id'].encode('utf-8')
+                #delete_classId = params['delete_class_cl_id'].encode('utf-8')
+                delete_classId = params['delete_class_cl_id']
                 delete_classId = delete_classId.split(',')
                 for k in range(1, len(delete_classId) - 1):
                     listStuid = stuHasClass.getByArgs(class_cl_id=delete_classId[k])
@@ -534,7 +539,7 @@ class SelectExamByName:
         # 接收参数
         params = web.input()
         currentPage = int(params.currentPage) - 1
-        print params
+        print(params)
         if params.ex_name == '':
             if params.ex_time_end == '' and params.ex_time_start != '':
                 params.ex_time_end = '2200-12-12T12:12'
@@ -568,7 +573,7 @@ class SelectExamByName:
                                                "'" + params.ex_time_end + "'",))
         count = result[0]['count(*)']
         lists = [model.Exam_model(**item) for item in lists]
-        print lists
+        print(lists)
         for list in lists:
             start_time = list['ex_time_start'].strftime('%Y-%m-%d %H:%M:%S')
             end_time = list['ex_time_end'].strftime('%Y-%m-%d %H:%M:%S')
@@ -785,8 +790,8 @@ class SelectExamQuestionById:
             question_list.append(fillb_question)
             question_list.append(coding_question)
             response = util.Response(status=util.Status.__success__, body=question_list)
-            print question_list
-            print fillb_question
+            print(question_list)
+            print(fillb_question)
             return util.objtojson(response)
         else:
             response = util.Response(status=util.Status.__error__)
@@ -936,7 +941,7 @@ class StopExamByUser:
 
 def upExamStatusStart(threadName, delay):
     while (1):
-        print threadName
+        print(threadName)
         time.sleep(delay)
         startExam = dict(ex_state=0)
         examModel = model.Exam_model()
@@ -950,7 +955,7 @@ def upExamStatusStart(threadName, delay):
 
 def upExamStatusStop(threadName, delay):
     while (1):
-        print threadName
+        print(threadName)
         time.sleep(delay)
         startExam = dict(ex_state=1)
         examModel = model.Exam_model()
@@ -965,11 +970,11 @@ def upExamStatusStop(threadName, delay):
 if __name__ == '__main__':
 
     if len(urls) & 1 == 1:
-        print "urls error, the size of urls must be even."
+        print("urls error, the size of urls must be even.")
     else:
         try:
-            thread.start_new(upExamStatusStart, ("thread-1", 2,))
-            thread.start_new(upExamStatusStop, ("thread-2", 4,))
-            thread.start_new(app.run())
+            _thread.start_new(upExamStatusStart, ("thread-1", 2,))
+            _thread.start_new(upExamStatusStop, ("thread-2", 4,))
+            _thread.start_new(app.run())
         except:
-            print "Error: unable to start thread"
+            print("Error: unable to start thread")

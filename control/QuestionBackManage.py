@@ -32,8 +32,10 @@ urls = (
     'FuzzySearch/','FuzzySearch',
     'FiltrationQuestion/','FiltrationQuestion',
     'QuestionPrint/','QuestionPrint',
-
+    'Getlang/', 'Getlang',
 )
+
+
 class index:
     def GET(self):
         mydata = web.input(name=None)
@@ -49,9 +51,10 @@ class AddQuestionBack:
         return 'AddQuestionBack'
     def POST(self):
         mydata = web.input()
+        print("添加题库", mydata)
         qb = model.Questions_bank_model()
         must_params = qb.__notnull__
-        web.header("Access-Control-Allow-Origin", "*") 
+        web.header("Access-Control-Allow-Origin", "*")                      # 跨域访问
         if(util.paramsok(must_params, mydata) == 2):
             response = util.Response(status=util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -62,7 +65,9 @@ class AddQuestionBack:
                 return util.objtojson(response)
             else:
                 response = util.Response(status=util.Status.__error__)
-                return util.objtojson(response)                      
+                return util.objtojson(response)
+
+
 # 查询题库
 class ManageQuestionBack:
     def POST(self):
@@ -77,9 +82,13 @@ class ManageQuestionBack:
             qb = model.Questions_bank_model()
             count = qb.count()
             reasurt = qb.getByPage(int(mydata.currentPage)-1)
+            print("查询结果", reasurt)
             page = util.Page(data = reasurt, totalRow = count, currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
             response = util.Response(status=util.Status.__success__,body=page)
-            return util.objtojson(response) 
+            print("查询题库：", util.objtojson(response))
+            return util.objtojson(response)
+
+
 # 修改题库
 class UpdateQuestionBack:
     def POST(self):
@@ -98,15 +107,17 @@ class UpdateQuestionBack:
             else:
                 response = util.Response(status=util.Status.__error__)
                 return util.objtojson(response)
+
 # 确认删除题库
 class ConfirmDeleteQuestionBack:
     def POST(self):
         mydata = web.input()
+        print("删除题库", mydata)
         qb = model.Questions_bank_model()
         must_params = set (['qb_id'])
         web.header("Access-Control-Allow-Origin", "*")
         session = web.ctx.session
-        util.getFileRotatingLog().debug(session.password)
+        # util.getFileRotatingLog().debug(session.password)           # 写入到log文件
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -130,17 +141,19 @@ class ConfirmDeleteQuestionBack:
             return util.objtojson(response)
         response = util.Response(status=util.Status.__error__,message = "删除失败")
         return util.objtojson(response)
-# # 查看题库
+
+
+# 查看题库
 class OpenQuestionBack:
     def POST(self):
         mydata = web.input()
-        print mydata
+        print("查看题目:",mydata)
         # 必须有的参数
         must_params =set({'questions_bank_qb_id','currentPage'})
         web.header("Access-Control-Allow-Origin", "*")
         currentPage = int(mydata.currentPage)-1;
         if(util.paramsok(must_params,mydata) == 2):
-            print 333
+            print(333)
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
         else:
@@ -178,7 +191,7 @@ class OpenQuestionBack:
             count['filla_num'] = filla_num[0]['count(*)']
             count['fillb_num'] = fillb_num[0]['count(*)']
             count['judge_num'] = judge_num[0]['count(*)']
-            util.getFileRotatingLog().debug(count)
+            #util.getFileRotatingLog().debug(count)
             for params in result:
                 qt = params
                 qt['qt_type']=util.type[qt.qt_type]
@@ -190,11 +203,14 @@ class OpenQuestionBack:
             # return util.objtojson(response)
             page = util.Page(data = questionlist, totalRow = int(count['total_num']), currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = count)
             response = util.Response(status=util.Status.__success__,body=page)
-            return util.objtojson(response) 
+            print("返回信息： ", util.objtojson(response))
+            return util.objtojson(response)
+
+
 # 返回题库和知识点信息
 class RequestQuestionBack:
     def GET(self):
-        print RequestQuestionBack
+        print(RequestQuestionBack)
         mydata = web.input()
         web.header("Access-Control-Allow-Origin", "*")
         Knowledge = model.Knowledge_model()
@@ -205,15 +221,27 @@ class RequestQuestionBack:
         data.append(KnowledgeData)
         data.append(questionbackData)
         response = util.Response(status=util.Status.__success__,body=data)
+        print("返回题库和知识点信息", util.objtojson(response))
         return util.objtojson(response)
+
+
 # 添加题目
 class AddQuestion:
+    '''更新：2018-8-24  更新添加字段qt_lang = qb_lang'''
     def POST(self):
         mydata = web.input()
+        print(mydata)
         # print mydata['qt_stem'].encode("utf-8")
         qt = model.Question_model()
         web.header("Access-Control-Allow-Origin", "*")
         qbhq = model.Questions_bank_has_question_model()
+        qb = model.Questions_bank_model()
+        print(mydata['questions_bank_qb_id'])
+        qb = qb.getByArgs(qb_id = mydata['questions_bank_qb_id'])
+        # print(qb)
+        # print(qb[0]['qb_lang'])
+        mydata['qt_lang'] = qb[0]['qb_lang']
+        # print("更新后的mydata: ", mydata)
         must_params = qt.__notnull__
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
@@ -232,17 +260,24 @@ class AddQuestion:
                     qbhq.insert()
                 response = util.Response(status=util.Status.__success__)
                 return util.objtojson(response)
+
+            # 编程题加题时需要把题目先加入到exam_question表，判题系统取出题目进行判题，如果判题成功则加入到question表
             elif mydata.qt_type == 'coding':
-                coding = model.Coding_model(**mydata)
+                # qb = model.Questions_bank_model()
+                # print(mydata['questions_bank_qb_id'])
+                # qb = qb.getByArgs(qb_id=mydata['questions_bank_qb_id'])
+                #mydata['eq_lang'] = qb[0]['qb_lang']
+                #print("更改后的mydata",mydata)
+                coding = model.Coding_model(**mydata)                       # 实例化一个编程题
                 with orm.db.transaction():
-                    qt.insert()
+                    qt.insert()                                             # 插入到question表
                     reasurt = qt.query('select max(qt_id) from question')
                     coding.question_qt_id = reasurt[0]['max(qt_id)']
                     qt.qt_id=coding.question_qt_id
-                    coding.insert()
+                    coding.insert()                                         # 插入到coding表
                     qbhq.question_qt_id = coding.question_qt_id
                     qbhq.questions_bank_qb_id = mydata.questions_bank_qb_id
-                    result = qbhq.insertBackid()
+                    result = qbhq.insertBackid()                            # 插入到qbhd表
                     qbhq.qbhq_id = result[0]['max(qbhq_id)']
                 # os.mkdir('%s/%s'%(question_source,coding.question_qt_id))
                 # test_in = coding.co_test_answer_in.split('&&&')
@@ -252,22 +287,23 @@ class AddQuestion:
                 #         f.write(test_in[k])
                 #     with open('%s/%s/%s.out' % (question_source,coding.question_qt_id,k), 'w') as f:
                 #         f.write("%s"%test_out[k])
-                exam_question = model.Exam_question_model()
+                exam_question = model.Exam_question_model()                 # 实例化exam_question表
                 exam_question.information_in_id = 1
                 exam_question.qt_id = qbhq.question_qt_id
                 exam_question.eq_qt_type = 'coding'
                 exam_question.eq_pre_score = 100
-                exam_question.eq_get_score = '-2'
+                exam_question.eq_get_score = '-2'                           # -2为待判题状态
                 exam_question.eq_answer = coding.co_test_coding
-                result = exam_question.insertBackid()
+                exam_question.eq_lang = qb[0]['qb_lang']
+                result = exam_question.insertBackid()                       # 插入到exam_question表
                 eq_id = result[0]['max(eq_id)']
-                for i in range(60):
+                for i in range(60):                                         # 判题最大时长为1分钟
                     time.sleep(1)
                     exam_question = model.Exam_question_model.getByPK(eq_id)
-                    if exam_question.eq_get_score ==100:
+                    if exam_question.eq_get_score ==100:                    # 判题成功，判题系统将该字段变为100
                         response = util.Response(status=util.Status.__success__)
                         return util.objtojson(response)
-                    if exam_question.eq_get_score ==0 or i == 59:
+                    if exam_question.eq_get_score ==0 or i == 59:           # 判题失败时删除改题目的所有信息
                         exam_question.delete()
                         qbhq.delete()
                         coding.delete()
@@ -287,6 +323,8 @@ class AddQuestion:
                     qbhq.insert()
                 response = util.Response(status=util.Status.__success__)
                 return util.objtojson(response)
+
+            # 程序填空题加题时需要把题目先加入到exam_question表，判题系统取出题目进行判题，如果判题成功则加入到question表
             elif mydata.qt_type == 'fillb':
                 Fillb = model.Fillb_model(**mydata)
                 with orm.db.transaction():
@@ -312,8 +350,9 @@ class AddQuestion:
                 exam_question.eq_pre_score = 100
                 exam_question.eq_get_score = '-2'
                 exam_question.eq_answer = Fillb.fb_pre_coding
+                exam_question.eq_lang = qb[0]['qb_lang']
                 exam_question.fillb_coding = Fillb.fb_pre_coding.replace('&&&',' ')
-                util.getFileRotatingLog().debug(exam_question.fillb_coding)
+                # util.getFileRotatingLog().debug(exam_question.fillb_coding)              #写入到log文件
                 result = exam_question.insertBackid()
                 eq_id = result[0]['max(eq_id)']
                 for i in range(60):
@@ -343,7 +382,9 @@ class AddQuestion:
                     qbhq.questions_bank_qb_id = mydata.questions_bank_qb_id
                     qbhq.insert()
                 response = util.Response(status=util.Status.__success__)
-                return util.objtojson(response)
+                return util.objtojson(response)                             # 返回一个对象，status = 1
+
+
 # 查看题目
 class CheckQuestion:
     def POST(self):
@@ -367,17 +408,20 @@ class CheckQuestion:
             data.append(result1)
             response = util.Response(status=util.Status.__success__,body = data)
             return util.objtojson(response)
+
+
 # 修改题目
 class UpdataQuestion:
     def POST(self):
         mydata = web.input();
+        print("修改题目", mydata)
         qt = model.Question_model()
         recover_question = model.Question_model.getByPK(mydata.qt_id)
         recover_coding = model.Coding_model.getByPK(mydata.qt_id)
         recover_fillb = model.Fillb_model.getByPK(mydata.qt_id)
         kp = model.Knowledge_model()
         web.header("Access-Control-Allow-Origin", "*")
-        must_params = set({'qt_id','qt_type','qt_stem','kl_name','qb_id',})
+        must_params = set({'qt_id','qt_type','qt_stem','kl_name','qb_id','eq_lang'})
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -401,6 +445,7 @@ class UpdataQuestion:
                 exam_question = model.Exam_question_model()
                 exam_question.information_in_id = 1
                 exam_question.qt_id = qt.qt_id
+                exam_question.eq_lang = mydata.eq_lang
                 exam_question.eq_qt_type = 'coding'
                 exam_question.eq_pre_score = 100
                 exam_question.eq_get_score = '-2'
@@ -459,6 +504,8 @@ class UpdataQuestion:
                 Judge.update()
                 response = util.Response(status=util.Status.__success__)
                 return util.objtojson(response)          
+
+
 # 查找题目
 class SelectQuestion:
     def POST(self):
@@ -500,7 +547,7 @@ class SelectQuestion:
                         question_list.append(qt)
                         count+=1
                     else:
-                        print '空'
+                        print('空')
                 elif mydata.knowledge_kl_id == 'all':
                     result = question.query('select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
@@ -512,7 +559,7 @@ class SelectQuestion:
                         question_list.append(qt)
                         count+=1
                     else:
-                        print '空'
+                        print('空')
                         # KnowledgeData = Knowledge.getByArgs(kl_id = result1[0].knowledge_kl_id)
                 else:
                     result = question.query('select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.knowledge_kl_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
@@ -525,9 +572,9 @@ class SelectQuestion:
                         question_list.append(qt)
                         count+=1
                     else:
-                        print '空'         
+                        print('空')
             currentPage = int(mydata.currentPage)-1
-            print count
+            print(count)
             if (currentPage*10+10 < count):
                 questiondata=question_list[currentPage*10:currentPage*10+10]
             else:
@@ -535,6 +582,7 @@ class SelectQuestion:
             page = util.Page(data = questiondata, totalRow = count, currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
             response = util.Response(status = util.Status.__success__,body = page)
             return util.objtojson(response)
+
 
 # 导出题目
 class QuestionPrint:
@@ -580,7 +628,7 @@ class QuestionPrint:
                         question_list.append(qt)
                         count += 1
                     else:
-                        print '空'
+                        print('空')
                 elif mydata.knowledge_kl_id == 'all':
                     result = question.query(
                         'select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s ' % (
@@ -593,7 +641,7 @@ class QuestionPrint:
                         question_list.append(qt)
                         count += 1
                     else:
-                        print '空'
+                        print('空')
                         # KnowledgeData = Knowledge.getByArgs(kl_id = result1[0].knowledge_kl_id)
                 else:
                     result = question.query(
@@ -608,7 +656,7 @@ class QuestionPrint:
                         question_list.append(qt)
                         count += 1
                     else:
-                        print '空'
+                        print('空')
             now = datetime.datetime.now()
             question_bank = model.Questions_bank_model.getByPK(mydata.qb_id)
             filepath = str(
@@ -624,11 +672,13 @@ class QuestionPrint:
             #                  pageSize=10, status=util.Status.__success__, message="未知")
             response = util.Response(status=util.Status.__success__,message=u'/source/exampage/%s.docx'%(question_bank.qb_name))
             return util.objtojson(response)
+
+
 # 模糊查找
 class FuzzySearch:
     def POST(self):
         mydata = web.input()
-        print mydata
+        print("查找题目，模糊查找", mydata)
         web.header("Access-Control-Allow-Origin", "*")
         must_params = set({'qt_stem','currentPage',})
         question = model.Question_model()
@@ -643,7 +693,7 @@ class FuzzySearch:
             # result = orm.db.query('select * from question where qt_stem like \'%%%s%%\''%(mydata.qt_stem))
             questionlist = []
             result = [model.Question_model(**item) for item in result ]
-            print result
+            print(result)
             result1= question.query('select count(*) from question where qt_stem like \'%%%s%%\''%(mydata.qt_stem))
             count = result1[0]['count(*)']
             for params in result:
@@ -657,15 +707,19 @@ class FuzzySearch:
             # return util.objtojson(response)
             page = util.Page(data = questionlist, totalRow = count, currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
             response = util.Response(status=util.Status.__success__,body=page)
-            return util.objtojson(response) 
+            print(util.objtojson(response))
+            return util.objtojson(response)
+
+
 # 删除题目
 class DeleteQuestion:
     def POST(self):
         mydata = web.input()
+        print("删除题目", mydata)
         qbhq = model.Questions_bank_has_question_model()
         web.header("Access-Control-Allow-Origin", "*")
         must_params = set({'qt_id'})
-        util.getFileRotatingLog().debug(mydata)
+        #util.getFileRotatingLog().debug(mydata)
         session = web.ctx.session
         teacher = model.Teacher_model.getByArgs(tc_level='管理员')
         try:
@@ -700,10 +754,12 @@ class DeleteQuestion:
            response = util.Response(status=util.Status.__error__,message="删除失败")
            return util.objtojson(response)
 
+
 # 导入题目
 class BatchAddQuestion:
     def POST(self):
         mydata = web.input()
+        print("导入： 获取的前台数据：", mydata)
         web.header("Access-Control-Allow-Origin", "*")
         must_params = set({'question_qt_id','questions_bank_qb_id'})
         if(util.paramsok(must_params,mydata) == 2):
@@ -713,27 +769,39 @@ class BatchAddQuestion:
             data = mydata.question_qt_id
             # 从1开始,最后一个无效
             question_qt_id = data.split(',')
-            print question_qt_id
+            print(question_qt_id)
             qbhq = model.Questions_bank_has_question_model()
             for k in range(1,len(question_qt_id)-1):
                 qbhq.question_qt_id = question_qt_id[k]
                 qbhq.questions_bank_qb_id = mydata.questions_bank_qb_id
                 qbhq.insert()
             response = util.Response(status = util.Status.__success__,)
+            print("导入： 后台的返回数据：", util.objtojson(response))
             return util.objtojson(response)
+
 
 # 导入题目,过滤重复题目
 class FiltrationQuestion:
     def POST(self):
         mydata = web.input()
-        print mydata
-        print 111111111111111111111
+        print("接收的前台数据：", mydata)
+        print(111111111111111111111)
         qbhq = model.Questions_bank_has_question_model()
         web.header("Access-Control-Allow-Origin", "*")
         question = model.Question_model()
         Knowledge = model.Knowledge_model()
         must_params = set({'qb_id','qt_type','qt_diffculty_up','qt_diffculty_down','knowledge_kl_id'})
         mydata.qt_diffculty_down = int(mydata.qt_diffculty_down)
+        questionbank1 = model.Questions_bank_model()
+        questionbank2 = model.Questions_bank_model()
+        questionbank1 = questionbank1.getByArgs(qb_id = mydata.qb_id)
+        questionbank2 = questionbank2.getByArgs(qb_id = mydata.questions_bank_qb_id)
+        print(questionbank1)
+        print(questionbank2)
+        if questionbank1[0]['qb_lang'] != questionbank2[0]['qb_lang']:
+            response = util.Response(status=util.Status.__error__, message="语言不一致,导题失败!")
+            print(util.objtojson(response))
+            return util.objtojson(response)
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
@@ -770,7 +838,7 @@ class FiltrationQuestion:
                         question_list.append(qt)
                         count+=1
                     else:
-                        print '空'
+                        print('空')
                 elif mydata.knowledge_kl_id == 'all':
                     result = question.query('select * from question where qt_id = %s and qt_type = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
                     result1 = [model.Question_model(**item) for item in result ]
@@ -782,7 +850,7 @@ class FiltrationQuestion:
                         question_list.append(qt)
                         count+=1
                     else:
-                        print '空'
+                        print('空')
                         # KnowledgeData = Knowledge.getByArgs(kl_id = result1[0].knowledge_kl_id)
                 else:
                     result = question.query('select * from question where qt_id = %s and qt_type = %s and knowledge_kl_id = %s and qt_diffculty between %s and %s '%(k.question_qt_id,mydata.qt_type,mydata.knowledge_kl_id,mydata.qt_diffculty_down+5,mydata.qt_diffculty_up))
@@ -795,16 +863,30 @@ class FiltrationQuestion:
                         question_list.append(qt)
                         count+=1
                     else:
-                        print '空'
+                        print('空')
             currentPage = int(mydata.currentPage)-1
-            print count
+            print(count)
             if (currentPage*10+10 < count):
                 questiondata=question_list[currentPage*10:currentPage*10+10]
             else:
                 questiondata=question_list[currentPage*10:count]
             page = util.Page(data = questiondata, totalRow = count, currentPage = int(mydata.currentPage), pageSize = 10, status=util.Status.__success__, message = "未知")
             response = util.Response(status = util.Status.__success__,body = page)
+            print("返回值： ", util.objtojson(response))
             return util.objtojson(response)
+
+
+# 根据题库id获取题库语言
+class Getlang:
+    def POST(self):
+        web.header("Access-Control-Allow-Origin", "*")
+        mydata = web.input()
+        #mydata={'qb_id': 1081}
+        print(mydata)
+        qb = model.Questions_bank_model()
+        response = qb.getByArgs(qb_id=mydata['qb_id'])
+        print("返回值： ", util.objtojson(response))
+        return util.objtojson(response)
 
 
 app = web.application(urls,globals())
@@ -812,7 +894,7 @@ render = web.template.render('template')
 if __name__ == '__main__':
     
     if len(urls)&1 == 1:
-        print "urls error, the size of urls must be even."
+        print("urls error, the size of urls must be even.")
     else:
         app.run()
 

@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-
+from imp import reload
 reload(sys)
 sys.path.append('../')
-sys.setdefaultencoding( "utf-8" )
+# sys.setdefaultencoding( "utf-8" )     # py3取消了该用法
 import web
 from model.model import *
 from util import Status, Response
@@ -15,7 +15,10 @@ import xlrd
 from model import orm
 from model import model
 from config_default import student_source
+from control import GrobalParams
+
 urls = (
+    '^Menu$', 'Menu',
     '^ConfirmAddStudent$','ConfirmAddStudent',
     '^BatchAddStudent$','BatchAddStudent',
     '^ManageClass$','ManageClass',
@@ -31,6 +34,25 @@ urls = (
     '^GetClassByExam$','GetClassByExam',
     '^GetStudentByExam$','GetStudentByExam',
 )
+
+
+# 加载菜单栏
+class Menu:
+    def POST(self):
+        print("加载菜单栏")
+        tc_message = GrobalParams.tc_message
+        print("tc_message------------------------------", tc_message)
+        web.header("Access-Control-Allow-Origin", "*")  # 跨域访问
+        if(tc_message[0].tc_level == '管理员'):
+            f = open("./static/exam/js/menu.js", 'r', encoding='UTF-8')
+        elif(tc_message[0].tc_level == '教师'):
+            f = open("./static/exam/js/menu2.js", 'r', encoding='UTF-8')
+        data = f.read()
+        print(type(data))
+        f.close()
+        return util.objtojson(data)
+
+
 class GetClassInfo:
     def POST(self):
         web.header("Access-Control-Allow-Origin","*")
@@ -38,20 +60,46 @@ class GetClassInfo:
         response =  util.Response(Status. __success__,body = class_info)
         return util.objtojson(response)
 # 通过exam_id获取教务班信息
+
 class GetClassByExam:
     def POST(self):
         web.header("Access-Control-Allow-Origin","*")
         params = web.input()
+
+        # class Params:
+        #     def __init__(self):
+        #         self.ex_id=34
+        #
+        # params=Params()
+
+
         class_info = Class_model.query('select * from class where cl_id in (select  distinct class_cl_id from \
                      information where exam_ex_id = %s)'%(int(params.ex_id)))
         class_info=[Class_model(**item) for item in class_info]
         response =  util.Response(Status. __success__,body = class_info)
         return util.objtojson(response)
 
+# if __name__ == '__main__':
+#         g = GetClassByExam()
+#         s = g.POST()
+#         print(s)
+
 class GetStudentByExam:
     def POST(self):
+
+
         web.header("Access-Control-Allow-Origin", "*")
         params = web.input()
+
+
+        # class Params: #
+        #     def __init__(self):
+        #         self.ex_id=34
+        #         self.class_cl_id=10
+        #
+        # params=Params()
+
+
         # args = dict[exam_ex_id:params.ex_id,class_cl_id:params.class_cl_id]
         student_info = Information_model.query('select * from information where exam_ex_id = %s\
              and class_cl_id = %s order by student_st_id'%(params.ex_id,params.class_cl_id))
@@ -65,14 +113,21 @@ class GetStudentByExam:
         result = Information_model.query('select count(*) from information where in_state=%s\
                 and class_cl_id=%s and exam_ex_id=%s'%(0,params.class_cl_id,params.ex_id))
         # login_num = Information_model.count(in_state=1)
+        # print('----------------', util.objtojson(result))
         response = util.Response(Status.__success__, body=student_info,message=result[0]['count(*)'])
         return util.objtojson(response)
+
+# if __name__ == '__main__':
+#         g = GetStudentByExam()
+#         s = g.POST()
+#         print(s)
 
 class ConfirmAddStudent(object):#添加单个学生信息,必须的字段为st_id,st_name
     def POST(self):
         web.header("Access-Control-Allow-Origin","*")
         must_params = ('st_id','st_name','cl_id')
         params = web.input()
+        print("添加单个学生", params)
  
         if util.paramsok(must_params, params) == Status.__params_not_ok__:
                 response =  util.Response(Status.__params_not_ok__,message = '参数错误!')
@@ -94,7 +149,7 @@ class ConfirmAddStudent(object):#添加单个学生信息,必须的字段为st_i
                             item.student_st_id = params.st_id
                             item.insert()
                     else:
-                        print "none"
+                        print("none")
                     response =  util.Response(Status. __success__,message = "该学生已添加进课程班级")
                     return util. objtojson(response)
                 response =  util.Response(Status. __success__,message = "该学生已存在于课程班级,不能重复添加！")
@@ -113,7 +168,7 @@ class ConfirmAddStudent(object):#添加单个学生信息,必须的字段为st_i
                         item.student_st_id = params.st_id
                         item.insert()
                 else:
-                    print "none"
+                    print("none")
                 response =  util.Response(Status. __success__,message = "该学生已添加进课程班级！")
                 return util. objtojson(response)
         except Exception as e:
@@ -135,7 +190,7 @@ class BatchAddStudent(object):#首先存放excel文件
         # excel_save_site = "../examTransplant1.7/source/excel"
         excel_save_site = student_source
         current_site = os.getcwd()
-        print current_site
+        print(current_site)
         current_site =current_site.replace('\\','/')
         real_site =current_site.split('/')
         save_site = excel_save_site.split('/')
@@ -157,18 +212,22 @@ class BatchAddStudent(object):#首先存放excel文件
                 print('os.chdir error')
                 os.chdir(current_site)
                 return 0
-        if 'myfile' in x: 
+        if 'myfile' in x:
                 filepath=x.myfile.filename.replace('\\','/')
-                filename = unicode(filepath.split('/')[-1],'utf-8')
+                # filename = unicode(filepath.split('/')[-1],'utf-8')
+                filename = filepath.split('/')[-1]
                 file_suffix = filename.split('.')[-1]
                 file_truth = 0   
                 for i in range(len(file_range)):
                     if file_suffix == file_range[i]:
                          file_truth = 1
-                if file_truth == 1: 
-                    origin_site = os.getcwdu()
+                if file_truth == 1:
+                    print(filename)
+                    # origin_site = os.getcwdu()                  # 获取当前工作目录
+                    origin_site = os.getcwd()  # 获取当前工作目录
+
                     try:
-                        # print(origin_site +'/'+"%s"% filename,'wb+')
+                        print(origin_site +'/'+"%s"% filename)
                         with open(origin_site +'/'+"%s"% filename,'wb+') as fout:# creates the file where the uploaded file should be stored
                             print('opened')
                             fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
@@ -226,16 +285,16 @@ class ManageClass:#列出所有教务班，每10组数据一页
 class QueryClass:#查询教务班
     def POST(self):
         mydata = web.input()
-        print mydata
+        print(mydata)
         web.header("Access-Control-Allow-Origin", "*")
         must_params = set({'cl_name','currentPage',})
         if(util.paramsok(must_params,mydata) == 2):
             response = util.Response(status = util.Status.__params_not_ok__)
             return util.objtojson(response)
         else:
-            print 222
+            print(222)
             currentPage = int(mydata.currentPage)-1;
-            print mydata.cl_name
+            print(mydata.cl_name)
             result = orm.db.query('select * from Class where cl_name like \'%%%s%%\'\
                 order by cl_id limit %s,%s'%(mydata.cl_name,currentPage*10,10))
             result = [Class_model(**item) for item in result]

@@ -18,7 +18,9 @@ from config_default import logging_level
 type = dict(choice="选择题", coding="编程题", filla="读程序写结果", fillb="程序填空", judge="判断")
 in_state = ["未参加", "正在考试", "已结束", "作弊"]
 
+
 def getFileRotatingLog():
+    ''' 获取日志文件的内容 '''
     logger = None
     logger = logging.getLogger()
     # logger.setLevel(logging.DEBUG)
@@ -30,6 +32,8 @@ def getFileRotatingLog():
     logger.addHandler(rh)
     return logger
 
+
+# 解压压缩包
 def dfs_get_zip_file(input_path,result):
     files = os.listdir(input_path)
     for file in files:
@@ -38,6 +42,8 @@ def dfs_get_zip_file(input_path,result):
         else:
             result.append(input_path+'/'+file)
 
+
+# 获取压缩包中文件的路径
 def zip_path(input_path,output_path,output_name):
     f = zipfile.ZipFile(output_path+'/'+output_name,'w',zipfile.ZIP_DEFLATED)
     filelists = []
@@ -48,8 +54,8 @@ def zip_path(input_path,output_path,output_name):
     # print output_path+r"/"+output_name
 
 
-def word(student_st_id,exam_ex_id,filepath):
-    # 打开文档
+# 将试卷内容写入word文档
+def word(student_st_id,exam_ex_id, filepath):
     document = Document()
     # 加入不同等级的标题
     exam = model.Exam_model.getByPK(exam_ex_id)
@@ -105,7 +111,7 @@ def word(student_st_id,exam_ex_id,filepath):
         eq_id_data = [model.Exam_question_model(**items) for items in eq_id_data]
         i = 1
         fillb_coding = fillb_data.fb_pre_coding.split('&&&')
-        print len(fillb_coding)
+        print(len(fillb_coding))
         for k in eq_id_data:
             j = 2 * i - 1
             fillb_coding[j] = u'空 ' + str(i)
@@ -210,7 +216,7 @@ def word(student_st_id,exam_ex_id,filepath):
 
     document.add_heading(u'程序填空', 1)
     for item in fillb_question:
-        print item
+        print(item)
         answer = ''
         i = 1
         for eq in item[1]:
@@ -253,8 +259,10 @@ def word(student_st_id,exam_ex_id,filepath):
     # document.save(str(filepath))
     document.save(filepath)
 
+
+# 将题库中的题写入word文档
 def QuestionWord(question_list,question_back_id,filepath):
-    print question_list
+    print(question_list)
     # 打开文档
     document = Document()
     # 加入不同等级的标题
@@ -267,7 +275,7 @@ def QuestionWord(question_list,question_back_id,filepath):
     fillb_question = []
     coding_question = []
     for item in question_list:
-        print item.qt_type.decode('utf-8')
+        # print(item.qt_type.decode('utf-8'))
         if str(item.qt_type) == 'choice':
             question_data = model.Question_model.getByPK(item.qt_id)
             choice_data = model.Choice_model.getByPK(item.qt_id)
@@ -363,13 +371,14 @@ def QuestionWord(question_list,question_back_id,filepath):
     # print "savepage"
     # document.save(u'../examTransplant2.2/source/exampage/2014.docx')
     document.save(str(filepath))
-'''
-对象转json
-'''
+
+
 def objtojson(obj):
+    ''' 对象转json '''
     return jsonpickle.encode(obj)
 
 
+# 更新试卷的分数信息
 def upInformationScore(in_id):
     exam_question = model.Exam_question_model.getByArgs(information_in_id=in_id)
     score = 0
@@ -387,7 +396,7 @@ def upInformationScore(in_id):
     else:
         return -1
 
-
+# 获取试卷的分数
 def GetScore(delay, in_id):
     while 1:
         time.sleep(delay)
@@ -406,19 +415,22 @@ def GetScore(delay, in_id):
             information.in_score = score
             information.update()
             break
+
+
+# 更新程序填空题的答案
 def SaveFillb(information_in_id):
     examquestion = model.Exam_question_model.query('select distinct(qt_id) from exam_question where information_in_id = %s and  eq_qt_type =%s'% \
                                                    (information_in_id,"'"+'fillb'+"'"))
     examquestion = [model.Exam_question_model(**item) for item in examquestion]
     if examquestion!=None:
-        for fillb_qt in examquestion:
-            fillb = model.Fillb_model.getByPK(fillb_qt['qt_id'])
+        for fillb_qt in examquestion:               # 对试题表中的每一道程序填空题进行处理
+            fillb = model.Fillb_model.getByPK(fillb_qt['qt_id'])    # 根据id查询程序填空题表，返回对象
             fillb_question = model.Exam_question_model.query('select * from exam_question where information_in_id = %s and  qt_id =%s'% \
-                                                   (information_in_id,fillb_qt['qt_id']))
-            fillb_question = [model.Exam_question_model(**item) for item in fillb_question]
+                                                   (information_in_id,fillb_qt['qt_id']))       # 查询试题表中的该题，返回对象
+            fillb_question = [model.Exam_question_model(**item) for item in fillb_question]     # 转化成列表
             i = 1
             for item in fillb_question:
-                getFileRotatingLog().debug(item)
+                getFileRotatingLog().debug(item)            # 将信息写入到log文件
                 j = 2 * i - 1
                 fillb_coding = fillb.fb_pre_coding.split('&&&')
                 fillb_coding[j] = item.eq_answer
@@ -496,6 +508,7 @@ message:状态信息描述
 
 
 class Page:
+    '''totalRow数据库记录的总行数，'''
     def __init__(self, data, totalRow, currentPage, pageSize=10, status=Status.__error__, message="未知"):
         self.totalRow = totalRow
         self.data = data
@@ -529,7 +542,7 @@ def test(db, file_name):
         __notnull__ = "set({"
         columns = db.query('select * from information_schema.COLUMNS where table_name = %s' % __table__)
         __attrnum__ = len(columns)
-        print __attrnum__
+        print(__attrnum__)
         __attr__ = "set(["
         __updateable__ = __insertable__ = "set({"
         __countperpage__ = 10

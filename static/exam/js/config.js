@@ -1,1 +1,1 @@
-var ServerIp = "http://192.168.1.22";
+var ServerIp = "http://127.0.0.1:8080";
